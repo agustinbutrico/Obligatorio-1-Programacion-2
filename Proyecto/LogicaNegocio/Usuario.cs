@@ -1,0 +1,110 @@
+﻿using LogicaNegocio.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogicaNegocio
+{
+    public class Usuario : IValidate
+    {
+        // Atributos de la clase
+        private int _id;
+        private static int s_ultId = 0; // Inicializado con el id siguiente a la ultima precarga
+        private string _nombre = string.Empty; // Inicializado con una cadena vacía
+        private string _apellido = string.Empty; // Inicializado con una cadena vacía
+        private string _email = string.Empty; // Inicializado con una cadena vacía
+        private string _contrasenia = string.Empty; // Inicializado con una cadena vacía
+
+        // Propiedades
+        public int Id
+        {
+            get { return _id; }  // Solo lectura, asignado internamente.
+        }
+        public string Nombre
+        {
+            get { return _nombre; }
+            set { _nombre = EvaluarNombre(value); }
+        }
+        public string Apellido
+        {
+            get { return _apellido; }
+            set { _apellido = EvaluarApellido(value); }
+        }
+        public string Email
+        {
+            get { return _email; }
+            set { _email = EvaluarEmail(value); }
+        }
+        public string Contrasenia
+        {
+            get { return _contrasenia; }
+            set { _contrasenia = EvaluarContrasenia(value); }
+        }
+
+        // Constructor
+        public Usuario(string nombre, string apellido, string email, string contrasenia)
+        {
+            _id = Usuario.s_ultId; // Asigna el ID único
+            Usuario.s_ultId++; // Incrementa el ID único
+            Nombre = nombre;
+            Apellido = apellido;
+            Email = email;
+            Contrasenia = contrasenia;
+        }
+
+        // Sobre escritura del metodo Equals que es usado por Contains
+        public override bool Equals(object? obj)
+        {
+            if (obj != null && obj is Usuario)
+            {
+                Usuario usuario = (Usuario)obj;
+                return _nombre == usuario.Nombre;
+            }
+            return false;
+        }
+
+        // Evaluaciones
+        private static string EvaluarNombre(string nombre)
+        {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                throw new Exception("El nombre no puede ser vacío");
+            }
+            return nombre;
+        }
+        private static string EvaluarApellido(string apellido)
+        {
+            if (string.IsNullOrEmpty(apellido))
+            {
+                throw new Exception("El apellido no puede ser vacío");
+            }
+            return apellido;
+        }
+        private static string EvaluarEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new Exception("El email no puede ser vacío");
+            }
+            return email;
+        }
+        private static string EvaluarContrasenia(string contrasenia)
+        {
+            if (string.IsNullOrEmpty(contrasenia))
+            {
+                throw new Exception("El contrasenia no puede ser vacío");
+            }
+            return contrasenia;
+        }
+
+        // Validación de Publicacion
+        public void Validar()
+        {
+
+        }
+    }
+
+
+}
