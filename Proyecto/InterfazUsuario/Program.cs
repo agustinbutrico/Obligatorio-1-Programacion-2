@@ -19,6 +19,7 @@ namespace InterfazUsuario
             Console.WriteLine("1. Consultar Usuario por id");
             Console.WriteLine("2. Consultar Articulos por id");
             Console.WriteLine("3. Consultar Publicaciones por id");
+            Console.WriteLine("4. Agregar un Articulo");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
 
             if (opcionSelecionada == 1)
@@ -27,6 +28,24 @@ namespace InterfazUsuario
                 int.TryParse(Console.ReadLine(), out int id);
 
                 miSistema.ObtenerUsuarioPorId(id);
+            }
+            if( opcionSelecionada == 4)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese el nombre del Articulo");
+                    string nombre = Console.ReadLine();
+                    Console.WriteLine("Ingrese el Precio");
+                    decimal.TryParse(Console.ReadLine(), out decimal precio);
+                    if (!string.IsNullOrEmpty(nombre) && precio > 0)
+                    {
+                        miSistema.AltaArticulo(nombre, precio);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }
