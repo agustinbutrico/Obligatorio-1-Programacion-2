@@ -24,28 +24,21 @@ namespace InterfazUsuario
 
             if (opcionSelecionada == 1)
             {
+                // Solicitud datos
                 Console.WriteLine("Ingrese el id que desea buscar");
                 int.TryParse(Console.ReadLine(), out int id);
 
                 miSistema.ObtenerUsuarioPorId(id);
             }
-            if( opcionSelecionada == 4)
+            else if ( opcionSelecionada == 4)
             {
-                try
-                {
-                    Console.WriteLine("Ingrese el nombre del Articulo");
-                    string nombre = Console.ReadLine();
-                    Console.WriteLine("Ingrese el Precio");
-                    decimal.TryParse(Console.ReadLine(), out decimal precio);
-                    if (!string.IsNullOrEmpty(nombre) && precio > 0)
-                    {
-                        miSistema.AltaArticulo(nombre, precio);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                // Solicitud datos
+                Console.WriteLine("Ingrese el nombre del Articulo");
+                string nombre = Console.ReadLine();
+                Console.WriteLine("Ingrese el Precio");
+                decimal.TryParse(Console.ReadLine(), out decimal precio);
+
+                miSistema.AltaArticulo(nombre, precio);
             }
         }
     }
