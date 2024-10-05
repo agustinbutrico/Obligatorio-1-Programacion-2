@@ -26,15 +26,24 @@ namespace LogicaNegocio
             OfertaRelampago = ofertaRelampago;
         }
 
+        // Validación de Venta, hereda de Publicacion
+        public override void Validar()
+        {
+        }
+
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
             if (obj != null && obj is Venta)
             {
                 Venta venta = (Venta)obj;
-                // return _nombre == venta.Nombre;
+                return Nombre == venta.Nombre;
             }
             return false;
+        }
+        public override int GetHashCode()
+        {
+            return Nombre.GetHashCode();
         }
     }
 }

@@ -24,6 +24,10 @@ namespace LogicaNegocio
         {
             Ofertas = ofertas;
         }
+        // Validación de Subasta, hereda de Publicacion
+        public override void Validar()
+        {
+        }
 
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
@@ -31,9 +35,13 @@ namespace LogicaNegocio
             if (obj != null && obj is Subasta)
             {
                 Subasta subasta = (Subasta)obj;
-                // return _nombre == subasta.Nombre;
+                return Nombre == subasta.Nombre;
             }
             return false;
+        }
+        public override int GetHashCode()
+        {
+            return Nombre.GetHashCode();
         }
     }
 }
