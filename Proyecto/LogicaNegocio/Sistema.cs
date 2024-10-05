@@ -181,11 +181,72 @@ namespace LogicaNegocio
         }
 
         // Precargas
+        private void PrecargaUsuarios()
+        {
+            AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
+            AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
+            AltaUsuario("Juan", "Peres", "Juanperes@hmail.com", "Juan1234");
+            AltaUsuario("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643");
+            AltaUsuario("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234");
+            AltaUsuario("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2");
+            AltaUsuario("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46");
+            AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31");
+            AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
+            AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
+
+
+        }
         private void PrecargaArticulos()
         {
-            AltaArticulo("Pelota", 450);
-            AltaArticulo("Auto", 400503);
-            AltaArticulo("Mouse gamer", 950);
+            AltaArticulo("Pelota de fútbol", 450);
+            AltaArticulo("Camiseta deportiva", 1200);
+            AltaArticulo("Zapatillas running", 3500);
+            AltaArticulo("Raqueta de tenis", 4200);
+            AltaArticulo("Balón de baloncesto", 800);
+            AltaArticulo("Guantes de boxeo", 2200);
+            AltaArticulo("Casco de ciclismo", 1800);
+            AltaArticulo("Saco de dormir", 2300);
+            AltaArticulo("Bolsa de gimnasio", 950);
+            AltaArticulo("Bicicleta de montaña", 15000);
+            AltaArticulo("Mochila de trekking", 2100);
+            AltaArticulo("Botella térmica", 750);
+            AltaArticulo("Palo de hockey", 1700);
+            AltaArticulo("Pesas ajustables", 3000);
+            AltaArticulo("Cinta para correr", 25000);
+            AltaArticulo("Guantes de arquero", 900);
+            AltaArticulo("Tabla de surf", 12000);
+            AltaArticulo("Canilleras", 600);
+            AltaArticulo("Traje de neopreno", 5400);
+            AltaArticulo("Gafas de natación", 650);
+            AltaArticulo("Bola de bowling", 3500);
+            AltaArticulo("Skateboard", 2400);
+            AltaArticulo("Patines en línea", 2900);
+            AltaArticulo("Set de pesas", 4200);
+            AltaArticulo("Cuerda para saltar", 300);
+            AltaArticulo("Tobilleras con peso", 850);
+            AltaArticulo("Set de dardos", 400);
+            AltaArticulo("Bate de béisbol", 1900);
+            AltaArticulo("Bola de voleibol", 850);
+            AltaArticulo("Aro de baloncesto", 2700);
+            AltaArticulo("Silla de camping", 1100);
+            AltaArticulo("Tienda de campaña", 8700);
+            AltaArticulo("Colchoneta de yoga", 1200);
+            AltaArticulo("Barra de dominadas", 1900);
+            AltaArticulo("Reloj deportivo", 6500);
+            AltaArticulo("Monopatín eléctrico", 18000);
+            AltaArticulo("Kit de pesca", 3200);
+            AltaArticulo("Bolsa de golf", 7600);
+            AltaArticulo("Raqueta de bádminton", 1600);
+            AltaArticulo("Patineta longboard", 3300);
+            AltaArticulo("Bola de rugby", 1050);
+            AltaArticulo("Kit de snorkel", 1800);
+            AltaArticulo("Camiseta de compresión", 1300);
+            AltaArticulo("Gorra deportiva", 400);
+            AltaArticulo("Balón medicinal", 2000);
+            AltaArticulo("Kit de arquería", 9800);
+            AltaArticulo("Soga de escalada", 5600);
+            AltaArticulo("Casco de esquí", 3700);
+            AltaArticulo("Gafas de ciclismo", 900);
 
         }
         private void PrecargarPublicaciones()

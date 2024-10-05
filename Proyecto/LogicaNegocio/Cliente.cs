@@ -1,4 +1,4 @@
-﻿using LogicaNegocio.Interfaces;
+using LogicaNegocio.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,21 +26,6 @@ namespace LogicaNegocio
             Saldo = saldo;
         }
 
-        // Sobre escritura del metodo Equals que es usado por Contains
-        public override bool Equals(object? obj)
-        {
-            if (obj != null && obj is Cliente)
-            {
-                Cliente cliente = (Cliente)obj;
-                return Nombre == cliente.Nombre;
-            }
-            return false;
-        }
-        public override int GetHashCode()
-        {
-            return Nombre.GetHashCode();
-        }
-
         // Evaluaciones
         private static decimal EvaluarSaldo(decimal saldo)
         {
@@ -51,10 +36,24 @@ namespace LogicaNegocio
             return saldo;
         }
 
-        // Añade validaciones sobre la validacion de Usuario
+        // Validación de Cliente, hereda de Usuario
         public override void Validar()
         {
+        }
 
+        // Sobre escritura del metodo Equals que es usado por Contains
+        public override bool Equals(object? obj)
+        {
+            if (obj != null && obj is Usuario)
+            {
+                Usuario usuario = (Usuario)obj;
+                return Nombre == usuario.Nombre && Apellido == usuario.Apellido;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return (Nombre + Apellido).GetHashCode();
         }
     }
 }

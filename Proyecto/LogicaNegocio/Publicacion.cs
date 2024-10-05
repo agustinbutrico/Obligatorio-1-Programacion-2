@@ -1,4 +1,4 @@
-﻿using LogicaNegocio.Interfaces;
+using LogicaNegocio.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,21 +76,6 @@ namespace LogicaNegocio
             FechaFin = fechaFin;
         }
 
-        // Sobre escritura del metodo Equals que es usado por Contains
-        public override bool Equals(object? obj)
-        {
-            if (obj != null && obj is Publicacion)
-            {
-                Publicacion publicacion = (Publicacion)obj;
-                return _nombre == publicacion.Nombre;
-            }
-            return false;
-        }
-        public override int GetHashCode()
-        {
-            return _nombre.GetHashCode();
-        }
-
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
         {
@@ -110,13 +95,28 @@ namespace LogicaNegocio
             return estado;
         }
 
-        // Validación de Publicacion, es virtual ya que sus hijos tambien tienen validaciones
+        // Validación de Publicacion, es virtual ya que le hereda a otras clases
         public virtual void Validar()
         {
             if (FechaFin <= Fecha)
             {
                 throw new Exception("La fecha de fin debe ser posterior a la fecha de inicio.");
             }
+        }
+
+        // Sobre escritura del metodo Equals que es usado por Contains
+        public override bool Equals(object? obj)
+        {
+            if (obj != null && obj is Publicacion)
+            {
+                Publicacion publicacion = (Publicacion)obj;
+                return Nombre == publicacion.Nombre;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Nombre.GetHashCode();
         }
     }
 }

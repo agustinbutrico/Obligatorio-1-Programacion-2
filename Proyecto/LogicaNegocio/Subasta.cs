@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +24,10 @@ namespace LogicaNegocio
         {
             Ofertas = ofertas;
         }
+        // Validación de Subasta, hereda de Publicacion
+        public override void Validar()
+        {
+        }
 
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
@@ -38,12 +42,6 @@ namespace LogicaNegocio
         public override int GetHashCode()
         {
             return Nombre.GetHashCode();
-        }
-
-        // Añade validaciones sobre la validacion de Publicaion
-        public override void Validar()
-        {
-
         }
     }
 }
