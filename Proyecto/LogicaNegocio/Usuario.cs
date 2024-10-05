@@ -54,17 +54,6 @@ namespace LogicaNegocio
             Contrasenia = contrasenia;
         }
 
-        // Sobre escritura del metodo Equals que es usado por Contains
-        public override bool Equals(object? obj)
-        {
-            if (obj != null && obj is Usuario)
-            {
-                Usuario usuario = (Usuario)obj;
-                return _nombre == usuario.Nombre;
-            }
-            return false;
-        }
-
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
         {
@@ -99,10 +88,24 @@ namespace LogicaNegocio
             return contrasenia;
         }
 
-        // Validación de Publicacion
-        public void Validar()
+        // Validación de Usuario, es virtual ya que le hereda a otras clases
+        public virtual void Validar()
         {
+        }
 
+        // Sobre escritura del metodo Equals que es usado por Contains
+        public override bool Equals(object? obj)
+        {
+            if (obj != null && obj is Usuario)
+            {
+                Usuario usuario = (Usuario)obj;
+                return Nombre == usuario.Nombre && Apellido == usuario.Apellido;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return (Nombre + Apellido).GetHashCode();
         }
     }
 

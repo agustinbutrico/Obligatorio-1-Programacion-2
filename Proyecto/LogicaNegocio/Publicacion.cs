@@ -110,13 +110,13 @@ namespace LogicaNegocio
             if (obj != null && obj is Publicacion)
             {
                 Publicacion publicacion = (Publicacion)obj;
-                return _nombre == publicacion.Nombre;
+                return Nombre == publicacion.Nombre;
             }
             return false;
         }
         public override int GetHashCode()
         {
-            return _nombre.GetHashCode();
+            return Nombre.GetHashCode();
         }
     }
 }
