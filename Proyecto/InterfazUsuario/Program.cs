@@ -150,19 +150,23 @@ namespace InterfazUsuario
         }
         static void AltaPublicacion()
         {
-            Console.WriteLine("Ingrese los datos de la publicacion");
+            // Valores por defecto
+            string estado = "ABIERTA";
+            DateTime fecha = DateTime.Now;
+            Cliente? cliente = null;
+            Administrador? administrador = null;
+            DateTime fechaFin = DateTime.MinValue;
+
+            // Solicitud datos
+            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Estado:");
-            string estado = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Id de los articulos separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
-
             List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
             
-
-            miSistema.AltaPublicacion(nombre, estado, DateTime.Now, articulos);
+            miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
         }
 
 
