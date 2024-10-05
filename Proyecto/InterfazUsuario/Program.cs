@@ -61,13 +61,13 @@ namespace InterfazUsuario
             else if (opcionSelecionada == 5)
             {
                 Console.WriteLine("Ingrese el Nombre del Usuario");
-                string nombre = Console.ReadLine();
+                string nombre = Console.ReadLine() ?? string.Empty;
                 Console.WriteLine("Ingrese el Apellido del Usuario");
-                string apellido = Console.ReadLine();
+                string apellido = Console.ReadLine() ?? string.Empty;
                 Console.WriteLine("Ingrese el Email del Usuario");
-                string email = Console.ReadLine();
+                string email = Console.ReadLine() ?? string.Empty;
                 Console.WriteLine("Ingrese una contrasenia para el Usuario");
-                string contrasenia = Console.ReadLine();
+                string contrasenia = Console.ReadLine() ?? string.Empty;
 
                 miSistema.AltaUsuario(nombre, apellido, email, contrasenia);
             }
