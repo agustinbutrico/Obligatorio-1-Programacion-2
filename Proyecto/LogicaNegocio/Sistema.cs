@@ -306,7 +306,7 @@ namespace LogicaNegocio
                 Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
                 Console.WriteLine($"Estado: {publicaciones[i].Estado}");
                 Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
-                Console.WriteLine($"Articulos: {publicaciones[i].Articulos}");
+                Console.WriteLine($"Articulos: {ParseoArticulo(publicaciones[i].Articulos)}");
                 Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
                 Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
                 Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
