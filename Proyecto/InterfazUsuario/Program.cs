@@ -57,10 +57,10 @@ namespace InterfazUsuario
             {
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine("Menu");
-                Console.WriteLine("1. Artículos");
-                Console.WriteLine("2. Publicaciones");
-                Console.WriteLine("3. Usuarios");
-                Console.WriteLine("4. ...");
+                Console.WriteLine("1. ...");
+                Console.WriteLine("2. Artículos");
+                Console.WriteLine("3. Publicaciones");
+                Console.WriteLine("4. Usuarios");
                 Console.WriteLine("-------------------------------------");
                 int.TryParse(Console.ReadLine(), out int opcionSelecionada);
 
@@ -68,19 +68,19 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        MenuArticulo(tipoUsuario);
+                        MenuTipoUsuario();
                         break;
                     case 2:
                         Console.Clear();
-                        MenuPublicacion(tipoUsuario);
+                        MenuArticulo(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        MenuUsuario(tipoUsuario);
+                        MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        MenuTipoUsuario();
+                        MenuUsuario(tipoUsuario);
                         break;
                     default:
                         Console.Clear();
@@ -95,17 +95,16 @@ namespace InterfazUsuario
             // Menu
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Artículos");
-            Console.WriteLine("1. Mostrar catálogo");
-            Console.WriteLine("2. Buscar artículos por ID");
-            Console.WriteLine("3. Buscar artículos por Nombre");
+            Console.WriteLine("1. ...");
+            Console.WriteLine("2. Mostrar catálogo");
+            Console.WriteLine("3. Buscar artículos por ID");
+            Console.WriteLine("4. Buscar artículos por Nombre");
             if (tipoUsuario == "USUARIO")
             {
-                Console.WriteLine("4. ...");
             }
             else if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
             {
-                Console.WriteLine("4. Dar de alta artículo");
-                Console.WriteLine("5. ...");
+                Console.WriteLine("5. Dar de alta artículo");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -116,22 +115,20 @@ namespace InterfazUsuario
         {
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Publicaciones");
-            Console.WriteLine("1. Mostrar publicaciones");
-            Console.WriteLine("2. Buscar publicaciones por ID");
-            Console.WriteLine("3. Buscar publicaciones por Nombre");
+            Console.WriteLine("1. ...");
+            Console.WriteLine("2. Mostrar publicaciones");
+            Console.WriteLine("3. Buscar publicaciones por ID");
+            Console.WriteLine("4. Buscar publicaciones por Nombre");
             if (tipoUsuario == "USUARIO")
             {
-                Console.WriteLine("4. ...");
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
-                Console.WriteLine("4. Dar de alta publicacion");
-                Console.WriteLine("5. ...");
+                Console.WriteLine("5. Dar de alta publicacion");
             }
             else
             {
-                Console.WriteLine("4. Dar de alta publicacion");
-                Console.WriteLine("5. ...");
+                Console.WriteLine("5. Dar de alta publicacion");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -142,22 +139,20 @@ namespace InterfazUsuario
         {
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Usuarios");
-            Console.WriteLine("1. Mostrar usuarios");
-            Console.WriteLine("2. Buscar usuarios por ID");
-            Console.WriteLine("3. Buscar usuarios por Nombre");
+            Console.WriteLine("1. ...");
+            Console.WriteLine("2. Mostrar usuarios");
+            Console.WriteLine("3. Buscar usuarios por ID");
+            Console.WriteLine("4. Buscar usuarios por Nombre");
             if (tipoUsuario == "USUARIO")
             {
-                Console.WriteLine("4. ...");
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
-                Console.WriteLine("4. Dar de alta usuario");
-                Console.WriteLine("5. ...");
+                Console.WriteLine("5. Dar de alta usuario");
             }
             else
             {
-                Console.WriteLine("4. Dar de alta usuario");
-                Console.WriteLine("5. ...");
+                Console.WriteLine("5. Dar de alta usuario");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -172,22 +167,22 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        miSistema.ImprimirArticulo();
-                        MenuArticulo(tipoUsuario);
+                        Menu(tipoUsuario);
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerArticuloPorId();
+                        miSistema.ImprimirArticulo();
                         MenuArticulo(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerArticuloPorNombre();
+                        ObtenerArticuloPorId();
                         MenuArticulo(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        Menu(tipoUsuario);
+                        ObtenerArticuloPorNombre();
+                        MenuArticulo(tipoUsuario);
                         break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
@@ -201,27 +196,27 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        miSistema.ImprimirArticulo();
-                        MenuArticulo(tipoUsuario);
+                        Menu(tipoUsuario);
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerArticuloPorId();
+                        miSistema.ImprimirArticulo();
                         MenuArticulo(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerArticuloPorNombre();
+                        ObtenerArticuloPorId();
                         MenuArticulo(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        AltaArticulo();
+                        ObtenerArticuloPorNombre();
                         MenuArticulo(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
-                        Menu(tipoUsuario);
+                        AltaArticulo();
+                        MenuArticulo(tipoUsuario);
                         break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
@@ -238,22 +233,22 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        miSistema.ImprimirPublicacion();
-                        MenuPublicacion(tipoUsuario);
+                        Menu(tipoUsuario);
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerPublicacionPorId();
+                        miSistema.ImprimirPublicacion();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerPublicacionPorNombre();
+                        ObtenerPublicacionPorId();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        Menu(tipoUsuario);
+                        ObtenerPublicacionPorNombre();
+                        MenuPublicacion(tipoUsuario);
                         break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
@@ -266,27 +261,27 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        miSistema.ImprimirPublicacion();
-                        MenuPublicacion(tipoUsuario);
+                        Menu(tipoUsuario);
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerPublicacionPorId();
+                        miSistema.ImprimirPublicacion();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerPublicacionPorNombre();
+                        ObtenerPublicacionPorId();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        AltaPublicacion();
+                        ObtenerPublicacionPorNombre();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
-                        Menu(tipoUsuario);
+                        AltaPublicacion();
+                        MenuPublicacion(tipoUsuario);
                         break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
@@ -299,27 +294,27 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        miSistema.ImprimirPublicacion();
-                        MenuPublicacion(tipoUsuario);
+                        Menu(tipoUsuario);
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerPublicacionPorId();
+                        miSistema.ImprimirPublicacion();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerPublicacionPorNombre();
+                        ObtenerPublicacionPorId();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        AltaPublicacion();
+                        ObtenerPublicacionPorNombre();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
-                        Menu(tipoUsuario);
+                        AltaPublicacion();
+                        MenuPublicacion(tipoUsuario);
                         break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
@@ -336,22 +331,22 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        miSistema.ImprimirUsuario();
-                        MenuUsuario(tipoUsuario);
+                        Menu(tipoUsuario);
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerUsuarioPorId();
+                        miSistema.ImprimirUsuario();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerUsuarioPorNombre();
+                        ObtenerUsuarioPorId();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        Menu(tipoUsuario);
+                        ObtenerUsuarioPorNombre();
+                        MenuUsuario(tipoUsuario);
                         break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
@@ -364,27 +359,27 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        miSistema.ImprimirUsuario();
-                        MenuUsuario(tipoUsuario);
+                        Menu(tipoUsuario);
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerUsuarioPorId();
+                        miSistema.ImprimirUsuario();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerUsuarioPorNombre();
+                        ObtenerUsuarioPorId();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        AltaUsuario();
+                        ObtenerUsuarioPorNombre();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
-                        Menu(tipoUsuario);
+                        AltaUsuario();
+                        MenuUsuario(tipoUsuario);
                         break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
@@ -397,27 +392,27 @@ namespace InterfazUsuario
                 {
                     case 1:
                         Console.Clear();
-                        miSistema.ImprimirUsuario();
-                        MenuUsuario(tipoUsuario);
+                        Menu(tipoUsuario);
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerUsuarioPorId();
+                        miSistema.ImprimirUsuario();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerUsuarioPorNombre();
+                        ObtenerUsuarioPorId();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        AltaUsuario();
+                        ObtenerUsuarioPorNombre();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
-                        Menu(tipoUsuario);
+                        AltaUsuario();
+                        MenuUsuario(tipoUsuario);
                         break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
