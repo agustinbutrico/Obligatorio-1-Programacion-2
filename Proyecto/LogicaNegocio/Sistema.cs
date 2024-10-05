@@ -110,7 +110,7 @@ namespace LogicaNegocio
         }
 
         // Impresion de listas
-        public void ImprimirArticulo(List<Articulo> articulos)
+        public static void ImprimirArticulo(List<Articulo> articulos)
         {
             for (int i = 0; i < articulos.Count; i++)
             {
@@ -122,7 +122,7 @@ namespace LogicaNegocio
             }
             Console.WriteLine("-------------------------------------");
         }
-        public void ImprimirPublicacion(List<Publicacion> publicaciones)
+        public static void ImprimirPublicacion(List<Publicacion> publicaciones)
         {
             for (int i = 0; i < publicaciones.Count; i++)
             {
@@ -139,7 +139,7 @@ namespace LogicaNegocio
             }
             Console.WriteLine("-------------------------------------");
         }
-        public void ImprimirUsuario(List<Usuario> usuarios)
+        public static void ImprimirUsuario(List<Usuario> usuarios)
         {
             for (int i = 0; i < usuarios.Count; i++)
             {
@@ -154,7 +154,6 @@ namespace LogicaNegocio
         }
 
         // Altas
-
         public void AltaArticulo(string nombre, decimal precio)
         {
             try
