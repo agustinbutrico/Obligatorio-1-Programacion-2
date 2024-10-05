@@ -116,18 +116,22 @@ namespace InterfazUsuario
         {
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Publicaciones");
+            Console.WriteLine("1. Mostrar publicaciones");
+            Console.WriteLine("2. Buscar publicaciones por ID");
+            Console.WriteLine("3. Buscar publicaciones por Nombre");
             if (tipoUsuario == "USUARIO")
             {
+                Console.WriteLine("4. ...");
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
+                Console.WriteLine("4. Dar de alta publicacion");
+                Console.WriteLine("5. ...");
             }
             else
             {
-                Console.WriteLine("1. Mostrar publicaciones");
-                Console.WriteLine("2. Buscar publicaciones por ID");
-                Console.WriteLine("3. Dar de alta publicacion");
-                Console.WriteLine("4. ...");
+                Console.WriteLine("4. Dar de alta publicacion");
+                Console.WriteLine("5. ...");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -138,18 +142,22 @@ namespace InterfazUsuario
         {
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Usuarios");
+            Console.WriteLine("1. Mostrar usuarios");
+            Console.WriteLine("2. Buscar usuarios por ID");
+            Console.WriteLine("3. Buscar usuarios por Nombre");
             if (tipoUsuario == "USUARIO")
             {
+                Console.WriteLine("4. ...");
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
+                Console.WriteLine("4. Dar de alta usuario");
+                Console.WriteLine("5. ...");
             }
             else
             {
-                Console.WriteLine("1. Mostrar usuarios");
-                Console.WriteLine("2. Buscar usuarios por ID");
-                Console.WriteLine("3. Dar de alta usuario");
-                Console.WriteLine("4. ...");
+                Console.WriteLine("4. Dar de alta usuario");
+                Console.WriteLine("5. ...");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -226,9 +234,64 @@ namespace InterfazUsuario
             // Ejecución de las opciones del menu por tipo de usuario
             if (tipoUsuario == "USUARIO")
             {
+                switch (opcionSelecionada)
+                {
+                    case 1:
+                        Console.Clear();
+                        miSistema.ImprimirPublicacion();
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 2:
+                        Console.Clear();
+                        ObtenerPublicacionPorId();
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 3:
+                        Console.Clear();
+                        ObtenerPublicacionPorNombre();
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 4:
+                        Console.Clear();
+                        Menu(tipoUsuario);
+                        break;
+                    default:
+                        Console.WriteLine("Seleccione una opcion valida");
+                        break;
+                }
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
+                switch (opcionSelecionada)
+                {
+                    case 1:
+                        Console.Clear();
+                        miSistema.ImprimirPublicacion();
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 2:
+                        Console.Clear();
+                        ObtenerPublicacionPorId();
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 3:
+                        Console.Clear();
+                        ObtenerPublicacionPorNombre();
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 4:
+                        Console.Clear();
+                        AltaPublicacion();
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 5:
+                        Console.Clear();
+                        Menu(tipoUsuario);
+                        break;
+                    default:
+                        Console.WriteLine("Seleccione una opcion valida");
+                        break;
+                }
             }
             else
             {
@@ -246,10 +309,15 @@ namespace InterfazUsuario
                         break;
                     case 3:
                         Console.Clear();
-                        AltaPublicacion();
+                        ObtenerPublicacionPorNombre();
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
+                        AltaPublicacion();
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 5:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
@@ -264,9 +332,64 @@ namespace InterfazUsuario
             // Ejecución de las opciones del menu por tipo de usuario
             if (tipoUsuario == "USUARIO")
             {
+                switch (opcionSelecionada)
+                {
+                    case 1:
+                        Console.Clear();
+                        miSistema.ImprimirUsuario();
+                        MenuUsuario(tipoUsuario);
+                        break;
+                    case 2:
+                        Console.Clear();
+                        ObtenerUsuarioPorId();
+                        MenuUsuario(tipoUsuario);
+                        break;
+                    case 3:
+                        Console.Clear();
+                        ObtenerUsuarioPorNombre();
+                        MenuUsuario(tipoUsuario);
+                        break;
+                    case 4:
+                        Console.Clear();
+                        Menu(tipoUsuario);
+                        break;
+                    default:
+                        Console.WriteLine("Seleccione una opcion valida");
+                        break;
+                }
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
+                switch (opcionSelecionada)
+                {
+                    case 1:
+                        Console.Clear();
+                        miSistema.ImprimirUsuario();
+                        MenuUsuario(tipoUsuario);
+                        break;
+                    case 2:
+                        Console.Clear();
+                        ObtenerUsuarioPorId();
+                        MenuUsuario(tipoUsuario);
+                        break;
+                    case 3:
+                        Console.Clear();
+                        ObtenerUsuarioPorNombre();
+                        MenuUsuario(tipoUsuario);
+                        break;
+                    case 4:
+                        Console.Clear();
+                        AltaUsuario();
+                        MenuUsuario(tipoUsuario);
+                        break;
+                    case 5:
+                        Console.Clear();
+                        Menu(tipoUsuario);
+                        break;
+                    default:
+                        Console.WriteLine("Seleccione una opcion valida");
+                        break;
+                }
             }
             else
             {
@@ -284,10 +407,15 @@ namespace InterfazUsuario
                         break;
                     case 3:
                         Console.Clear();
-                        AltaUsuario();
+                        ObtenerUsuarioPorNombre();
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
+                        AltaUsuario();
+                        MenuUsuario(tipoUsuario);
+                        break;
+                    case 5:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
