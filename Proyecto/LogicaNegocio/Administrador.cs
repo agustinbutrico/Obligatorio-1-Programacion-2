@@ -14,7 +14,6 @@ namespace LogicaNegocio
             : base(nombre, apellido, email, contrasenia) // Llamada al constructor de la clase base (Usuario)
         {
         }
-
     }
 }
 

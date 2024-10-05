@@ -32,9 +32,13 @@ namespace LogicaNegocio
             if (obj != null && obj is Cliente)
             {
                 Cliente cliente = (Cliente)obj;
-                // return _nombre == cliente.Nombre;
+                return Nombre == cliente.Nombre;
             }
             return false;
+        }
+        public override int GetHashCode()
+        {
+            return Nombre.GetHashCode();
         }
 
         // Evaluaciones
@@ -47,8 +51,8 @@ namespace LogicaNegocio
             return saldo;
         }
 
-        // Validación de Publicacion
-        public void Validar()
+        // Añade validaciones sobre la validacion de Usuario
+        public override void Validar()
         {
 
         }

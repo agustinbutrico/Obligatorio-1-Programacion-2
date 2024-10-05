@@ -31,9 +31,19 @@ namespace LogicaNegocio
             if (obj != null && obj is Subasta)
             {
                 Subasta subasta = (Subasta)obj;
-                // return _nombre == subasta.Nombre;
+                return Nombre == subasta.Nombre;
             }
             return false;
+        }
+        public override int GetHashCode()
+        {
+            return Nombre.GetHashCode();
+        }
+
+        // Añade validaciones sobre la validacion de Publicaion
+        public override void Validar()
+        {
+
         }
     }
 }

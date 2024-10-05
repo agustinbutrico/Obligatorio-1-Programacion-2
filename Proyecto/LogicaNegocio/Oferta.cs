@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio
 {
@@ -53,9 +54,13 @@ namespace LogicaNegocio
             if (obj != null && obj is Oferta)
             {
                 Oferta oferta = (Oferta)obj;
-                // return _nombre == oferta.Nombre;
+                return _monto == oferta.Monto;
             }
             return false;
+        }
+        public override int GetHashCode()
+        {
+            return _monto.GetHashCode();
         }
 
         // Evaluaciones

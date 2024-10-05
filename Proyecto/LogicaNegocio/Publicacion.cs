@@ -86,6 +86,10 @@ namespace LogicaNegocio
             }
             return false;
         }
+        public override int GetHashCode()
+        {
+            return _nombre.GetHashCode();
+        }
 
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
@@ -106,8 +110,8 @@ namespace LogicaNegocio
             return estado;
         }
 
-        // Validación de Publicacion
-        public void Validar()
+        // Validación de Publicacion, es virtual ya que sus hijos tambien tienen validaciones
+        public virtual void Validar()
         {
             if (FechaFin <= Fecha)
             {
