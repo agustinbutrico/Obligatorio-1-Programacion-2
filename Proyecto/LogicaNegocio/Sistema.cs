@@ -50,7 +50,7 @@ namespace LogicaNegocio
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
             try 
-            { 
+            {
                 for (int i = 0; i < _articulos.Count; i++)
                 {
                     if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
@@ -59,10 +59,10 @@ namespace LogicaNegocio
                     }
                 }
 
-                if (articulos.Count > 0)
+                if (articulos.Count == 0)
                 {
-                    // Mensaje si no encontramos de Artículo
-                    Console.WriteLine("Articulo no encontrada.");
+                    // Mensaje si no encontramos ningún artículo
+                    Console.WriteLine("Articulo no encontrado");
                 }
             }
             catch (Exception ex)
@@ -84,10 +84,10 @@ namespace LogicaNegocio
                     }
                 }
 
-                if (publicaciones.Count > 0)
+                if (publicaciones.Count == 0)
                 {
-                    // Mensaje si no encontramos la publicación
-                    Console.WriteLine("Publicación no encontrada.");
+                    // Mensaje si no encontramos ninguna publicación
+                    Console.WriteLine("Publicación no encontrada");
                 }
             }
             catch (Exception ex)
@@ -109,10 +109,10 @@ namespace LogicaNegocio
                     }
                 }
 
-                if (usuarios.Count > 0)
+                if (usuarios.Count == 0)
                 {
-                    // Mensaje si no encontramos ningun Usuario
-                    Console.WriteLine("Usuario no encontrado.");
+                    // Mensaje si no encontramos ningún usuario
+                    Console.WriteLine("Usuario no encontrado");
                 }
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ namespace LogicaNegocio
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {articulos[i].Id}");
                 Console.WriteLine($"Nombre: {articulos[i].Nombre}");
-                Console.WriteLine($"Estado: {articulos[i].Precio}");
+                Console.WriteLine($"Precio: {articulos[i].Precio}");
             }
             Console.WriteLine("-------------------------------------");
         }
@@ -347,6 +347,7 @@ namespace LogicaNegocio
         }
         public void PrecargarPublicacion()
         {
+            AltaPublicacion("Set de football", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 2, 3, 8 }), null, null, DateTime.MinValue, false);
             AltaPublicacion("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false);
         }
         public void PrecargaUsuario()
