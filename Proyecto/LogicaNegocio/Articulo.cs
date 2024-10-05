@@ -40,21 +40,6 @@ namespace LogicaNegocio
             Precio = precio;
         }
 
-        // Sobre escritura del metodo Equals que es usado por Contains
-        public override bool Equals(object? obj)
-        {
-            if (obj != null && obj is Articulo)
-            {
-                Articulo articulo = (Articulo)obj;
-                return _nombre == articulo.Nombre;
-            }
-            return false;
-        }
-        public override int GetHashCode()
-        {
-            return _nombre.GetHashCode();
-        }
-
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
         {
@@ -76,7 +61,21 @@ namespace LogicaNegocio
         // Validación de Publicacion
         public void Validar()
         {
+        }
 
+        // Sobre escritura del metodo Equals que es usado por Contains
+        public override bool Equals(object? obj)
+        {
+            if (obj != null && obj is Articulo)
+            {
+                Articulo articulo = (Articulo)obj;
+                return Nombre == articulo.Nombre;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Nombre.GetHashCode();
         }
     }
 }
