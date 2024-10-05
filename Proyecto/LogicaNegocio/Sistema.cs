@@ -189,6 +189,56 @@ namespace LogicaNegocio
             }
             return articulos;
         }
+        public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (nombres.Contains(_publicaciones[i].Nombre)) // Si la lista de nombres contiene algúna publicación
+                    {
+                        publicaciones.Add(_publicaciones[i]); // Se añade la publicación a la lista publicaciones
+                    }
+                }
+
+                if (publicaciones.Count == 0)
+                {
+                    // Mensaje si no encontramos ningúna publicacion
+                    Console.WriteLine("Publicacion no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return publicaciones;
+        }
+        public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres)
+        {
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (nombres.Contains(_usuarios[i].Nombre)) // Si la lista de nombres contiene algún usuario
+                    {
+                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    }
+                }
+
+                if (usuarios.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún usuario
+                    Console.WriteLine("Usuario no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return usuarios;
+        }
         #endregion
 
         #region Impresion de listas

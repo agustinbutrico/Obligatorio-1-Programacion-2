@@ -336,6 +336,24 @@ namespace InterfazUsuario
 
             miSistema.ImprimirArticulo(articulos);
         }
+        static void ObtenerPublicacionPorNombre()
+        {
+            Console.WriteLine("Nombre de las publicaciones separadas por ,:");
+            string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres); // Obtiene la lista de publicaciones con los nombres
+
+            miSistema.ImprimirPublicacion(publicaciones);
+        }
+        static void ObtenerUsuarioPorNombre()
+        {
+            Console.WriteLine("Nombre de los usuarios separados por ,:");
+            string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<Usuario> usuarios = miSistema.ObtenerUsuarioPorNombre(nombres); // Obtiene la lista de usuarios con los nombres
+
+            miSistema.ImprimirUsuario(usuarios);
+        }
         #endregion
 
         #region Altas
