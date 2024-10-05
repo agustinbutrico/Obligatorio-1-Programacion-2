@@ -63,28 +63,28 @@ namespace InterfazUsuario
             {
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine("Menu");
-                Console.WriteLine("1. ...");
-                Console.WriteLine("2. Artículos");
-                Console.WriteLine("3. Publicaciones");
-                Console.WriteLine("4. Usuarios");
+                Console.WriteLine("0. ...");
+                Console.WriteLine("1. Artículos");
+                Console.WriteLine("2. Publicaciones");
+                Console.WriteLine("3. Usuarios");
                 Console.WriteLine("-------------------------------------");
                 int.TryParse(Console.ReadLine(), out int opcionSelecionada);
 
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         MenuTipoUsuario();
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         MenuArticulo(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         MenuUsuario(tipoUsuario);
                         break;
@@ -101,16 +101,16 @@ namespace InterfazUsuario
             // Menu
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Artículos");
-            Console.WriteLine("1. ...");
-            Console.WriteLine("2. Mostrar catálogo");
-            Console.WriteLine("3. Buscar artículos por ID");
-            Console.WriteLine("4. Buscar artículos por Nombre");
+            Console.WriteLine("0. ...");
+            Console.WriteLine("1. Mostrar catálogo");
+            Console.WriteLine("2. Buscar artículos por ID");
+            Console.WriteLine("3. Buscar artículos por Nombre");
             if (tipoUsuario == "USUARIO")
             {
             }
             else if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
             {
-                Console.WriteLine("5. Dar de alta artículo");
+                Console.WriteLine("4. Dar de alta artículo");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -121,20 +121,20 @@ namespace InterfazUsuario
         {
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Publicaciones");
-            Console.WriteLine("1. ...");
-            Console.WriteLine("2. Mostrar publicaciones");
-            Console.WriteLine("3. Buscar publicaciones por ID");
-            Console.WriteLine("4. Buscar publicaciones por Nombre");
+            Console.WriteLine("0. ...");
+            Console.WriteLine("1. Mostrar publicaciones");
+            Console.WriteLine("2. Buscar publicaciones por ID");
+            Console.WriteLine("3. Buscar publicaciones por Nombre");
             if (tipoUsuario == "USUARIO")
             {
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
-                Console.WriteLine("5. Dar de alta publicacion");
+                Console.WriteLine("4. Dar de alta publicacion");
             }
             else
             {
-                Console.WriteLine("5. Dar de alta publicacion");
+                Console.WriteLine("4. Dar de alta publicacion");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -145,20 +145,20 @@ namespace InterfazUsuario
         {
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Usuarios");
-            Console.WriteLine("1. ...");
-            Console.WriteLine("2. Mostrar usuarios");
-            Console.WriteLine("3. Buscar usuarios por ID");
-            Console.WriteLine("4. Buscar usuarios por Nombre");
+            Console.WriteLine("0. ...");
+            Console.WriteLine("1. Mostrar usuarios");
+            Console.WriteLine("2. Buscar usuarios por ID");
+            Console.WriteLine("3. Buscar usuarios por Nombre");
             if (tipoUsuario == "USUARIO")
             {
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
-                Console.WriteLine("5. Dar de alta usuario");
+                Console.WriteLine("4. Dar de alta usuario");
             }
             else
             {
-                Console.WriteLine("5. Dar de alta usuario");
+                Console.WriteLine("4. Dar de alta usuario");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -174,23 +174,23 @@ namespace InterfazUsuario
             if (tipoUsuario == "USUARIO")
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         miSistema.ImprimirArticulo();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         ObtenerArticuloPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         ObtenerArticuloPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -206,29 +206,29 @@ namespace InterfazUsuario
             {
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         miSistema.ImprimirArticulo();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         ObtenerArticuloPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         ObtenerArticuloPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
-                    case 5:
+                    case 4:
                         Console.Clear();
                         AltaArticulo();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -247,23 +247,23 @@ namespace InterfazUsuario
             {
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         miSistema.ImprimirPublicacion();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         ObtenerPublicacionPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         ObtenerPublicacionPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -278,29 +278,29 @@ namespace InterfazUsuario
             {
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         miSistema.ImprimirPublicacion();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         ObtenerPublicacionPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         ObtenerPublicacionPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 5:
+                    case 4:
                         Console.Clear();
                         AltaPublicacion();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -315,29 +315,29 @@ namespace InterfazUsuario
             {
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         miSistema.ImprimirPublicacion();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         ObtenerPublicacionPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         ObtenerPublicacionPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
-                    case 5:
+                    case 4:
                         Console.Clear();
                         AltaPublicacion();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -356,23 +356,23 @@ namespace InterfazUsuario
             {
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         miSistema.ImprimirUsuario();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         ObtenerUsuarioPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         ObtenerUsuarioPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -387,29 +387,29 @@ namespace InterfazUsuario
             {
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         miSistema.ImprimirUsuario();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         ObtenerUsuarioPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         ObtenerUsuarioPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
-                    case 5:
+                    case 4:
                         Console.Clear();
                         AltaUsuario();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -424,29 +424,29 @@ namespace InterfazUsuario
             {
                 switch (opcionSelecionada)
                 {
-                    case 1:
+                    case 0:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case 1:
                         Console.Clear();
                         miSistema.ImprimirUsuario();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
-                    case 3:
+                    case 2:
                         Console.Clear();
                         ObtenerUsuarioPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
-                    case 4:
+                    case 3:
                         Console.Clear();
                         ObtenerUsuarioPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
-                    case 5:
+                    case 4:
                         Console.Clear();
                         AltaUsuario();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
