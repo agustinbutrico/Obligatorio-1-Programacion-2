@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio
 {
@@ -47,17 +48,6 @@ namespace LogicaNegocio
             Fecha = fecha;
         }
 
-        // Sobre escritura del metodo Equals que es usado por Contains
-        public override bool Equals(object? obj)
-        {
-            if (obj != null && obj is Oferta)
-            {
-                Oferta oferta = (Oferta)obj;
-                // return _nombre == oferta.Nombre;
-            }
-            return false;
-        }
-
         // Evaluaciones
         private static decimal EvaluarMonto(decimal monto)
         {
@@ -68,8 +58,24 @@ namespace LogicaNegocio
             return monto;
         }
 
+        // Validación de Oferta
         public void Validar()
         {
+        }
+
+        // Sobre escritura del metodo Equals que es usado por Contains
+        public override bool Equals(object? obj)
+        {
+            if (obj != null && obj is Oferta)
+            {
+                Oferta oferta = (Oferta)obj;
+                return Monto == oferta.Monto;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Monto.GetHashCode();
         }
     }
 }

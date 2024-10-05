@@ -58,7 +58,7 @@ namespace LogicaNegocio
             return precio;
         }
 
-        // Validación de Publicacion
+        // Validación de Articulo
         public void Validar()
         {
         }
