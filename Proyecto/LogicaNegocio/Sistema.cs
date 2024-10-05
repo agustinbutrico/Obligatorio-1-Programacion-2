@@ -201,7 +201,7 @@ namespace LogicaNegocio
                 }
                 else
                 {
-                    throw new Exception("Ya existe un articulo con el mismo ID");
+                    throw new Exception("Ya existe un articulo con el mismo nombre");
                 }
             }
             catch (Exception ex)
@@ -224,7 +224,7 @@ namespace LogicaNegocio
                 }
                 else
                 {
-                    throw new Exception("Ya existe una publicación con el mismo ID");
+                    throw new Exception("Ya existe una publicación con el mismo nombre");
                 }
             }
             catch (Exception ex)
@@ -247,7 +247,7 @@ namespace LogicaNegocio
                 }
                 else
                 {
-                    throw new Exception("Ya existe un usuario con el mismo ID");
+                    throw new Exception("Ya existe un usuario con el mismo nombre y apellido");
                 }
             }
             catch (Exception ex)
