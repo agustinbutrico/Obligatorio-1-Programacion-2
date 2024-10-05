@@ -49,7 +49,10 @@ namespace InterfazUsuario
             {
                 // Solicitud datos
                 Console.WriteLine("Ingrese el nombre del Articulo");
-                string nombre = Console.ReadLine();
+                // ?? operador de coalescencia nula
+                // Si es null devuelve el valor de la derecha
+                // Si no es null devuelve el valor de la izquierda
+                string nombre = Console.ReadLine() ?? string.Empty;
                 Console.WriteLine("Ingrese el Precio");
                 decimal.TryParse(Console.ReadLine(), out decimal precio);
 
