@@ -9,7 +9,6 @@ namespace InterfazUsuario
             miSistema.PrecargaArticulo();
             miSistema.PrecargarPublicacion();
             miSistema.PrecargaUsuario();
-            miSistema.ObtenerArticuloPorId(new List<int> { 1, 2 });
             Menu();
         }
 
