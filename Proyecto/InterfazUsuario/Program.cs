@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+using LogicaNegocio;
 
 namespace InterfazUsuario
 {
