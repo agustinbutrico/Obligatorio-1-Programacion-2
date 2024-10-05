@@ -156,7 +156,7 @@ namespace InterfazUsuario
             Console.WriteLine("Precio:");
             decimal.TryParse(Console.ReadLine(), out decimal precio);
 
-            miSistema.AltaArticulo(nombre, precio);
+            miSistema.AltaArticulo(nombre, precio, true);
         }
         static void AltaPublicacion()
         {
@@ -176,7 +176,7 @@ namespace InterfazUsuario
             List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
             
-            miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
+            miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, true);
         }
         static void AltaUsuario()
         {
@@ -190,7 +190,7 @@ namespace InterfazUsuario
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
 
-            miSistema.AltaUsuario(nombre, apellido, email, contrasenia);
+            miSistema.AltaUsuario(nombre, apellido, email, contrasenia, true);
         }
         #endregion
     }
