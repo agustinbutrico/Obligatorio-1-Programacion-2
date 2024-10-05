@@ -67,19 +67,25 @@ namespace LogicaNegocio
         public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
-
-            for (int i = 0; i < _publicaciones.Count; i++)
+            try
             {
-                if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
+                for (int i = 0; i < _publicaciones.Count; i++)
                 {
-                    publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                    if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
+                    {
+                        publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                    }
+                }
+
+                if (publicaciones.Count > 0)
+                {
+                    // Mensaje si no encontramos la publicación
+                    Console.WriteLine("Publicación no encontrada.");
                 }
             }
-
-            if (publicaciones.Count > 0)
+            catch (Exception ex)
             {
-                // Mensaje si no encontramos la publicación
-                Console.WriteLine("Publicación no encontrada.");
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return publicaciones;
         }
