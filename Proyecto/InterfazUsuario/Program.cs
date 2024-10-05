@@ -114,7 +114,7 @@ namespace InterfazUsuario
         }
         #endregion
 
-        #region Solicitudes de datos
+        #region Solicitud datos
         static void ObtenerArticuloPorId()
         {
             Console.WriteLine("Id de los articulos separados por ,:");
@@ -142,6 +142,9 @@ namespace InterfazUsuario
 
             miSistema.ImprimirUsuario(usuario);
         }
+        #endregion
+
+        #region Altas
         static void AltaArticulo()
         {
             Console.WriteLine("Ingrese los datos del artículo");
