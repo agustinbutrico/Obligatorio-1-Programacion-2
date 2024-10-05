@@ -10,7 +10,7 @@ namespace LogicaNegocio
 {
     public class Publicacion : IValidate
     {
-        // Atributos de la clase
+        #region Atributos de la clase
         private int _id;
         private static int s_ultId = 0; // Inicializado con el id siguiente a la ultima precarga
         private string _nombre = string.Empty; // Inicializado con una cadena vacía
@@ -20,8 +20,9 @@ namespace LogicaNegocio
         private Cliente? _cliente; // Inicializado con una instancia por defecto
         private Administrador? _administrador; // Inicializado con una instancia por defecto
         private DateTime _fechaFin = DateTime.Now; // Inicializado con la fecha actual
+        #endregion
 
-        // Propiedades
+        #region Propiedades
         public int Id
         {
             get { return _id; }  // Solo lectura, asignado internamente.
@@ -61,8 +62,9 @@ namespace LogicaNegocio
             get { return _administrador; }
             set { _administrador = value; }
         }
+        #endregion
 
-        // Constructor
+        #region Constructor
         public Publicacion(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin)
         {
             _id = Publicacion.s_ultId; // Asigna el ID único
@@ -75,7 +77,9 @@ namespace LogicaNegocio
             Administrador = administrador;
             FechaFin = fechaFin;
         }
+        #endregion
 
+        #region Validación
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
         {
@@ -85,7 +89,6 @@ namespace LogicaNegocio
             }
             return nombre;
         }
-
         private static string EvaluarEstado(string estado)
         {
             if (estado != "ABIERTA" && estado != "CERRADA" && estado != "CANCELADA")
@@ -103,7 +106,9 @@ namespace LogicaNegocio
                 throw new Exception("La fecha de fin debe ser posterior a la fecha de inicio.");
             }
         }
+        #endregion
 
+        #region Método Equals
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
@@ -118,5 +123,6 @@ namespace LogicaNegocio
         {
             return Nombre.GetHashCode();
         }
+        #endregion
     }
 }

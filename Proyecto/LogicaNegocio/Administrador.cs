@@ -9,17 +9,21 @@ namespace LogicaNegocio
 {
     public class Administrador : Usuario
     {
-        // Constructor
+        #region Constructor
         public Administrador(string nombre, string apellido, string email, string contrasenia)
             : base(nombre, apellido, email, contrasenia) // Llamada al constructor de la clase base (Usuario)
         {
         }
+        #endregion
 
+        #region Validación
         // Validación de Administrador, hereda de Usuario
         public override void Validar()
         {
         }
+        #endregion
 
+        #region Método Equals
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
@@ -34,6 +38,6 @@ namespace LogicaNegocio
         {
             return (Nombre + Apellido).GetHashCode();
         }
+        #endregion
     }
 }
-

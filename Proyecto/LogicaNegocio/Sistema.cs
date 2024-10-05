@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,127 +9,183 @@ namespace LogicaNegocio
 {
     public class Sistema
     {
-        // Atributos de la clase
-        private List<Usuario> _usuarios = new List<Usuario>();
-        private List<Publicacion> _publicaciones = new List<Publicacion>();
-        private List<Articulo> _articulos = new List<Articulo>();
-
-        // Propiedades
-        public List<Usuario> Usuarios
-        {
-            get { return _usuarios; }
-            set { _usuarios = value; }
-        }
-        public List<Publicacion> Publicacion
-        {
-            get { return _publicaciones; }
-            set { _publicaciones = value; }
-        }
-        public List<Articulo> Articulo
-        {
-            get { return _articulos; }
-            set { _articulos = value; }
-        }
+        #region Constructor
+        // Atributos de la clase con propiedades automaticas (shortHand)
+        private List<Usuario> _usuarios {  get; set; }
+        private List<Publicacion> _publicaciones { get; set; }
+        private List<Articulo> _articulos { get; set; }
 
         // Ejecucion principal
         public Sistema()
         {
-          
+            _usuarios = new List<Usuario>();
+            _publicaciones = new List<Publicacion>();
+            _articulos = new List<Articulo>();
         }
+        #endregion
 
-        // Obtencion de listas
-        public void ObtenerUsuarioPorId(int id)
+        #region Parseo Datos
+        public List<int> ParseoIds(string ids_crudos)
         {
-            int indice = 0; // Inicializamos un índice
-            Usuario? usuario = null;  // Inicializamos la variable que contendrá el Usuario
+            List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
+            string[] ids = ids_crudos.Split(','); // Crea un array de los ids
 
-            while (indice < _usuarios.Count && usuario == null)
+            for (int i = 0; i < ids.Length; i++) // Recorre todos los elementos de ids
             {
-                // Comprobamos si el ID coincide
-                if (_usuarios[indice].Id == id)
-                {
-                    usuario = _usuarios[indice];  // Asignamos el Usuario encontrada
-                }
-                indice++;
+                lista_ids.Add(int.Parse(ids[i].Trim())); // Remueve los espacios, transforma a int y añiade a la lista el id
             }
-
-            if (usuario != null)
-            {
-                // Mostramos los detalles del Usuario
-                Console.WriteLine($"ID: {usuario.Id}");
-                Console.WriteLine($"Nombre: {usuario.Nombre}");
-                Console.WriteLine($"Apellido: {usuario.Apellido}");
-                Console.WriteLine($"Email: {usuario.Email}");
-            }
-            else
-            {
-                // Mensaje si no encontramos de Usuario
-                Console.WriteLine("Usuario no encontrada.");
-            }
+            return lista_ids;
         }
-        public void ObtenerArticuloPorId(int id)
+        #endregion
+
+        #region Obtencion de listas
+        public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
-            int indice = 0; // Inicializamos un índice
-            Articulo? articulo = null;  // Inicializamos la variable que contendrá el Articulo
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
 
-            while (indice < _articulos.Count && articulo == null)
+            for (int i = 0; i < _articulos.Count; i++)
             {
-                // Comprobamos si el ID coincide
-                if (_articulos[indice].Id == id)
+                if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
                 {
-                    articulo = _articulos[indice];  // Asignamos el Articulo encontrada
+                    articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                 }
-                indice++;
             }
 
-            if (articulo != null)
+            if (articulos.Count > 0)
             {
-                // Mostramos los detalles del Articulo
-                Console.WriteLine($"ID: {articulo.Id}");
-                Console.WriteLine($"Nombre: {articulo.Nombre}");
-                Console.WriteLine($"Estado: {articulo.Precio}");
-            }
-            else
-            {
-                // Mensaje si no encontramos de Articulo
+                // Mensaje si no encontramos de Artículo
                 Console.WriteLine("Articulo no encontrada.");
             }
+            return articulos;
         }
-        public void ObtenerPublicacionPorId(int id)
+        public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
         {
-            int index = 0;  // Inicializamos un índice
-            Publicacion? publicacion = null;  // Inicializamos la variable que contendrá la publicación
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
 
-            while (index < _publicaciones.Count && publicacion == null)
+            for (int i = 0; i < _publicaciones.Count; i++)
             {
-                // Comprobamos si el ID coincide
-                if (_publicaciones[index].Id == id)
+                if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
                 {
-                    publicacion = _publicaciones[index];  // Asignamos la publicación encontrada
+                    publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
                 }
-                index++;
             }
 
-            if (publicacion != null)
-            {
-                // Mostramos los detalles de la publicación
-                Console.WriteLine($"ID: {publicacion.Id}");
-                Console.WriteLine($"Nombre: {publicacion.Nombre}");
-                Console.WriteLine($"Estado: {publicacion.Estado}");
-                Console.WriteLine($"Fecha: {publicacion.Fecha}");
-                Console.WriteLine($"Articulos: {publicacion.Articulos}");
-                Console.WriteLine($"Cliente: {publicacion.Cliente}");
-                Console.WriteLine($"Administrador: {publicacion.Administrador}");
-                Console.WriteLine($"Fecha Fin: {publicacion.FechaFin}");
-            }
-            else
+            if (publicaciones.Count > 0)
             {
                 // Mensaje si no encontramos la publicación
                 Console.WriteLine("Publicación no encontrada.");
             }
+            return publicaciones;
         }
+        public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
+        {
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
 
-        // Altas
+            for (int i = 0; i < _usuarios.Count; i++)
+            {
+                if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
+                {
+                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                }
+            }
+
+            if (usuarios.Count > 0)
+            {
+                // Mensaje si no encontramos ningun Usuario
+                Console.WriteLine("Usuario no encontrado.");
+            }
+            return usuarios;
+        }
+        #endregion
+
+        #region Impresion de listas
+        public void ImprimirArticulo()
+        {
+            for (int i = 0; i < _articulos.Count; i++)
+            {
+                // Mostramos los detalles del Artículo
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {_articulos[i].Id}");
+                Console.WriteLine($"Nombre: {_articulos[i].Nombre}");
+                Console.WriteLine($"Estado: {_articulos[i].Precio}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirPublicacion()
+        {
+            for (int i = 0; i < _publicaciones.Count; i++)
+            {
+                // Mostramos los detalles de las publicaciones
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {_publicaciones[i].Id}");
+                Console.WriteLine($"Nombre: {_publicaciones[i].Nombre}");
+                Console.WriteLine($"Estado: {_publicaciones[i].Estado}");
+                Console.WriteLine($"Fecha: {_publicaciones[i].Fecha}");
+                Console.WriteLine($"Articulos: {_publicaciones[i].Articulos}");
+                Console.WriteLine($"Cliente: {_publicaciones[i].Cliente}");
+                Console.WriteLine($"Administrador: {_publicaciones[i].Administrador}");
+                Console.WriteLine($"Fecha Fin: {_publicaciones[i].FechaFin}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirUsuario()
+        {
+            for (int i = 0; i < _usuarios.Count; i++)
+            {
+                // Mostramos los detalles del Usuario
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {_usuarios[i].Id}");
+                Console.WriteLine($"Nombre: {_usuarios[i].Nombre}");
+                Console.WriteLine($"Apellido: {_usuarios[i].Apellido}");
+                Console.WriteLine($"Email: {_usuarios[i].Email}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirArticulo(List<Articulo> articulos)
+        {
+            for (int i = 0; i < articulos.Count; i++)
+            {
+                // Mostramos los detalles del Artículo
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {articulos[i].Id}");
+                Console.WriteLine($"Nombre: {articulos[i].Nombre}");
+                Console.WriteLine($"Estado: {articulos[i].Precio}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirPublicacion(List<Publicacion> publicaciones)
+        {
+            for (int i = 0; i < publicaciones.Count; i++)
+            {
+                // Mostramos los detalles de las publicaciones
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {publicaciones[i].Id}");
+                Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
+                Console.WriteLine($"Estado: {publicaciones[i].Estado}");
+                Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
+                Console.WriteLine($"Articulos: {publicaciones[i].Articulos}");
+                Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
+                Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
+                Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirUsuario(List<Usuario> usuarios)
+        {
+            for (int i = 0; i < usuarios.Count; i++)
+            {
+                // Mostramos los detalles del Usuario
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {usuarios[i].Id}");
+                Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
+                Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
+                Console.WriteLine($"Email: {usuarios[i].Email}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        #endregion
+
+        #region Altas
         public void AltaArticulo(string nombre, decimal precio)
         {
             try
@@ -153,12 +209,11 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
         public void AltaPublicacion(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin)
         {
-            Publicacion nuevaPublicacion = new Publicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
             try
             {
+                Publicacion nuevaPublicacion = new Publicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
                 // Validación de la relacion entre los datos ingresados
                 nuevaPublicacion.Validar();
                 // Si los datos son validos entonces se registra la Publicación
@@ -177,47 +232,33 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
         public void AltaUsuario(string nombre, string apellido, string email, string contrasenia)
         {
-            Usuario nuevoUsuario = new Usuario(nombre, apellido, email, contrasenia);
             try
             {
+                Usuario nuevoUsuario = new Usuario(nombre, apellido, email, contrasenia);
+                // Validación de la relacion entre los datos ingresados
                 nuevoUsuario.Validar();
+                // Si los datos son validos entonces se registra el Usuario
                 if (!_usuarios.Contains(nuevoUsuario))
                 {
                     _usuarios.Add(nuevoUsuario);
-                    Console.WriteLine("El usuario fue creado correctamente");
+                    Console.WriteLine("El usuario fue registrado correctamente");
                 }
                 else
                 {
                     throw new Exception("Ya existe un usuario con el mismo ID");
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        #endregion
 
-        // Precargas
-        public void PrecargaUsuarios()
-        {
-            AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
-            AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
-            AltaUsuario("Juan", "Peres", "Juanperes@hmail.com", "Juan1234");
-            AltaUsuario("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643");
-            AltaUsuario("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234");
-            AltaUsuario("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2");
-            AltaUsuario("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46");
-            AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31");
-            AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
-            AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
-
-
-
-        }
-        public void PrecargaArticulos()
+        #region Precargas
+        public void PrecargaArticulo()
         {
             AltaArticulo("Pelota de fútbol", 450);
             AltaArticulo("Camiseta deportiva", 1200);
@@ -270,10 +311,23 @@ namespace LogicaNegocio
             AltaArticulo("Gafas de ciclismo", 900);
 
         }
-        public void PrecargarPublicaciones()
+        public void PrecargarPublicacion()
         {
 
         }
-
+        public void PrecargaUsuario()
+        {
+            AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
+            AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
+            AltaUsuario("Juan", "Peres", "Juanperes@hmail.com", "Juan1234");
+            AltaUsuario("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643");
+            AltaUsuario("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234");
+            AltaUsuario("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2");
+            AltaUsuario("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46");
+            AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31");
+            AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
+            AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
+        }
+        #endregion
     }
 }

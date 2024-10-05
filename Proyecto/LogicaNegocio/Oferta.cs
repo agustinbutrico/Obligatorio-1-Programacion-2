@@ -10,14 +10,15 @@ namespace LogicaNegocio
 {
     public class Oferta : IValidate
     {
-        // Atributos de la clase
+        #region Atributos de la clase
         private int _id;
         private static int s_ultId = 0; // Inicializado con el id siguiente a la ultima precarga
         private Usuario? _usuario; // Inicializado con una instancia por defecto
         private decimal _monto = 0; // Inicializado con 0
         private DateTime _fecha = DateTime.Now; // Inicializado con la fecha actual
+        #endregion
 
-        // Propiedades
+        #region Propiedades
         public int Id
         {
             get { return _id; }  // Solo lectura, asignado internamente.
@@ -37,8 +38,9 @@ namespace LogicaNegocio
             get { return _fecha; }
             set { _fecha = value; }
         }
+        #endregion
 
-        // Constructor
+        #region Constructor
         public Oferta(Usuario? usuario, decimal monto, DateTime fecha)
         {
             _id = Oferta.s_ultId; // Asigna el ID único
@@ -47,7 +49,9 @@ namespace LogicaNegocio
             Monto = monto;
             Fecha = fecha;
         }
+        #endregion
 
+        #region Validación
         // Evaluaciones
         private static decimal EvaluarMonto(decimal monto)
         {
@@ -62,7 +66,9 @@ namespace LogicaNegocio
         public void Validar()
         {
         }
+        #endregion
 
+        #region Método Equals
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
@@ -77,6 +83,7 @@ namespace LogicaNegocio
         {
             return Monto.GetHashCode();
         }
+        #endregion
     }
 }
 

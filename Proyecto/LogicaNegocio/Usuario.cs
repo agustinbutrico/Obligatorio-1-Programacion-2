@@ -9,15 +9,16 @@ namespace LogicaNegocio
 {
     public class Usuario : IValidate
     {
-        // Atributos de la clase
+        #region Atributos de la clase
         private int _id;
         private static int s_ultId = 0; // Inicializado con el id siguiente a la ultima precarga
         private string _nombre = string.Empty; // Inicializado con una cadena vacía
         private string _apellido = string.Empty; // Inicializado con una cadena vacía
         private string _email = string.Empty; // Inicializado con una cadena vacía
         private string _contrasenia = string.Empty; // Inicializado con una cadena vacía
+        #endregion
 
-        // Propiedades
+        #region Propiedades
         public int Id
         {
             get { return _id; }  // Solo lectura, asignado internamente.
@@ -42,8 +43,9 @@ namespace LogicaNegocio
             get { return _contrasenia; }
             set { _contrasenia = EvaluarContrasenia(value); }
         }
+        #endregion
 
-        // Constructor
+        #region Constructor
         public Usuario(string nombre, string apellido, string email, string contrasenia)
         {
             _id = Usuario.s_ultId; // Asigna el ID único
@@ -53,7 +55,9 @@ namespace LogicaNegocio
             Email = email;
             Contrasenia = contrasenia;
         }
+        #endregion
 
+        #region Validación
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
         {
@@ -92,7 +96,9 @@ namespace LogicaNegocio
         public virtual void Validar()
         {
         }
+        #endregion
 
+        #region Método Equals
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
@@ -107,5 +113,6 @@ namespace LogicaNegocio
         {
             return (Nombre + Apellido).GetHashCode();
         }
+        #endregion
     }
 }

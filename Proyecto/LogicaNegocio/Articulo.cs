@@ -9,13 +9,14 @@ namespace LogicaNegocio
 {
     public class Articulo : IValidate
     {
-        // Atributos de la clase
+        #region  Atributos de la clase
         private int _id;
         private static int s_ultId = 3; // Inicializado con el id siguiente a la ultima precarga
         private string _nombre = string.Empty; // Inicializado con una cadena vacía
         private decimal _precio = 0; // Inicializado con 0
+        #endregion
 
-        // Propiedades
+        #region Propiedades
         public int Id
         {
             get { return _id; }  // Solo lectura, asignado internamente.
@@ -30,8 +31,9 @@ namespace LogicaNegocio
             get { return _precio; }
             set { _precio = EvaluarPrecio(value); }
         }
+        #endregion
 
-        // Constructor
+        #region Constructor
         public Articulo(string nombre, decimal precio)
         {
             _id = Articulo.s_ultId; // Asigna el ID único
@@ -39,7 +41,9 @@ namespace LogicaNegocio
             Nombre = nombre;
             Precio = precio;
         }
+        #endregion
 
+        #region Validación
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
         {
@@ -62,7 +66,9 @@ namespace LogicaNegocio
         public void Validar()
         {
         }
+        #endregion
 
+        #region Método Equals
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
@@ -77,5 +83,6 @@ namespace LogicaNegocio
         {
             return Nombre.GetHashCode();
         }
+        #endregion
     }
 }
