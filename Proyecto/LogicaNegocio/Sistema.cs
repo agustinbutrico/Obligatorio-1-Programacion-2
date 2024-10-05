@@ -134,9 +134,9 @@ namespace LogicaNegocio
         // Altas
         public void AltaArticulo(string nombre, decimal precio)
         {
-            Articulo nuevoArticulo = new Articulo(nombre, precio);
             try
             {
+                Articulo nuevoArticulo = new Articulo(nombre, precio);
                 // Validación de la relacion entre los datos ingresados
                 nuevoArticulo.Validar();
                 // Si los datos son validos entonces se registra el Articulo
