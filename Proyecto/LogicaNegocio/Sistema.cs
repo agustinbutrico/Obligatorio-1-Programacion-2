@@ -38,23 +38,29 @@ namespace LogicaNegocio
         }
         #endregion
 
-        #region Obtencion de listas
+        #region Obtención de listas
         public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
-
-            for (int i = 0; i < _articulos.Count; i++)
-            {
-                if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
+            try 
+            { 
+                for (int i = 0; i < _articulos.Count; i++)
                 {
-                    articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
+                    if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
+                    {
+                        articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
+                    }
+                }
+
+                if (articulos.Count > 0)
+                {
+                    // Mensaje si no encontramos de Artículo
+                    Console.WriteLine("Articulo no encontrada.");
                 }
             }
-
-            if (articulos.Count > 0)
+            catch (Exception ex)
             {
-                // Mensaje si no encontramos de Artículo
-                Console.WriteLine("Articulo no encontrada.");
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return articulos;
         }
