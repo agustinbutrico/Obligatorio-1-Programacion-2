@@ -1,4 +1,4 @@
-﻿using LogicaNegocio.Interfaces;
+using LogicaNegocio.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,6 +108,4 @@ namespace LogicaNegocio
             return (Nombre + Apellido).GetHashCode();
         }
     }
-
-
 }
