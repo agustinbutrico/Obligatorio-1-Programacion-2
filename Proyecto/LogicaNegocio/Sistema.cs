@@ -53,34 +53,38 @@ namespace LogicaNegocio
         }
 
         // Obtencion de listas
-        public void ObtenerUsuarioPorId(int id)
+        public void ObtenerUsuarioPorId(List<int> ids, bool imprimir)
         {
-            int indice = 0; // Inicializamos un índice
-            Usuario? usuario = null;  // Inicializamos la variable que contendrá el Usuario
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
 
-            while (indice < _usuarios.Count && usuario == null)
+            for (int i = 0; i < _usuarios.Count; i++)
             {
-                // Comprobamos si el ID coincide
-                if (_usuarios[indice].Id == id)
+                if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algun usuario
                 {
-                    usuario = _usuarios[indice];  // Asignamos el Usuario encontrada
+                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
                 }
-                indice++;
             }
 
-            if (usuario != null)
+            if (usuarios.Count < 0 && imprimir) // Si hay algún usuario en la lista entonces se muestran los datos
             {
-                // Mostramos los detalles del Usuario
-                Console.WriteLine($"ID: {usuario.Id}");
-                Console.WriteLine($"Nombre: {usuario.Nombre}");
-                Console.WriteLine($"Apellido: {usuario.Apellido}");
-                Console.WriteLine($"Email: {usuario.Email}");
-                Console.WriteLine($"Contraseña: {usuario.Contrasenia}");
+                for (int i =0; i < usuarios.Count; i++)
+                {
+                    // Mostramos los detalles del Usuario
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {usuarios[i].Id}");
+                    Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
+                    Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
+                    Console.WriteLine($"Email: {usuarios[i].Email}");
+                }
+                Console.WriteLine("-------------------------------------");
+            }
+            else if (usuarios.Count < 0) // No muestra nada en pantalla
+            {
             }
             else
             {
                 // Mensaje si no encontramos de Usuario
-                Console.WriteLine("Usuario no encontrada.");
+                Console.WriteLine("Usuario no encontrado.");
             }
         }
         public void ObtenerArticuloPorId(int id)
