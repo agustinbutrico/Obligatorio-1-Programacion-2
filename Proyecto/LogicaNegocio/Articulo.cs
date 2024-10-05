@@ -50,6 +50,10 @@ namespace LogicaNegocio
             }
             return false;
         }
+        public override int GetHashCode()
+        {
+            return _nombre.GetHashCode();
+        }
 
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
