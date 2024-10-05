@@ -38,6 +38,20 @@ namespace LogicaNegocio
             PrecargarPublicaciones();
         }
 
+        // Parseo Datos
+
+        public List<int> ParseoIds(string ids_crudos)
+        {
+            List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
+            string[] ids = ids_crudos.Split(','); // Crea un array de los ids
+
+            for (int i = 0; i < ids.Length; i++) // Recorre todos los elementos de ids
+            {
+                lista_ids.Add(int.Parse(ids[i].Trim())); // Remueve los espacios, transforma a int y añiade a la lista el id
+            }
+            return lista_ids;
+        }
+
         // Obtencion de listas
         public void ObtenerUsuarioPorId(int id)
         {
@@ -181,7 +195,7 @@ namespace LogicaNegocio
         }
 
         // Precargas
-        private void PrecargaUsuarios()
+        public void PrecargaUsuarios()
         {
             AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
             AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
@@ -193,10 +207,8 @@ namespace LogicaNegocio
             AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31");
             AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
             AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
-
-
         }
-        private void PrecargaArticulos()
+        public void PrecargaArticulos()
         {
             AltaArticulo("Pelota de fútbol", 450);
             AltaArticulo("Camiseta deportiva", 1200);
@@ -249,7 +261,7 @@ namespace LogicaNegocio
             AltaArticulo("Gafas de ciclismo", 900);
 
         }
-        private void PrecargarPublicaciones()
+        public void PrecargarPublicaciones()
         {
 
         }
