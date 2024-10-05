@@ -15,7 +15,13 @@ namespace InterfazUsuario
         // Crear una instancia de la clase Sistema
         private static Sistema miSistema = new Sistema();
 
-        #region Menus
+        #region Menu
+        static void VolverAlMenu()
+        {
+            Console.WriteLine("Precione Intro para volver al menu");
+            Console.ReadLine();
+            Console.Clear();
+        }
         static void MenuTipoUsuario()
         {
             Console.WriteLine("-------------------------------------");
@@ -159,6 +165,9 @@ namespace InterfazUsuario
             
             OpcionSeleccionadaUsuario(tipoUsuario, opcionSelecionada);
         }
+        #endregion
+
+        #region Opciones del menu
         static void OpcionSeleccionadaArticulo(string tipoUsuario, int opcionSelecionada)
         {
             // Ejecución de las opciones del menu por tipo de usuario
@@ -172,16 +181,19 @@ namespace InterfazUsuario
                     case 2:
                         Console.Clear();
                         miSistema.ImprimirArticulo();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
                         ObtenerArticuloPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
                         ObtenerArticuloPorNombre();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     default:
@@ -201,21 +213,25 @@ namespace InterfazUsuario
                     case 2:
                         Console.Clear();
                         miSistema.ImprimirArticulo();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
                         ObtenerArticuloPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
                         ObtenerArticuloPorNombre();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
                         AltaArticulo();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     default:
@@ -238,16 +254,19 @@ namespace InterfazUsuario
                     case 2:
                         Console.Clear();
                         miSistema.ImprimirPublicacion();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
                         ObtenerPublicacionPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
                         ObtenerPublicacionPorNombre();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     default:
@@ -266,21 +285,25 @@ namespace InterfazUsuario
                     case 2:
                         Console.Clear();
                         miSistema.ImprimirPublicacion();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
                         ObtenerPublicacionPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
                         ObtenerPublicacionPorNombre();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
                         AltaPublicacion();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     default:
@@ -299,21 +322,25 @@ namespace InterfazUsuario
                     case 2:
                         Console.Clear();
                         miSistema.ImprimirPublicacion();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
                         ObtenerPublicacionPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
                         ObtenerPublicacionPorNombre();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
                         AltaPublicacion();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     default:
@@ -336,16 +363,19 @@ namespace InterfazUsuario
                     case 2:
                         Console.Clear();
                         miSistema.ImprimirUsuario();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
                         ObtenerUsuarioPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
                         ObtenerUsuarioPorNombre();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     default:
@@ -364,21 +394,25 @@ namespace InterfazUsuario
                     case 2:
                         Console.Clear();
                         miSistema.ImprimirUsuario();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
                         ObtenerUsuarioPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
                         ObtenerUsuarioPorNombre();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
                         AltaUsuario();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     default:
@@ -397,21 +431,25 @@ namespace InterfazUsuario
                     case 2:
                         Console.Clear();
                         miSistema.ImprimirUsuario();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
                         ObtenerUsuarioPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
                         ObtenerUsuarioPorNombre();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 5:
                         Console.Clear();
                         AltaUsuario();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     default:
