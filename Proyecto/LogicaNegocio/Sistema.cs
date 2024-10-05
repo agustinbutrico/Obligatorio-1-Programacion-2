@@ -92,19 +92,25 @@ namespace LogicaNegocio
         public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
-
-            for (int i = 0; i < _usuarios.Count; i++)
+            try
             {
-                if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
+                for (int i = 0; i < _usuarios.Count; i++)
                 {
-                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
+                    {
+                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    }
+                }
+
+                if (usuarios.Count > 0)
+                {
+                    // Mensaje si no encontramos ningun Usuario
+                    Console.WriteLine("Usuario no encontrado.");
                 }
             }
-
-            if (usuarios.Count > 0)
+            catch (Exception ex)
             {
-                // Mensaje si no encontramos ningun Usuario
-                Console.WriteLine("Usuario no encontrado.");
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return usuarios;
         }
