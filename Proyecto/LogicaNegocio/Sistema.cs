@@ -25,6 +25,7 @@ namespace LogicaNegocio
         #endregion
 
         #region Parseo Datos
+        // Convierte en una lista de ids el string pasado por parametros
         public List<int> ParseoId(string ids_crudos)
         {
             List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
@@ -34,7 +35,7 @@ namespace LogicaNegocio
 
                 for (int i = 0; i < ids.Length; i++) // Recorre todos los elementos de ids
                 {
-                    lista_ids.Add(int.Parse(ids[i].Trim())); // Remueve los espacios, transforma a int y añiade a la lista el id
+                    lista_ids.Add(int.Parse(ids[i].Trim())); // Remueve los espacios, transforma a int y añade a la lista el id
                 }
             }
             catch (Exception ex)
@@ -43,7 +44,26 @@ namespace LogicaNegocio
             }
             return lista_ids;
         }
+        // Convierte en una lista de nombres el string pasado por parametros
+        public List<string> ParseoNombre(string nombres_crudos)
+        {
+            List<string> lista_nombres = new List<string>(); // Crea una lista de los nombres ingresados
+            try
+            {
+                string[] nombres = nombres_crudos.Split(','); // Crea un array de los nombres
 
+                for (int i = 0; i < nombres.Length; i++) // Recorre todos los elementos de nombres
+                {
+                    lista_nombres.Add(nombres[i].Trim()); // Remueve los espaciosy añade a la lista el nombre
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return lista_nombres;
+        }
+        // Convierte en string los ids de la lista de articulos pasada por parametros
         public string ParseoArticulo(List<Articulo> articulos)
         {
             string ids_articulos = string.Empty;
@@ -127,6 +147,81 @@ namespace LogicaNegocio
                 for (int i = 0; i < _usuarios.Count; i++)
                 {
                     if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
+                    {
+                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    }
+                }
+
+                if (usuarios.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún usuario
+                    Console.WriteLine("Usuario no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return usuarios;
+        }
+        public List<Articulo> ObtenerArticuloPorNombre(List<string> nombres)
+        {
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
+            try
+            {
+                for (int i = 0; i < _articulos.Count; i++)
+                {
+                    if (nombres.Contains(_articulos[i].Nombre)) // Si la lista de nombres contiene algún artículo
+                    {
+                        articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
+                    }
+                }
+
+                if (articulos.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún artículo
+                    Console.WriteLine("Articulo no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return articulos;
+        }
+        public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (nombres.Contains(_publicaciones[i].Nombre)) // Si la lista de nombres contiene algúna publicación
+                    {
+                        publicaciones.Add(_publicaciones[i]); // Se añade la publicación a la lista publicaciones
+                    }
+                }
+
+                if (publicaciones.Count == 0)
+                {
+                    // Mensaje si no encontramos ningúna publicacion
+                    Console.WriteLine("Publicacion no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return publicaciones;
+        }
+        public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres)
+        {
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (nombres.Contains(_usuarios[i].Nombre)) // Si la lista de nombres contiene algún usuario
                     {
                         usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
                     }
