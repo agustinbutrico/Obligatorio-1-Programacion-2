@@ -137,29 +137,27 @@ namespace LogicaNegocio
                 }
             }
 
-            if (usuarios.Count < 0 && imprimir) // Si hay algún usuario en la lista entonces se muestran los datos
+            if (usuarios.Count > 0)
             {
-                for (int i = 0; i < usuarios.Count; i++)
-                {
-                    // Mostramos los detalles del Usuario
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {usuarios[i].Id}");
-                    Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
-                    Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
-                    Console.WriteLine($"Email: {usuarios[i].Email}");
-                }
-                Console.WriteLine("-------------------------------------");
-            }
-            else if (usuarios.Count < 0) // No muestra nada en pantalla
-            {
-            }
-            else
-            {
-                // Mensaje si no encontramos de Usuario
+                // Mensaje si no encontramos ningun Usuario
                 Console.WriteLine("Usuario no encontrado.");
             }
         }
+
         // Impresion de listas
+        public void ImprimirUsuario(List<Usuario> usuarios)
+        {
+            for (int i = 0; i < usuarios.Count; i++)
+            {
+                // Mostramos los detalles del Usuario
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {usuarios[i].Id}");
+                Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
+                Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
+                Console.WriteLine($"Email: {usuarios[i].Email}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
 
         // Altas
 
@@ -186,7 +184,6 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
         public void AltaPublicacion(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin)
         {
             try
@@ -233,6 +230,7 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        
         // Precargas
         public void PrecargaUsuarios()
         {
