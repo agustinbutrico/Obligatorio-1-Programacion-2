@@ -95,18 +95,17 @@ namespace InterfazUsuario
             // Menu
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Artículos");
+            Console.WriteLine("1. Mostrar catálogo");
+            Console.WriteLine("2. Buscar artículos por ID");
+            Console.WriteLine("3. Buscar artículos por Nombre");
             if (tipoUsuario == "USUARIO")
             {
-            }
-            else if (tipoUsuario == "ADMINISTRADOR")
-            {
-            }
-            else 
-            {
-                Console.WriteLine("1. Mostrar catálogo");
-                Console.WriteLine("2. Buscar artículos por ID");
-                Console.WriteLine("3. Dar de alta artículo");
                 Console.WriteLine("4. ...");
+            }
+            else if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
+            {
+                Console.WriteLine("4. Dar de alta artículo");
+                Console.WriteLine("5. ...");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -161,12 +160,34 @@ namespace InterfazUsuario
         {
             // Ejecución de las opciones del menu por tipo de usuario
             if (tipoUsuario == "USUARIO")
-            {
-            }
-            else if (tipoUsuario == "ADMINISTRADOR")
-            {
-            }
-            else
+                switch (opcionSelecionada)
+                {
+                    case 1:
+                        Console.Clear();
+                        miSistema.ImprimirArticulo();
+                        MenuArticulo(tipoUsuario);
+                        break;
+                    case 2:
+                        Console.Clear();
+                        ObtenerArticuloPorId();
+                        MenuArticulo(tipoUsuario);
+                        break;
+                    case 3:
+                        Console.Clear();
+                        ObtenerArticuloPorNombre();
+                        MenuArticulo(tipoUsuario);
+                        break;
+                    case 4:
+                        Console.Clear();
+                        Menu(tipoUsuario);
+                        break;
+                    default:
+                        Console.WriteLine("Seleccione una opcion valida");
+                        break;
+                        {
+                        }
+                }
+            else if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
             {
                 switch (opcionSelecionada)
                 {
@@ -182,10 +203,15 @@ namespace InterfazUsuario
                         break;
                     case 3:
                         Console.Clear();
-                        AltaArticulo();
+                        ObtenerArticuloPorNombre();
                         MenuArticulo(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
+                        AltaArticulo();
+                        MenuArticulo(tipoUsuario);
+                        break;
+                    case 5:
                         Console.Clear();
                         Menu(tipoUsuario);
                         break;
@@ -300,6 +326,15 @@ namespace InterfazUsuario
             List<Usuario> usuario = miSistema.ObtenerUsuarioPorId(ids); // Obtiene la lista de usuarios con los ids
 
             miSistema.ImprimirUsuario(usuario);
+        }
+        static void ObtenerArticuloPorNombre()
+        {
+            Console.WriteLine("Nombre de los articulos separados por ,:");
+            string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<Articulo> articulos = miSistema.ObtenerArticuloPorNombre(nombres); // Obtiene la lista de articulos con los nombres
+
+            miSistema.ImprimirArticulo(articulos);
         }
         #endregion
 
