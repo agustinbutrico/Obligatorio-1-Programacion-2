@@ -180,6 +180,28 @@ namespace LogicaNegocio
             }
         }
 
+        public void AltaUsuario(string nombre, string apellido, string email, string contrasenia)
+        {
+            Usuario nuevoUsuario = new Usuario(nombre, apellido, email, contrasenia);
+            try
+            {
+                nuevoUsuario.Validar();
+                if (!_usuarios.Contains(nuevoUsuario))
+                {
+                    _usuarios.Add(nuevoUsuario);
+                    Console.WriteLine("El usuario fue creado correctamente");
+                }
+                else
+                {
+                    throw new Exception("Ya existe un usuario con el mismo ID");
+                }
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
         // Precargas
         private void PrecargaUsuarios()
         {
@@ -193,6 +215,7 @@ namespace LogicaNegocio
             AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31");
             AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
             AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
+
 
 
         }
