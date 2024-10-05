@@ -465,6 +465,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Id de los articulos separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            Console.Clear();
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de articulos con los ids
 
@@ -474,6 +475,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Id de las publicaciones separadas por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            Console.Clear();
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Publicacion> publicacion = miSistema.ObtenerPublicacionPorId(ids); // Obtiene la lista de publicaciones con los ids
 
@@ -483,6 +485,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Id de los usuarios separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            Console.Clear();
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Usuario> usuario = miSistema.ObtenerUsuarioPorId(ids); // Obtiene la lista de usuarios con los ids
 
@@ -492,6 +495,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Nombre de los articulos separados por ,:");
             string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            Console.Clear();
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             List<Articulo> articulos = miSistema.ObtenerArticuloPorNombre(nombres); // Obtiene la lista de articulos con los nombres
 
@@ -501,6 +505,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Nombre de las publicaciones separadas por ,:");
             string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            Console.Clear();
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres); // Obtiene la lista de publicaciones con los nombres
 
@@ -510,6 +515,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Nombre de los usuarios separados por ,:");
             string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            Console.Clear();
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             List<Usuario> usuarios = miSistema.ObtenerUsuarioPorNombre(nombres); // Obtiene la lista de usuarios con los nombres
 
