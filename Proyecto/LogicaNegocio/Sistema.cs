@@ -9,33 +9,17 @@ namespace LogicaNegocio
 {
     public class Sistema
     {
-        // Atributos de la clase
-        private List<Usuario> _usuarios = new List<Usuario>();
-        private List<Publicacion> _publicaciones = new List<Publicacion>();
-        private List<Articulo> _articulos = new List<Articulo>();
-
-        // Propiedades
-        public List<Usuario> Usuarios
-        {
-            get { return _usuarios; }
-            set { _usuarios = value; }
-        }
-        public List<Publicacion> Publicacion
-        {
-            get { return _publicaciones; }
-            set { _publicaciones = value; }
-        }
-        public List<Articulo> Articulo
-        {
-            get { return _articulos; }
-            set { _articulos = value; }
-        }
+        // Atributos de la clase con propiedades automaticas (shortHand)
+        private List<Usuario> _usuarios {  get; set; }
+        private List<Publicacion> _publicaciones { get; set; }
+        private List<Articulo> _articulos { get; set; }
 
         // Ejecucion principal
         public Sistema()
         {
-            PrecargaArticulos();
-            PrecargarPublicaciones();
+            _usuarios = new List<Usuario>();
+            _publicaciones = new List<Publicacion>();
+            _articulos = new List<Articulo>();
         }
 
         // Parseo Datos
@@ -225,7 +209,7 @@ namespace LogicaNegocio
         }
         
         // Precargas
-        public void PrecargaUsuarios()
+        public void PrecargaUsuario()
         {
             AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
             AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
@@ -238,7 +222,7 @@ namespace LogicaNegocio
             AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
             AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
         }
-        public void PrecargaArticulos()
+        public void PrecargaArticulo()
         {
             AltaArticulo("Pelota de fútbol", 450);
             AltaArticulo("Camiseta deportiva", 1200);
@@ -291,7 +275,7 @@ namespace LogicaNegocio
             AltaArticulo("Gafas de ciclismo", 900);
 
         }
-        public void PrecargarPublicaciones()
+        public void PrecargarPublicacion()
         {
 
         }

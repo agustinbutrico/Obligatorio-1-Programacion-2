@@ -6,6 +6,9 @@ namespace InterfazUsuario
     {
         static void Main(string[] args)
         {
+            miSistema.PrecargaArticulo();
+            miSistema.PrecargarPublicacion();
+            miSistema.PrecargaUsuario();
             MenuTesteo();
         }
 
