@@ -179,16 +179,19 @@ namespace InterfazUsuario
                         Menu(tipoUsuario);
                         break;
                     case 2:
+                        Console.Clear();
                         miSistema.ImprimirArticulo();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
                         ObtenerArticuloPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
                         ObtenerArticuloPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
@@ -208,16 +211,19 @@ namespace InterfazUsuario
                         Menu(tipoUsuario);
                         break;
                     case 2:
+                        Console.Clear();
                         miSistema.ImprimirArticulo();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
                         ObtenerArticuloPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
                         ObtenerArticuloPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuArticulo(tipoUsuario);
@@ -246,16 +252,19 @@ namespace InterfazUsuario
                         Menu(tipoUsuario);
                         break;
                     case 2:
+                        Console.Clear();
                         miSistema.ImprimirPublicacion();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
                         ObtenerPublicacionPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
                         ObtenerPublicacionPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
@@ -274,16 +283,19 @@ namespace InterfazUsuario
                         Menu(tipoUsuario);
                         break;
                     case 2:
+                        Console.Clear();
                         miSistema.ImprimirPublicacion();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
                         ObtenerPublicacionPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
                         ObtenerPublicacionPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
@@ -308,16 +320,19 @@ namespace InterfazUsuario
                         Menu(tipoUsuario);
                         break;
                     case 2:
+                        Console.Clear();
                         miSistema.ImprimirPublicacion();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
                         ObtenerPublicacionPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
                         ObtenerPublicacionPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
@@ -346,16 +361,19 @@ namespace InterfazUsuario
                         Menu(tipoUsuario);
                         break;
                     case 2:
+                        Console.Clear();
                         miSistema.ImprimirUsuario();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
                         ObtenerUsuarioPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
                         ObtenerUsuarioPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
@@ -374,16 +392,19 @@ namespace InterfazUsuario
                         Menu(tipoUsuario);
                         break;
                     case 2:
+                        Console.Clear();
                         miSistema.ImprimirUsuario();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
                         ObtenerUsuarioPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
                         ObtenerUsuarioPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
@@ -408,16 +429,19 @@ namespace InterfazUsuario
                         Menu(tipoUsuario);
                         break;
                     case 2:
+                        Console.Clear();
                         miSistema.ImprimirUsuario();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
                         ObtenerUsuarioPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);
                         break;
                     case 4:
+                        Console.Clear();
                         ObtenerUsuarioPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuUsuario(tipoUsuario);

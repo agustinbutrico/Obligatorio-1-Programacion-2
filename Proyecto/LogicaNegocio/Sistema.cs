@@ -244,7 +244,6 @@ namespace LogicaNegocio
         #region Impresion de listas
         public void ImprimirArticulo()
         {
-            Console.Clear();
             for (int i = 0; i < _articulos.Count; i++)
             {
                 // Mostramos los detalles del Artículo
@@ -257,7 +256,6 @@ namespace LogicaNegocio
         }
         public void ImprimirPublicacion()
         {
-            Console.Clear();
             for (int i = 0; i < _publicaciones.Count; i++)
             {
                 // Mostramos los detalles de las publicaciones
@@ -275,7 +273,6 @@ namespace LogicaNegocio
         }
         public void ImprimirUsuario()
         {
-            Console.Clear();
             for (int i = 0; i < _usuarios.Count; i++)
             {
                 // Mostramos los detalles del Usuario
@@ -289,7 +286,6 @@ namespace LogicaNegocio
         }
         public void ImprimirArticulo(List<Articulo> articulos)
         {
-            Console.Clear();
             for (int i = 0; i < articulos.Count; i++)
             {
                 // Mostramos los detalles del Artículo
@@ -302,7 +298,6 @@ namespace LogicaNegocio
         }
         public void ImprimirPublicacion(List<Publicacion> publicaciones)
         {
-            Console.Clear();
             for (int i = 0; i < publicaciones.Count; i++)
             {
                 // Mostramos los detalles de las publicaciones
@@ -320,7 +315,6 @@ namespace LogicaNegocio
         }
         public void ImprimirUsuario(List<Usuario> usuarios)
         {
-            Console.Clear();
             for (int i = 0; i < usuarios.Count; i++)
             {
                 // Mostramos los detalles del Usuario
