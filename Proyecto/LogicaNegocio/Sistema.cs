@@ -59,7 +59,7 @@ namespace LogicaNegocio
 
             for (int i = 0; i < _usuarios.Count; i++)
             {
-                if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algun usuario
+                if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
                 {
                     usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
                 }
@@ -89,21 +89,21 @@ namespace LogicaNegocio
         }
         public void ObtenerArticuloPorId(List<int> ids, bool imprimir)
         {
-            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los articulos
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
 
             for (int i = 0; i < _articulos.Count; i++)
             {
-                if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algun articulo
+                if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
                 {
-                    articulos.Add(_articulos[i]); // Se añade el articulo a la lista articulos
+                    articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                 }
             }
 
-            if (articulos.Count < 0 && imprimir) // Si hay algún articulo en la lista entonces se muestran los datos
+            if (articulos.Count < 0 && imprimir) // Si hay algún artículo en la lista entonces se muestran los datos
             {
                 for (int i = 0; i < articulos.Count; i++)
                 {
-                    // Mostramos los detalles del Articulo
+                    // Mostramos los detalles del Artículo
                     Console.WriteLine("-------------------------------------");
                     Console.WriteLine($"ID: {articulos[i].Id}");
                     Console.WriteLine($"Nombre: {articulos[i].Nombre}");
@@ -116,36 +116,41 @@ namespace LogicaNegocio
             }
             else
             {
-                // Mensaje si no encontramos de Articulo
+                // Mensaje si no encontramos de Artículo
                 Console.WriteLine("Articulo no encontrada.");
             }
         }
-        public void ObtenerPublicacionPorId(int id)
+        public void ObtenerPublicacionPorId(List<int> ids, bool imprimir)
         {
-            int index = 0;  // Inicializamos un índice
-            Publicacion? publicacion = null;  // Inicializamos la variable que contendrá la publicación
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
 
-            while (index < _publicaciones.Count && publicacion == null)
+            for (int i = 0; i < _publicaciones.Count; i++)
             {
-                // Comprobamos si el ID coincide
-                if (_publicaciones[index].Id == id)
+                if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
                 {
-                    publicacion = _publicaciones[index];  // Asignamos la publicación encontrada
+                    publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
                 }
-                index++;
             }
 
-            if (publicacion != null)
+            if (publicaciones.Count < 0 && imprimir) // Si hay algúna publicacion en la lista entonces se muestran los datos
             {
-                // Mostramos los detalles de la publicación
-                Console.WriteLine($"ID: {publicacion.Id}");
-                Console.WriteLine($"Nombre: {publicacion.Nombre}");
-                Console.WriteLine($"Estado: {publicacion.Estado}");
-                Console.WriteLine($"Fecha: {publicacion.Fecha}");
-                Console.WriteLine($"Articulos: {publicacion.Articulos}");
-                Console.WriteLine($"Cliente: {publicacion.Cliente}");
-                Console.WriteLine($"Administrador: {publicacion.Administrador}");
-                Console.WriteLine($"Fecha Fin: {publicacion.FechaFin}");
+                for (int i = 0; i < publicaciones.Count; i++)
+                {
+                    // Mostramos los detalles de las publicaciones
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {publicaciones[i].Id}");
+                    Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
+                    Console.WriteLine($"Estado: {publicaciones[i].Estado}");
+                    Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
+                    Console.WriteLine($"Articulos: {publicaciones[i].Articulos}");
+                    Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
+                    Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
+                    Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
+                }
+                Console.WriteLine("-------------------------------------");
+            }
+            else if (publicaciones.Count< 0) // No muestra nada en pantalla
+            {
             }
             else
             {
