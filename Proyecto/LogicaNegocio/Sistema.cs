@@ -9,6 +9,7 @@ namespace LogicaNegocio
 {
     public class Sistema
     {
+        #region Constructor
         // Atributos de la clase con propiedades automaticas (shortHand)
         private List<Usuario> _usuarios {  get; set; }
         private List<Publicacion> _publicaciones { get; set; }
@@ -21,9 +22,9 @@ namespace LogicaNegocio
             _publicaciones = new List<Publicacion>();
             _articulos = new List<Articulo>();
         }
+        #endregion
 
-        // Parseo Datos
-
+        #region Parseo Datos
         public List<int> ParseoIds(string ids_crudos)
         {
             List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
@@ -35,9 +36,9 @@ namespace LogicaNegocio
             }
             return lista_ids;
         }
+        #endregion
 
-        // Obtencion de listas
-
+        #region Obtencion de listas
         public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
@@ -95,8 +96,9 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
+        #endregion
 
-        // Impresion de listas
+        #region Impresion de listas
         public void ImprimirArticulo()
         {
             for (int i = 0; i < _articulos.Count; i++)
@@ -181,8 +183,9 @@ namespace LogicaNegocio
             }
             Console.WriteLine("-------------------------------------");
         }
+        #endregion
 
-        // Altas
+        #region Altas
         public void AltaArticulo(string nombre, decimal precio)
         {
             try
@@ -252,9 +255,9 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-        
-        // Precargas
+        #endregion
 
+        #region Precargas
         public void PrecargaArticulo()
         {
             AltaArticulo("Pelota de fútbol", 450);
@@ -325,6 +328,6 @@ namespace LogicaNegocio
             AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
             AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
         }
-
+        #endregion
     }
 }
