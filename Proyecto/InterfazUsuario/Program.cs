@@ -9,13 +9,13 @@ namespace InterfazUsuario
             miSistema.PrecargaArticulo();
             miSistema.PrecargarPublicacion();
             miSistema.PrecargaUsuario();
-            MenuTesteo();
+            Menu();
         }
 
         // Crear una instancia de la clase Sistema
         private static Sistema miSistema = new Sistema();
 
-        // Menus Principales
+        #region Menus
         static void Menu()
         {
             Console.WriteLine("Menu");
@@ -27,20 +27,20 @@ namespace InterfazUsuario
             switch (opcionSelecionada)
             {
                 case 1:
-                    MenuArticulos();
+                    MenuArticulo();
                     break;
                 case 2:
-                    MenuPublicaciones();
+                    MenuPublicacion();
                     break;
                 case 3:
-                    MenuUsuarios();
+                    MenuUsuario();
                     break;
                 default:
                     Console.WriteLine("Seleccione una opcion valida");
                     break;
             }
         }
-        static void MenuArticulos()
+        static void MenuArticulo()
         {
             Console.WriteLine("Menu Artículos");
             Console.WriteLine("1. Mostrar catálogo");
@@ -51,7 +51,7 @@ namespace InterfazUsuario
             switch (opcionSelecionada)
             {
                 case 1:
-                    miSistema.MostrarCatalogo();
+                    miSistema.ImprimirArticulo();
                     break;
                 case 2:
                     ObtenerArticuloPorId();
@@ -64,7 +64,7 @@ namespace InterfazUsuario
                     break;
             }
         }
-        static void MenuPublicaciones()
+        static void MenuPublicacion()
         {
             Console.WriteLine("Menu Publicaciones");
             Console.WriteLine("1. Mostrar publicaciones");
@@ -75,7 +75,7 @@ namespace InterfazUsuario
             switch (opcionSelecionada)
             {
                 case 1:
-                    miSistema.MostrarPublicaciones();
+                    miSistema.ImprimirPublicacion();
                     break;
                 case 2:
                     ObtenerPublicacionPorId();
@@ -88,7 +88,7 @@ namespace InterfazUsuario
                     break;
             }
         }
-        static void MenuUsuarios()
+        static void MenuUsuario()
         {
             Console.WriteLine("Menu Usuarios");
             Console.WriteLine("1. Mostrar usuarios");
@@ -99,7 +99,7 @@ namespace InterfazUsuario
             switch (opcionSelecionada)
             {
                 case 1:
-                    miSistema.MostrarUsuarios();
+                    miSistema.ImprimirUsuario();
                     break;
                 case 2:
                     ObtenerUsuarioPorId();
@@ -112,8 +112,9 @@ namespace InterfazUsuario
                     break;
             }
         }
+        #endregion
 
-        // Solicitudes de datos
+        #region Solicitudes de datos
         static void ObtenerArticuloPorId()
         {
             Console.WriteLine("Id de los articulos separados por ,:");
@@ -174,39 +175,20 @@ namespace InterfazUsuario
             
             miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
         }
-
-
-        // Menu testeo
-        static void MenuTesteo()
+        static void AltaUsuario()
         {
-            Console.WriteLine("Menu Testeo");
-            Console.WriteLine("1. Consultar Usuario por id");
-            Console.WriteLine("2. Consultar Articulos por id");
-            Console.WriteLine("3. Consultar Publicaciones por id");
-            Console.WriteLine("4. Agregar un Articulo");
-            int.TryParse(Console.ReadLine(), out int opcionSelecionada);
+            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+            Console.WriteLine("Nombre:");
+            string nombre = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Apellido:");
+            string apellido = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Email:");
+            string email = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Contraseña:");
+            string contrasenia = Console.ReadLine() ?? string.Empty;
 
-            if (opcionSelecionada == 1)
-            {
-                // Solicitud datos
-                Console.WriteLine("Ingrese el id que desea buscar");
-                int.TryParse(Console.ReadLine(), out int id);
-
-                miSistema.ObtenerUsuarioPorId(id);
-            }
-            else if ( opcionSelecionada == 4)
-            {
-                // Solicitud datos
-                Console.WriteLine("Ingrese el nombre del Articulo");
-                // ?? operador de coalescencia nula
-                // Si es null devuelve el valor de la derecha
-                // Si no es null devuelve el valor de la izquierda
-                string nombre = Console.ReadLine() ?? string.Empty;
-                Console.WriteLine("Ingrese el Precio");
-                decimal.TryParse(Console.ReadLine(), out decimal precio);
-
-                miSistema.AltaArticulo(nombre, precio);
-            }
+            miSistema.AltaUsuario(nombre, apellido, email, contrasenia);
         }
+        #endregion
     }
 }

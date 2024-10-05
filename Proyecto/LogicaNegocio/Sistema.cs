@@ -97,6 +97,48 @@ namespace LogicaNegocio
         }
 
         // Impresion de listas
+        public void ImprimirArticulo()
+        {
+            for (int i = 0; i < _articulos.Count; i++)
+            {
+                // Mostramos los detalles del Artículo
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {_articulos[i].Id}");
+                Console.WriteLine($"Nombre: {_articulos[i].Nombre}");
+                Console.WriteLine($"Estado: {_articulos[i].Precio}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirPublicacion()
+        {
+            for (int i = 0; i < _publicaciones.Count; i++)
+            {
+                // Mostramos los detalles de las publicaciones
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {_publicaciones[i].Id}");
+                Console.WriteLine($"Nombre: {_publicaciones[i].Nombre}");
+                Console.WriteLine($"Estado: {_publicaciones[i].Estado}");
+                Console.WriteLine($"Fecha: {_publicaciones[i].Fecha}");
+                Console.WriteLine($"Articulos: {_publicaciones[i].Articulos}");
+                Console.WriteLine($"Cliente: {_publicaciones[i].Cliente}");
+                Console.WriteLine($"Administrador: {_publicaciones[i].Administrador}");
+                Console.WriteLine($"Fecha Fin: {_publicaciones[i].FechaFin}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirUsuario()
+        {
+            for (int i = 0; i < _usuarios.Count; i++)
+            {
+                // Mostramos los detalles del Usuario
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {_usuarios[i].Id}");
+                Console.WriteLine($"Nombre: {_usuarios[i].Nombre}");
+                Console.WriteLine($"Apellido: {_usuarios[i].Apellido}");
+                Console.WriteLine($"Email: {_usuarios[i].Email}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
         public void ImprimirArticulo(List<Articulo> articulos)
         {
             for (int i = 0; i < articulos.Count; i++)
