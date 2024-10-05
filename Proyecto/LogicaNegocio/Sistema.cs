@@ -66,22 +66,7 @@ namespace LogicaNegocio
                 }
             }
 
-            if (articulos.Count < 0 && imprimir) // Si hay algún artículo en la lista entonces se muestran los datos
-            {
-                for (int i = 0; i < articulos.Count; i++)
-                {
-                    // Mostramos los detalles del Artículo
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {articulos[i].Id}");
-                    Console.WriteLine($"Nombre: {articulos[i].Nombre}");
-                    Console.WriteLine($"Estado: {articulos[i].Precio}");
-                }
-                Console.WriteLine("-------------------------------------");
-            }
-            else if (articulos.Count < 0) // No muestra nada en pantalla
-            {
-            }
-            else
+            if (articulos.Count > 0)
             {
                 // Mensaje si no encontramos de Artículo
                 Console.WriteLine("Articulo no encontrada.");
@@ -99,27 +84,7 @@ namespace LogicaNegocio
                 }
             }
 
-            if (publicaciones.Count < 0 && imprimir) // Si hay algúna publicacion en la lista entonces se muestran los datos
-            {
-                for (int i = 0; i < publicaciones.Count; i++)
-                {
-                    // Mostramos los detalles de las publicaciones
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {publicaciones[i].Id}");
-                    Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
-                    Console.WriteLine($"Estado: {publicaciones[i].Estado}");
-                    Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
-                    Console.WriteLine($"Articulos: {publicaciones[i].Articulos}");
-                    Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
-                    Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
-                    Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
-                }
-                Console.WriteLine("-------------------------------------");
-            }
-            else if (publicaciones.Count< 0) // No muestra nada en pantalla
-            {
-            }
-            else
+            if (publicaciones.Count > 0)
             {
                 // Mensaje si no encontramos la publicación
                 Console.WriteLine("Publicación no encontrada.");
@@ -145,6 +110,35 @@ namespace LogicaNegocio
         }
 
         // Impresion de listas
+        public void ImprimirArticulo(List<Articulo> articulos)
+        {
+            for (int i = 0; i < articulos.Count; i++)
+            {
+                // Mostramos los detalles del Artículo
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {articulos[i].Id}");
+                Console.WriteLine($"Nombre: {articulos[i].Nombre}");
+                Console.WriteLine($"Estado: {articulos[i].Precio}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirPublicacion(List<Publicacion> publicaciones)
+        {
+            for (int i = 0; i < publicaciones.Count; i++)
+            {
+                // Mostramos los detalles de las publicaciones
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {publicaciones[i].Id}");
+                Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
+                Console.WriteLine($"Estado: {publicaciones[i].Estado}");
+                Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
+                Console.WriteLine($"Articulos: {publicaciones[i].Articulos}");
+                Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
+                Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
+                Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
         public void ImprimirUsuario(List<Usuario> usuarios)
         {
             for (int i = 0; i < usuarios.Count; i++)
