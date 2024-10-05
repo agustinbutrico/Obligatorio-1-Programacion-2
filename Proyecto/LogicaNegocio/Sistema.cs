@@ -34,8 +34,7 @@ namespace LogicaNegocio
         // Ejecucion principal
         public Sistema()
         {
-            PrecargaArticulos();
-            PrecargarPublicaciones();
+          
         }
 
         // Obtencion de listas
@@ -61,7 +60,6 @@ namespace LogicaNegocio
                 Console.WriteLine($"Nombre: {usuario.Nombre}");
                 Console.WriteLine($"Apellido: {usuario.Apellido}");
                 Console.WriteLine($"Email: {usuario.Email}");
-                Console.WriteLine($"Contraseña: {usuario.Contrasenia}");
             }
             else
             {
@@ -180,8 +178,30 @@ namespace LogicaNegocio
             }
         }
 
+        public void AltaUsuario(string nombre, string apellido, string email, string contrasenia)
+        {
+            Usuario nuevoUsuario = new Usuario(nombre, apellido, email, contrasenia);
+            try
+            {
+                nuevoUsuario.Validar();
+                if (!_usuarios.Contains(nuevoUsuario))
+                {
+                    _usuarios.Add(nuevoUsuario);
+                    Console.WriteLine("El usuario fue creado correctamente");
+                }
+                else
+                {
+                    throw new Exception("Ya existe un usuario con el mismo ID");
+                }
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
         // Precargas
-        private void PrecargaUsuarios()
+        public void PrecargaUsuarios()
         {
             AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
             AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
@@ -195,8 +215,9 @@ namespace LogicaNegocio
             AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
 
 
+
         }
-        private void PrecargaArticulos()
+        public void PrecargaArticulos()
         {
             AltaArticulo("Pelota de fútbol", 450);
             AltaArticulo("Camiseta deportiva", 1200);
@@ -249,7 +270,7 @@ namespace LogicaNegocio
             AltaArticulo("Gafas de ciclismo", 900);
 
         }
-        private void PrecargarPublicaciones()
+        public void PrecargarPublicaciones()
         {
 
         }
