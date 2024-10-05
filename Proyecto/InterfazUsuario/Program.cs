@@ -6,7 +6,13 @@ namespace InterfazUsuario
     {
         static void Main(string[] args)
         {
+
+            miSistema.PrecargaUsuarios();
+            miSistema.PrecargaArticulos();
+            miSistema.PrecargarPublicaciones();
+            Console.Clear();
             Menu();
+
         }
 
         // Crear una instancia de la clase Sistema
