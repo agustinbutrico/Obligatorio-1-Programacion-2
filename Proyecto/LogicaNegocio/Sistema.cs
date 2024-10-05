@@ -28,11 +28,18 @@ namespace LogicaNegocio
         public List<int> ParseoIds(string ids_crudos)
         {
             List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
-            string[] ids = ids_crudos.Split(','); // Crea un array de los ids
-
-            for (int i = 0; i < ids.Length; i++) // Recorre todos los elementos de ids
+            try
             {
-                lista_ids.Add(int.Parse(ids[i].Trim())); // Remueve los espacios, transforma a int y añiade a la lista el id
+                string[] ids = ids_crudos.Split(','); // Crea un array de los ids
+
+                for (int i = 0; i < ids.Length; i++) // Recorre todos los elementos de ids
+                {
+                    lista_ids.Add(int.Parse(ids[i].Trim())); // Remueve los espacios, transforma a int y añiade a la lista el id
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return lista_ids;
         }
