@@ -25,74 +25,122 @@ namespace LogicaNegocio
         #endregion
 
         #region Parseo Datos
-        public List<int> ParseoIds(string ids_crudos)
+        public List<int> ParseoId(string ids_crudos)
         {
             List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
-            string[] ids = ids_crudos.Split(','); // Crea un array de los ids
-
-            for (int i = 0; i < ids.Length; i++) // Recorre todos los elementos de ids
+            try
             {
-                lista_ids.Add(int.Parse(ids[i].Trim())); // Remueve los espacios, transforma a int y añiade a la lista el id
+                string[] ids = ids_crudos.Split(','); // Crea un array de los ids
+
+                for (int i = 0; i < ids.Length; i++) // Recorre todos los elementos de ids
+                {
+                    lista_ids.Add(int.Parse(ids[i].Trim())); // Remueve los espacios, transforma a int y añiade a la lista el id
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return lista_ids;
         }
+
+        public string ParseoArticulo(List<Articulo> articulos)
+        {
+            string ids_articulos = string.Empty;
+            try
+            {
+                for (int i = 0; i < articulos.Count; i++)
+                {
+                    ids_articulos += $"{articulos[i].Id}, ";
+                }
+
+                if (articulos.Count > 0)
+                {
+                    // Quitamos la , del final de los ids
+                    ids_articulos = ids_articulos.Substring(0, ids_articulos.Length - 2);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return ids_articulos;
+        }
         #endregion
 
-        #region Obtencion de listas
+        #region Obtención de listas
         public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
-
-            for (int i = 0; i < _articulos.Count; i++)
+            try 
             {
-                if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
+                for (int i = 0; i < _articulos.Count; i++)
                 {
-                    articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
+                    if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
+                    {
+                        articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
+                    }
+                }
+
+                if (articulos.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún artículo
+                    Console.WriteLine("Articulo no encontrado");
                 }
             }
-
-            if (articulos.Count > 0)
+            catch (Exception ex)
             {
-                // Mensaje si no encontramos de Artículo
-                Console.WriteLine("Articulo no encontrada.");
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return articulos;
         }
         public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
-
-            for (int i = 0; i < _publicaciones.Count; i++)
+            try
             {
-                if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
+                for (int i = 0; i < _publicaciones.Count; i++)
                 {
-                    publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                    if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
+                    {
+                        publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                    }
+                }
+
+                if (publicaciones.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna publicación
+                    Console.WriteLine("Publicación no encontrada");
                 }
             }
-
-            if (publicaciones.Count > 0)
+            catch (Exception ex)
             {
-                // Mensaje si no encontramos la publicación
-                Console.WriteLine("Publicación no encontrada.");
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return publicaciones;
         }
         public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
-
-            for (int i = 0; i < _usuarios.Count; i++)
+            try
             {
-                if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
+                for (int i = 0; i < _usuarios.Count; i++)
                 {
-                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
+                    {
+                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    }
+                }
+
+                if (usuarios.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún usuario
+                    Console.WriteLine("Usuario no encontrado");
                 }
             }
-
-            if (usuarios.Count > 0)
+            catch (Exception ex)
             {
-                // Mensaje si no encontramos ningun Usuario
-                Console.WriteLine("Usuario no encontrado.");
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return usuarios;
         }
@@ -121,7 +169,7 @@ namespace LogicaNegocio
                 Console.WriteLine($"Nombre: {_publicaciones[i].Nombre}");
                 Console.WriteLine($"Estado: {_publicaciones[i].Estado}");
                 Console.WriteLine($"Fecha: {_publicaciones[i].Fecha}");
-                Console.WriteLine($"Articulos: {_publicaciones[i].Articulos}");
+                Console.WriteLine($"Articulos: {ParseoArticulo(_publicaciones[i].Articulos)}");
                 Console.WriteLine($"Cliente: {_publicaciones[i].Cliente}");
                 Console.WriteLine($"Administrador: {_publicaciones[i].Administrador}");
                 Console.WriteLine($"Fecha Fin: {_publicaciones[i].FechaFin}");
@@ -149,7 +197,7 @@ namespace LogicaNegocio
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {articulos[i].Id}");
                 Console.WriteLine($"Nombre: {articulos[i].Nombre}");
-                Console.WriteLine($"Estado: {articulos[i].Precio}");
+                Console.WriteLine($"Precio: {articulos[i].Precio}");
             }
             Console.WriteLine("-------------------------------------");
         }
@@ -186,7 +234,7 @@ namespace LogicaNegocio
         #endregion
 
         #region Altas
-        public void AltaArticulo(string nombre, decimal precio)
+        public void AltaArticulo(string nombre, decimal precio, bool imprimir)
         {
             try
             {
@@ -197,11 +245,14 @@ namespace LogicaNegocio
                 if (!_articulos.Contains(nuevoArticulo))
                 {
                     _articulos.Add(nuevoArticulo);
-                    Console.WriteLine("El articulo fue registrado correctamente");
+                    if (imprimir)
+                    {
+                        Console.WriteLine("El articulo fue registrado correctamente");
+                    }
                 }
                 else
                 {
-                    throw new Exception("Ya existe un articulo con el mismo ID");
+                    throw new Exception("Ya existe un articulo con el mismo nombre");
                 }
             }
             catch (Exception ex)
@@ -209,7 +260,7 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-        public void AltaPublicacion(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin)
+        public void AltaPublicacion(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, bool imprimir)
         {
             try
             {
@@ -220,11 +271,14 @@ namespace LogicaNegocio
                 if (!_publicaciones.Contains(nuevaPublicacion))
                 {
                     _publicaciones.Add(nuevaPublicacion);
-                    Console.WriteLine("La publicación fue registrada correctamente");
+                    if (imprimir)
+                    {
+                        Console.WriteLine("La publicación fue registrada correctamente");
+                    }
                 }
                 else
                 {
-                    throw new Exception("Ya existe una publicación con el mismo ID");
+                    throw new Exception("Ya existe una publicación con el mismo nombre");
                 }
             }
             catch (Exception ex)
@@ -232,7 +286,7 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-        public void AltaUsuario(string nombre, string apellido, string email, string contrasenia)
+        public void AltaUsuario(string nombre, string apellido, string email, string contrasenia, bool imprimir)
         {
             try
             {
@@ -243,11 +297,14 @@ namespace LogicaNegocio
                 if (!_usuarios.Contains(nuevoUsuario))
                 {
                     _usuarios.Add(nuevoUsuario);
-                    Console.WriteLine("El usuario fue registrado correctamente");
+                    if (imprimir)
+                    {
+                        Console.WriteLine("El usuario fue registrado correctamente");
+                    }
                 }
                 else
                 {
-                    throw new Exception("Ya existe un usuario con el mismo ID");
+                    throw new Exception("Ya existe un usuario con el mismo nombre y apellido");
                 }
             }
             catch (Exception ex)
@@ -260,73 +317,74 @@ namespace LogicaNegocio
         #region Precargas
         public void PrecargaArticulo()
         {
-            AltaArticulo("Pelota de fútbol", 450);
-            AltaArticulo("Camiseta deportiva", 1200);
-            AltaArticulo("Zapatillas running", 3500);
-            AltaArticulo("Raqueta de tenis", 4200);
-            AltaArticulo("Balón de baloncesto", 800);
-            AltaArticulo("Guantes de boxeo", 2200);
-            AltaArticulo("Casco de ciclismo", 1800);
-            AltaArticulo("Saco de dormir", 2300);
-            AltaArticulo("Bolsa de gimnasio", 950);
-            AltaArticulo("Bicicleta de montaña", 15000);
-            AltaArticulo("Mochila de trekking", 2100);
-            AltaArticulo("Botella térmica", 750);
-            AltaArticulo("Palo de hockey", 1700);
-            AltaArticulo("Pesas ajustables", 3000);
-            AltaArticulo("Cinta para correr", 25000);
-            AltaArticulo("Guantes de arquero", 900);
-            AltaArticulo("Tabla de surf", 12000);
-            AltaArticulo("Canilleras", 600);
-            AltaArticulo("Traje de neopreno", 5400);
-            AltaArticulo("Gafas de natación", 650);
-            AltaArticulo("Bola de bowling", 3500);
-            AltaArticulo("Skateboard", 2400);
-            AltaArticulo("Patines en línea", 2900);
-            AltaArticulo("Set de pesas", 4200);
-            AltaArticulo("Cuerda para saltar", 300);
-            AltaArticulo("Tobilleras con peso", 850);
-            AltaArticulo("Set de dardos", 400);
-            AltaArticulo("Bate de béisbol", 1900);
-            AltaArticulo("Bola de voleibol", 850);
-            AltaArticulo("Aro de baloncesto", 2700);
-            AltaArticulo("Silla de camping", 1100);
-            AltaArticulo("Tienda de campaña", 8700);
-            AltaArticulo("Colchoneta de yoga", 1200);
-            AltaArticulo("Barra de dominadas", 1900);
-            AltaArticulo("Reloj deportivo", 6500);
-            AltaArticulo("Monopatín eléctrico", 18000);
-            AltaArticulo("Kit de pesca", 3200);
-            AltaArticulo("Bolsa de golf", 7600);
-            AltaArticulo("Raqueta de bádminton", 1600);
-            AltaArticulo("Patineta longboard", 3300);
-            AltaArticulo("Bola de rugby", 1050);
-            AltaArticulo("Kit de snorkel", 1800);
-            AltaArticulo("Camiseta de compresión", 1300);
-            AltaArticulo("Gorra deportiva", 400);
-            AltaArticulo("Balón medicinal", 2000);
-            AltaArticulo("Kit de arquería", 9800);
-            AltaArticulo("Soga de escalada", 5600);
-            AltaArticulo("Casco de esquí", 3700);
-            AltaArticulo("Gafas de ciclismo", 900);
+            AltaArticulo("Pelota de fútbol", 450, false);
+            AltaArticulo("Camiseta deportiva", 1200, false);
+            AltaArticulo("Zapatillas running", 3500, false);
+            AltaArticulo("Raqueta de tenis", 4200, false);
+            AltaArticulo("Balón de baloncesto", 800, false);
+            AltaArticulo("Guantes de boxeo", 2200, false);
+            AltaArticulo("Casco de ciclismo", 1800, false);
+            AltaArticulo("Saco de dormir", 2300, false);
+            AltaArticulo("Bolsa de gimnasio", 950, false);
+            AltaArticulo("Bicicleta de montaña", 15000, false);
+            AltaArticulo("Mochila de trekking", 2100, false);
+            AltaArticulo("Botella térmica", 750, false);
+            AltaArticulo("Palo de hockey", 1700, false);
+            AltaArticulo("Pesas ajustables", 3000, false);
+            AltaArticulo("Cinta para correr", 25000, false);
+            AltaArticulo("Guantes de arquero", 900, false);
+            AltaArticulo("Tabla de surf", 12000, false);
+            AltaArticulo("Canilleras", 600, false);
+            AltaArticulo("Traje de neopreno", 5400, false);
+            AltaArticulo("Gafas de natación", 650, false);
+            AltaArticulo("Bola de bowling", 3500, false);
+            AltaArticulo("Skateboard", 2400, false);
+            AltaArticulo("Patines en línea", 2900, false);
+            AltaArticulo("Set de pesas", 4200, false);
+            AltaArticulo("Cuerda para saltar", 300, false);
+            AltaArticulo("Tobilleras con peso", 850, false);
+            AltaArticulo("Set de dardos", 400, false);
+            AltaArticulo("Bate de béisbol", 1900, false);
+            AltaArticulo("Bola de voleibol", 850, false);
+            AltaArticulo("Aro de baloncesto", 2700, false);
+            AltaArticulo("Silla de camping", 1100, false);
+            AltaArticulo("Tienda de campaña", 8700, false);
+            AltaArticulo("Colchoneta de yoga", 1200, false);
+            AltaArticulo("Barra de dominadas", 1900, false);
+            AltaArticulo("Reloj deportivo", 6500, false);
+            AltaArticulo("Monopatín eléctrico", 18000, false);
+            AltaArticulo("Kit de pesca", 3200, false);
+            AltaArticulo("Bolsa de golf", 7600, false);
+            AltaArticulo("Raqueta de bádminton", 1600, false);
+            AltaArticulo("Patineta longboard", 3300, false);
+            AltaArticulo("Bola de rugby", 1050, false);
+            AltaArticulo("Kit de snorkel", 1800, false);
+            AltaArticulo("Camiseta de compresión", 1300, false);
+            AltaArticulo("Gorra deportiva", 400, false);
+            AltaArticulo("Balón medicinal", 2000, false);
+            AltaArticulo("Kit de arquería", 9800, false);
+            AltaArticulo("Soga de escalada", 5600, false);
+            AltaArticulo("Casco de esquí", 3700, false);
+            AltaArticulo("Gafas de ciclismo", 900, false);
 
         }
         public void PrecargarPublicacion()
         {
-
+            AltaPublicacion("Set de football", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 2, 3, 8 }), null, null, DateTime.MinValue, false);
+            AltaPublicacion("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false);
         }
         public void PrecargaUsuario()
         {
-            AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
-            AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
-            AltaUsuario("Juan", "Peres", "Juanperes@hmail.com", "Juan1234");
-            AltaUsuario("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643");
-            AltaUsuario("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234");
-            AltaUsuario("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2");
-            AltaUsuario("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46");
-            AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31");
-            AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
-            AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
+            AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234", false);
+            AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234", false);
+            AltaUsuario("Juan", "Peres", "Juanperes@hmail.com", "Juan1234", false);
+            AltaUsuario("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643", false);
+            AltaUsuario("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234", false);
+            AltaUsuario("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2", false);
+            AltaUsuario("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46", false);
+            AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31", false);
+            AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990", false);
+            AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", false);
         }
         #endregion
     }

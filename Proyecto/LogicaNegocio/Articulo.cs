@@ -11,7 +11,7 @@ namespace LogicaNegocio
     {
         #region  Atributos de la clase
         private int _id;
-        private static int s_ultId = 3; // Inicializado con el id siguiente a la ultima precarga
+        private static int s_ultId = 0; // Inicializado con el id siguiente a la ultima precarga
         private string _nombre = string.Empty; // Inicializado con una cadena vacía
         private decimal _precio = 0; // Inicializado con 0
         #endregion
