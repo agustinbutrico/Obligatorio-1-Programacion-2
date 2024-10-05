@@ -156,7 +156,7 @@ namespace InterfazUsuario
             string ids_crudos = Console.ReadLine() ?? string.Empty;
 
             List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
-            List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
+            List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids, false); // Obtiene la lista de publicaciones con los ids
             
 
             miSistema.AltaPublicacion(nombre, estado, DateTime.Now, articulos);

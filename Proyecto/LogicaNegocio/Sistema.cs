@@ -53,40 +53,7 @@ namespace LogicaNegocio
         }
 
         // Obtencion de listas
-        public void ObtenerUsuarioPorId(List<int> ids, bool imprimir)
-        {
-            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
 
-            for (int i = 0; i < _usuarios.Count; i++)
-            {
-                if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
-                {
-                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
-                }
-            }
-
-            if (usuarios.Count < 0 && imprimir) // Si hay algún usuario en la lista entonces se muestran los datos
-            {
-                for (int i =0; i < usuarios.Count; i++)
-                {
-                    // Mostramos los detalles del Usuario
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {usuarios[i].Id}");
-                    Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
-                    Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
-                    Console.WriteLine($"Email: {usuarios[i].Email}");
-                }
-                Console.WriteLine("-------------------------------------");
-            }
-            else if (usuarios.Count < 0) // No muestra nada en pantalla
-            {
-            }
-            else
-            {
-                // Mensaje si no encontramos de Usuario
-                Console.WriteLine("Usuario no encontrado.");
-            }
-        }
         public void ObtenerArticuloPorId(List<int> ids, bool imprimir)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
@@ -158,8 +125,44 @@ namespace LogicaNegocio
                 Console.WriteLine("Publicación no encontrada.");
             }
         }
+        public void ObtenerUsuarioPorId(List<int> ids, bool imprimir)
+        {
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
+
+            for (int i = 0; i < _usuarios.Count; i++)
+            {
+                if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
+                {
+                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                }
+            }
+
+            if (usuarios.Count < 0 && imprimir) // Si hay algún usuario en la lista entonces se muestran los datos
+            {
+                for (int i = 0; i < usuarios.Count; i++)
+                {
+                    // Mostramos los detalles del Usuario
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {usuarios[i].Id}");
+                    Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
+                    Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
+                    Console.WriteLine($"Email: {usuarios[i].Email}");
+                }
+                Console.WriteLine("-------------------------------------");
+            }
+            else if (usuarios.Count < 0) // No muestra nada en pantalla
+            {
+            }
+            else
+            {
+                // Mensaje si no encontramos de Usuario
+                Console.WriteLine("Usuario no encontrado.");
+            }
+        }
+        // Impresion de listas
 
         // Altas
+
         public void AltaArticulo(string nombre, decimal precio)
         {
             try
@@ -186,9 +189,9 @@ namespace LogicaNegocio
 
         public void AltaPublicacion(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin)
         {
-            Publicacion nuevaPublicacion = new Publicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
             try
             {
+                Publicacion nuevaPublicacion = new Publicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
                 // Validación de la relacion entre los datos ingresados
                 nuevaPublicacion.Validar();
                 // Si los datos son validos entonces se registra la Publicación
@@ -207,7 +210,29 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
+        public void AltaUsuario(string nombre, string apellido, string email, string contrasenia)
+        {
+            try
+            {
+                Usuario nuevoUsuario = new Usuario(nombre, apellido, email, contrasenia);
+                // Validación de la relacion entre los datos ingresados
+                nuevoUsuario.Validar();
+                // Si los datos son validos entonces se registra el Usuario
+                if (!_usuarios.Contains(nuevoUsuario))
+                {
+                    _usuarios.Add(nuevoUsuario);
+                    Console.WriteLine("El usuario fue registrado correctamente");
+                }
+                else
+                {
+                    throw new Exception("Ya existe un usuario con el mismo ID");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
         // Precargas
         public void PrecargaUsuarios()
         {
