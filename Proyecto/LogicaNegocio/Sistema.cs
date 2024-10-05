@@ -382,6 +382,32 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        public void AltaVenta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, bool ofertaRelampago, bool imprimir)
+        {
+            try
+            {
+                Venta nuevaVenta = new Venta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertaRelampago);
+                // Validación de la relacion entre los datos ingresados
+                nuevaVenta.Validar();
+                // Si los datos son validos entonces se registra la Venta
+                if (!_publicaciones.Contains(nuevaVenta))
+                {
+                    _publicaciones.Add(nuevaVenta);
+                    if (imprimir)
+                    {
+                        Console.WriteLine("La venta fue registrada correctamente");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ya existe una venta con el mismo nombre");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
         public void AltaUsuario(string nombre, string apellido, string email, string contrasenia, bool imprimir)
         {
             try
