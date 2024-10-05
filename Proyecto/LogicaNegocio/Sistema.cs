@@ -87,27 +87,32 @@ namespace LogicaNegocio
                 Console.WriteLine("Usuario no encontrado.");
             }
         }
-        public void ObtenerArticuloPorId(int id)
+        public void ObtenerArticuloPorId(List<int> ids, bool imprimir)
         {
-            int indice = 0; // Inicializamos un índice
-            Articulo? articulo = null;  // Inicializamos la variable que contendrá el Articulo
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los articulos
 
-            while (indice < _articulos.Count && articulo == null)
+            for (int i = 0; i < _articulos.Count; i++)
             {
-                // Comprobamos si el ID coincide
-                if (_articulos[indice].Id == id)
+                if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algun articulo
                 {
-                    articulo = _articulos[indice];  // Asignamos el Articulo encontrada
+                    articulos.Add(_articulos[i]); // Se añade el articulo a la lista articulos
                 }
-                indice++;
             }
 
-            if (articulo != null)
+            if (articulos.Count < 0 && imprimir) // Si hay algún articulo en la lista entonces se muestran los datos
             {
-                // Mostramos los detalles del Articulo
-                Console.WriteLine($"ID: {articulo.Id}");
-                Console.WriteLine($"Nombre: {articulo.Nombre}");
-                Console.WriteLine($"Estado: {articulo.Precio}");
+                for (int i = 0; i < articulos.Count; i++)
+                {
+                    // Mostramos los detalles del Articulo
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {articulos[i].Id}");
+                    Console.WriteLine($"Nombre: {articulos[i].Nombre}");
+                    Console.WriteLine($"Estado: {articulos[i].Precio}");
+                }
+                Console.WriteLine("-------------------------------------");
+            }
+            else if (articulos.Count < 0) // No muestra nada en pantalla
+            {
             }
             else
             {
