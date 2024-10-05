@@ -54,7 +54,7 @@ namespace LogicaNegocio
 
         // Obtencion de listas
 
-        public void ObtenerArticuloPorId(List<int> ids, bool imprimir)
+        public void ObtenerArticuloPorId(List<int> ids)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
 
@@ -72,7 +72,7 @@ namespace LogicaNegocio
                 Console.WriteLine("Articulo no encontrada.");
             }
         }
-        public void ObtenerPublicacionPorId(List<int> ids, bool imprimir)
+        public void ObtenerPublicacionPorId(List<int> ids)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
 
@@ -90,7 +90,7 @@ namespace LogicaNegocio
                 Console.WriteLine("Publicación no encontrada.");
             }
         }
-        public void ObtenerUsuarioPorId(List<int> ids, bool imprimir)
+        public void ObtenerUsuarioPorId(List<int> ids)
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
 
