@@ -166,7 +166,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Id de los articulos separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
-            List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de articulos con los ids
 
             miSistema.ImprimirArticulo(articulos);
@@ -175,7 +175,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Id de las publicaciones separadas por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
-            List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Publicacion> publicacion = miSistema.ObtenerPublicacionPorId(ids); // Obtiene la lista de publicaciones con los ids
 
             miSistema.ImprimirPublicacion(publicacion);
@@ -184,7 +184,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Id de los usuarios separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
-            List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Usuario> usuario = miSistema.ObtenerUsuarioPorId(ids); // Obtiene la lista de usuarios con los ids
 
             miSistema.ImprimirUsuario(usuario);
@@ -220,7 +220,7 @@ namespace InterfazUsuario
             string nombre = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Id de los articulos separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
-            List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
             
             miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, true);

@@ -25,7 +25,7 @@ namespace LogicaNegocio
         #endregion
 
         #region Parseo Datos
-        public List<int> ParseoIds(string ids_crudos)
+        public List<int> ParseoId(string ids_crudos)
         {
             List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
             try
@@ -42,6 +42,29 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
             return lista_ids;
+        }
+
+        public string ParseoArticulo(List<Articulo> articulos)
+        {
+            string ids_articulos = string.Empty;
+            try
+            {
+                for (int i = 0; i < articulos.Count; i++)
+                {
+                    ids_articulos += $"{articulos[i].Id}, ";
+                }
+
+                if (articulos.Count > 0)
+                {
+                    // Quitamos la , del final de los ids
+                    ids_articulos = ids_articulos.Substring(0, ids_articulos.Length - 2);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return ids_articulos;
         }
         #endregion
 
@@ -146,7 +169,7 @@ namespace LogicaNegocio
                 Console.WriteLine($"Nombre: {_publicaciones[i].Nombre}");
                 Console.WriteLine($"Estado: {_publicaciones[i].Estado}");
                 Console.WriteLine($"Fecha: {_publicaciones[i].Fecha}");
-                Console.WriteLine($"Articulos: {_publicaciones[i].Articulos}");
+                Console.WriteLine($"Articulos: {ParseoArticulo(_publicaciones[i].Articulos)}");
                 Console.WriteLine($"Cliente: {_publicaciones[i].Cliente}");
                 Console.WriteLine($"Administrador: {_publicaciones[i].Administrador}");
                 Console.WriteLine($"Fecha Fin: {_publicaciones[i].FechaFin}");
