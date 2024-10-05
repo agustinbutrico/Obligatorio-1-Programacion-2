@@ -9,6 +9,7 @@ namespace LogicaNegocio
 {
     public class Articulo : IValidate
     {
+        #region Constructor
         // Atributos de la clase
         private int _id;
         private static int s_ultId = 3; // Inicializado con el id siguiente a la ultima precarga
@@ -39,7 +40,9 @@ namespace LogicaNegocio
             Nombre = nombre;
             Precio = precio;
         }
+        #endregion
 
+        #region Validación
         // Evaluaciones
         private static string EvaluarNombre(string nombre)
         {
@@ -62,7 +65,9 @@ namespace LogicaNegocio
         public void Validar()
         {
         }
+        #endregion
 
+        #region Método Equals
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
@@ -77,5 +82,6 @@ namespace LogicaNegocio
         {
             return Nombre.GetHashCode();
         }
+        #endregion
     }
 }
