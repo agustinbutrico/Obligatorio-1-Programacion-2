@@ -9,14 +9,14 @@ namespace LogicaNegocio
 {
     public class Articulo : IValidate
     {
-        #region Constructor
-        // Atributos de la clase
+        #region  Atributos de la clase
         private int _id;
         private static int s_ultId = 3; // Inicializado con el id siguiente a la ultima precarga
         private string _nombre = string.Empty; // Inicializado con una cadena vacía
         private decimal _precio = 0; // Inicializado con 0
+        #endregion
 
-        // Propiedades
+        #region Propiedades
         public int Id
         {
             get { return _id; }  // Solo lectura, asignado internamente.
@@ -31,8 +31,9 @@ namespace LogicaNegocio
             get { return _precio; }
             set { _precio = EvaluarPrecio(value); }
         }
+        #endregion
 
-        // Constructor
+        #region Constructor
         public Articulo(string nombre, decimal precio)
         {
             _id = Articulo.s_ultId; // Asigna el ID único

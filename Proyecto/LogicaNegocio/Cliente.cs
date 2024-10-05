@@ -9,23 +9,27 @@ namespace LogicaNegocio
 {
     public class Cliente : Usuario, IValidate
     {
-        // Atributos de la clase
+        #region Atributos de la clase
         private decimal _saldo = 0; // Inicializado en 0
+        #endregion
 
-        // Propiedades
+        #region Propiedades
         public decimal Saldo
         {
             get { return _saldo; }
             set { _saldo = EvaluarSaldo(value); }
         }
+        #endregion
 
-        // Constructor
+        #region Constructor
         public Cliente(string nombre, string apellido, string email, string contrasenia, decimal saldo)
            : base(nombre, apellido, email, contrasenia) // Llamada al constructor de la clase base (Usuario)
         {
             Saldo = saldo;
         }
+        #endregion
 
+        #region Validación
         // Evaluaciones
         private static decimal EvaluarSaldo(decimal saldo)
         {
@@ -40,7 +44,9 @@ namespace LogicaNegocio
         public override void Validar()
         {
         }
+        #endregion
 
+        #region Método Equals
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
@@ -55,5 +61,6 @@ namespace LogicaNegocio
         {
             return (Nombre + Apellido).GetHashCode();
         }
+        #endregion
     }
 }
