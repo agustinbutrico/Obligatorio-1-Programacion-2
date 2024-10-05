@@ -9,28 +9,34 @@ namespace LogicaNegocio
 {
     public class Venta : Publicacion
     {
-        // Atributos de la clase
+        #region Atributos de la clase
         private bool _ofertaRelampago = false; // Inicializado en falso
+        #endregion
 
-        // Propiedades
+        #region Propiedades
         public bool OfertaRelampago
         {
             get { return _ofertaRelampago; }
             set { _ofertaRelampago = value; }
         }
+        #endregion
 
-        // Constructor
+        #region Constructor
         public Venta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente cliente, Administrador administrador, DateTime fechaFin, bool ofertaRelampago)
             : base(nombre, estado, fecha, articulos, cliente, administrador, fechaFin) // Llamada al constructor de la clase base (Usuario)
         {
             OfertaRelampago = ofertaRelampago;
         }
+        #endregion
 
+        #region Validación
         // Validación de Venta, hereda de Publicacion
         public override void Validar()
         {
         }
+        #endregion
 
+        #region Método Equals
         // Sobre escritura del metodo Equals que es usado por Contains
         public override bool Equals(object? obj)
         {
@@ -45,5 +51,6 @@ namespace LogicaNegocio
         {
             return Nombre.GetHashCode();
         }
+        #endregion
     }
 }
