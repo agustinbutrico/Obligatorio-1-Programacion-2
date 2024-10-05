@@ -128,6 +128,14 @@ namespace LogicaNegocio
                 Console.WriteLine("Publicación no encontrada.");
             }
         }
+        //Mostrar Listas
+        public void MostrarCatalogo()
+        {
+            foreach(Articulo articulo in _articulos)
+            {
+                Console.WriteLine($"ID: {articulo.Id}    Nombre: {articulo.Nombre}   Precio: {articulo.Precio}");
+            }
+        }
 
         // Altas
         public void AltaArticulo(string nombre, decimal precio)

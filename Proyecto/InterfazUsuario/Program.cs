@@ -27,6 +27,7 @@ namespace InterfazUsuario
             Console.WriteLine("3. Consultar Publicaciones por id");
             Console.WriteLine("4. Agregar un Articulo");
             Console.WriteLine("5. Agregar un Usuario");
+            Console.WriteLine("6. Mostrar Catalogo");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
 
             if (opcionSelecionada == 1)
@@ -76,6 +77,11 @@ namespace InterfazUsuario
                 string contrasenia = Console.ReadLine() ?? string.Empty;
 
                 miSistema.AltaUsuario(nombre, apellido, email, contrasenia);
+            }
+            else if(opcionSelecionada == 6)
+            {
+                Console.WriteLine("Los articulos en el sistema son los siguientes: \n");
+                miSistema.MostrarCatalogo();
             }
         }
     }
