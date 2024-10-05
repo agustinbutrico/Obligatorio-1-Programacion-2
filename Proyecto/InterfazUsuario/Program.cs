@@ -44,7 +44,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Menu Artículos");
             Console.WriteLine("1. Mostrar catálogo");
-            Console.WriteLine("2. Buscar artículo por ID");
+            Console.WriteLine("2. Buscar artículos por ID");
             Console.WriteLine("3. Dar de alta artículo");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
 
@@ -68,7 +68,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Menu Publicaciones");
             Console.WriteLine("1. Mostrar publicaciones");
-            Console.WriteLine("2. Buscar publicacion por ID");
+            Console.WriteLine("2. Buscar publicaciones por ID");
             Console.WriteLine("3. Dar de alta publicacion");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
 
@@ -92,7 +92,7 @@ namespace InterfazUsuario
         {
             Console.WriteLine("Menu Usuarios");
             Console.WriteLine("1. Mostrar usuarios");
-            Console.WriteLine("2. Buscar usuario por ID");
+            Console.WriteLine("2. Buscar usuarios por ID");
             Console.WriteLine("3. Dar de alta usuario");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
 
@@ -116,24 +116,30 @@ namespace InterfazUsuario
         // Solicitudes de datos
         static void ObtenerArticuloPorId()
         {
-            Console.WriteLine("Introduzca el ID");
-            int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine("Id de los articulos separados por ,:");
+            string ids_crudos = Console.ReadLine() ?? string.Empty;
+            List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de articulos con los ids
 
-            miSistema.ObtenerArticuloPorId(id);
+            miSistema.ImprimirArticulo(articulos);
         }
         static void ObtenerPublicacionPorId()
         {
-            Console.WriteLine("Introduzca el ID");
-            int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine("Id de las publicaciones separadas por ,:");
+            string ids_crudos = Console.ReadLine() ?? string.Empty;
+            List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<Publicacion> publicacion = miSistema.ObtenerPublicacionPorId(ids); // Obtiene la lista de publicaciones con los ids
 
-            miSistema.ObtenerPublicacionPorId(id);
+            miSistema.ImprimirPublicacion(publicacion);
         }
         static void ObtenerUsuarioPorId()
         {
-            Console.WriteLine("Introduzca el ID");
-            int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine("Id de los usuarios separados por ,:");
+            string ids_crudos = Console.ReadLine() ?? string.Empty;
+            List<int> ids = miSistema.ParseoIds(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<Usuario> usuario = miSistema.ObtenerUsuarioPorId(ids); // Obtiene la lista de usuarios con los ids
 
-            miSistema.ObtenerUsuarioPorId(id);
+            miSistema.ImprimirUsuario(usuario);
         }
         static void AltaArticulo()
         {

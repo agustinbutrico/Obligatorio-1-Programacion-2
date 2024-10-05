@@ -97,7 +97,7 @@ namespace LogicaNegocio
         }
 
         // Impresion de listas
-        public static void ImprimirArticulo(List<Articulo> articulos)
+        public void ImprimirArticulo(List<Articulo> articulos)
         {
             for (int i = 0; i < articulos.Count; i++)
             {
@@ -109,7 +109,7 @@ namespace LogicaNegocio
             }
             Console.WriteLine("-------------------------------------");
         }
-        public static void ImprimirPublicacion(List<Publicacion> publicaciones)
+        public void ImprimirPublicacion(List<Publicacion> publicaciones)
         {
             for (int i = 0; i < publicaciones.Count; i++)
             {
@@ -126,7 +126,7 @@ namespace LogicaNegocio
             }
             Console.WriteLine("-------------------------------------");
         }
-        public static void ImprimirUsuario(List<Usuario> usuarios)
+        public void ImprimirUsuario(List<Usuario> usuarios)
         {
             for (int i = 0; i < usuarios.Count; i++)
             {
@@ -212,19 +212,7 @@ namespace LogicaNegocio
         }
         
         // Precargas
-        public void PrecargaUsuario()
-        {
-            AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
-            AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
-            AltaUsuario("Juan", "Peres", "Juanperes@hmail.com", "Juan1234");
-            AltaUsuario("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643");
-            AltaUsuario("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234");
-            AltaUsuario("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2");
-            AltaUsuario("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46");
-            AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31");
-            AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
-            AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
-        }
+
         public void PrecargaArticulo()
         {
             AltaArticulo("Pelota de fútbol", 450);
@@ -281,6 +269,19 @@ namespace LogicaNegocio
         public void PrecargarPublicacion()
         {
 
+        }
+        public void PrecargaUsuario()
+        {
+            AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
+            AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
+            AltaUsuario("Juan", "Peres", "Juanperes@hmail.com", "Juan1234");
+            AltaUsuario("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643");
+            AltaUsuario("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234");
+            AltaUsuario("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2");
+            AltaUsuario("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46");
+            AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31");
+            AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990");
+            AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12");
         }
 
     }
