@@ -101,7 +101,7 @@ namespace LogicaNegocio
         // Validación de Publicacion, es virtual ya que le hereda a otras clases
         public virtual void Validar()
         {
-            if (FechaFin <= Fecha)
+            if (FechaFin <= Fecha && FechaFin != DateTime.MinValue)
             {
                 throw new Exception("La fecha de fin debe ser posterior a la fecha de inicio.");
             }
