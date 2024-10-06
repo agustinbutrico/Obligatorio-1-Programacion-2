@@ -284,48 +284,90 @@ namespace LogicaNegocio
             }
             Console.WriteLine("-------------------------------------");
         }
-        public void ImprimirArticulo(List<Articulo> articulos)
+        public void ImprimirArticulo(List<Articulo> articulos, bool margenesGrandes)
         {
             for (int i = 0; i < articulos.Count; i++)
             {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
                 // Mostramos los detalles del Artículo
-                Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {articulos[i].Id}");
                 Console.WriteLine($"Nombre: {articulos[i].Nombre}");
                 Console.WriteLine($"Precio: {articulos[i].Precio}");
             }
-            Console.WriteLine("-------------------------------------");
+            if (margenesGrandes)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
         }
-        public void ImprimirPublicacion(List<Publicacion> publicaciones)
+        public void ImprimirPublicacion(List<Publicacion> publicaciones, bool margenesGrandes)
         {
             for (int i = 0; i < publicaciones.Count; i++)
             {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
                 // Mostramos los detalles de las publicaciones
-                Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {publicaciones[i].Id}");
                 Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
                 Console.WriteLine($"Estado: {publicaciones[i].Estado}");
                 Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
                 Console.WriteLine($"Articulos: {ParseoArticulo(publicaciones[i].Articulos)}");
-                ImprimirArticulo(publicaciones[i].Articulos); // Imprime los datos de los articulos asociados
+                ImprimirArticulo(publicaciones[i].Articulos, false); // Imprime los datos de los articulos asociados
                 Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
                 Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
                 Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
             }
-            Console.WriteLine("-------------------------------------");
+            if (margenesGrandes)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
         }
-        public void ImprimirUsuario(List<Usuario> usuarios)
+        public void ImprimirUsuario(List<Usuario> usuarios, bool margenesGrandes)
         {
             for (int i = 0; i < usuarios.Count; i++)
             {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
                 // Mostramos los detalles del Usuario
-                Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {usuarios[i].Id}");
                 Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
                 Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
                 Console.WriteLine($"Email: {usuarios[i].Email}");
             }
-            Console.WriteLine("-------------------------------------");
+            if (margenesGrandes)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
         }
         #endregion
 

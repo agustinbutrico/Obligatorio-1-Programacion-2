@@ -130,11 +130,12 @@ namespace InterfazUsuario
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
-                Console.WriteLine("4. Dar de alta publicacion");
+                Console.WriteLine("4. Dar de alta venta");
             }
             else
             {
                 Console.WriteLine("4. Dar de alta publicacion");
+                Console.WriteLine("5. Dar de alta venta");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -302,7 +303,7 @@ namespace InterfazUsuario
                         break;
                     case 4:
                         Console.Clear();
-                        AltaPublicacion();
+                        AltaVenta();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
@@ -340,6 +341,12 @@ namespace InterfazUsuario
                     case 4:
                         Console.Clear();
                         AltaPublicacion();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 5:
+                        Console.Clear();
+                        AltaVenta();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
@@ -469,7 +476,7 @@ namespace InterfazUsuario
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de articulos con los ids
 
-            miSistema.ImprimirArticulo(articulos);
+            miSistema.ImprimirArticulo(articulos, true);
         }
         static void ObtenerPublicacionPorId()
         {
@@ -479,7 +486,7 @@ namespace InterfazUsuario
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Publicacion> publicacion = miSistema.ObtenerPublicacionPorId(ids); // Obtiene la lista de publicaciones con los ids
 
-            miSistema.ImprimirPublicacion(publicacion);
+            miSistema.ImprimirPublicacion(publicacion, true);
         }
         static void ObtenerUsuarioPorId()
         {
@@ -489,7 +496,7 @@ namespace InterfazUsuario
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
             List<Usuario> usuario = miSistema.ObtenerUsuarioPorId(ids); // Obtiene la lista de usuarios con los ids
 
-            miSistema.ImprimirUsuario(usuario);
+            miSistema.ImprimirUsuario(usuario, true);
         }
         static void ObtenerArticuloPorNombre()
         {
@@ -499,7 +506,7 @@ namespace InterfazUsuario
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             List<Articulo> articulos = miSistema.ObtenerArticuloPorNombre(nombres); // Obtiene la lista de articulos con los nombres
 
-            miSistema.ImprimirArticulo(articulos);
+            miSistema.ImprimirArticulo(articulos, true);
         }
         static void ObtenerPublicacionPorNombre()
         {
@@ -509,7 +516,7 @@ namespace InterfazUsuario
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres); // Obtiene la lista de publicaciones con los nombres
 
-            miSistema.ImprimirPublicacion(publicaciones);
+            miSistema.ImprimirPublicacion(publicaciones, true);
         }
         static void ObtenerUsuarioPorNombre()
         {
@@ -519,7 +526,7 @@ namespace InterfazUsuario
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             List<Usuario> usuarios = miSistema.ObtenerUsuarioPorNombre(nombres); // Obtiene la lista de usuarios con los nombres
 
-            miSistema.ImprimirUsuario(usuarios);
+            miSistema.ImprimirUsuario(usuarios, true);
         }
         #endregion
 
@@ -556,6 +563,34 @@ namespace InterfazUsuario
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
             
             miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, true);
+        }
+        static void AltaVenta()
+        {
+            // Valores por defecto
+            string estado = "ABIERTA";
+            DateTime fecha = DateTime.Now;
+            Cliente? cliente = null;
+            Administrador? administrador = null;
+            DateTime fechaFin = DateTime.MinValue;
+
+            // Solicitud datos
+            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+            Console.WriteLine("Nombre:");
+            string nombre = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Id de los articulos separados por ,:");
+            string ids_crudos = Console.ReadLine() ?? string.Empty;
+            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
+            Console.WriteLine("Es oferta relampago?\n1. Si\n2. No");
+            int.TryParse(Console.ReadLine(), out int esOferta);
+            bool ofertaRelampago = false;
+
+            if ( esOferta == 1 )
+            {
+                ofertaRelampago = true;
+            }
+
+            miSistema.AltaVenta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertaRelampago, true);
         }
         static void AltaUsuario()
         {
