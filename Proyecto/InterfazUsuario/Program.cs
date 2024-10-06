@@ -123,21 +123,22 @@ namespace InterfazUsuario
             Console.WriteLine("Menu Publicaciones");
             Console.WriteLine("0. ...");
             Console.WriteLine("1. Mostrar publicaciones");
-            Console.WriteLine("2. Buscar publicaciones por ID");
-            Console.WriteLine("3. Buscar publicaciones por Nombre");
+            Console.WriteLine("2. Mostrar ventas");
+            Console.WriteLine("3. Buscar publicaciones por ID");
+            Console.WriteLine("4. Buscar publicaciones por Nombre");
             if (tipoUsuario == "USUARIO")
             {
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
-                Console.WriteLine("4. Dar de alta venta");
-                Console.WriteLine("5. Dar de alta subasta");
+                Console.WriteLine("5. Dar de alta venta");
+                Console.WriteLine("6. Dar de alta subasta");
             }
             else
             {
-                Console.WriteLine("4. Dar de alta publicacion");
-                Console.WriteLine("5. Dar de alta venta");
-                Console.WriteLine("6. Dar de alta subasta");
+                Console.WriteLine("5. Dar de alta publicacion");
+                Console.WriteLine("6. Dar de alta venta");
+                Console.WriteLine("7. Dar de alta subasta");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -265,11 +266,17 @@ namespace InterfazUsuario
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerPublicacionPorId();
+                        miSistema.ImprimirVenta();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
+                        Console.Clear();
+                        ObtenerPublicacionPorId();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 4:
                         Console.Clear();
                         ObtenerPublicacionPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -296,23 +303,35 @@ namespace InterfazUsuario
                         break;
                     case 2:
                         Console.Clear();
-                        ObtenerPublicacionPorId();
+                        miSistema.ImprimirVenta();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 3:
                         Console.Clear();
-                        ObtenerPublicacionPorNombre();
+                        ObtenerPublicacionPorId();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 4:
                         Console.Clear();
-                        AltaVenta();
+                        ObtenerPublicacionPorNombre();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
                     case 5:
+                        Console.Clear();
+                        AltaPublicacion();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 6:
+                        Console.Clear();
+                        AltaVenta();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 7:
                         Console.Clear();
                         AltaSubasta();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
@@ -632,7 +651,7 @@ namespace InterfazUsuario
         }
         static void AltaUsuario()
         {
-            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+            Console.WriteLine("Ingrese los datos que desea asociar al usuario");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Apellido:");
@@ -650,7 +669,7 @@ namespace InterfazUsuario
             int saldo = 0;
 
             // Solicitud datos
-            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+            Console.WriteLine("Ingrese los datos que desea asociar al cliente");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Apellido:");
@@ -664,7 +683,7 @@ namespace InterfazUsuario
         }
         static void AltaAdministrador()
         {
-            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+            Console.WriteLine("Ingrese los datos que desea asociar al administrador");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Apellido:");

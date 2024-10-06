@@ -91,7 +91,7 @@ namespace LogicaNegocio
         #region Obtención de listas
         public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
-            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             try 
             {
                 for (int i = 0; i < _articulos.Count; i++)
@@ -116,7 +116,7 @@ namespace LogicaNegocio
         }
         public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
         {
-            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             try
             {
                 for (int i = 0; i < _publicaciones.Count; i++)
@@ -141,7 +141,7 @@ namespace LogicaNegocio
         }
         public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
         {
-            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             try
             {
                 for (int i = 0; i < _usuarios.Count; i++)
@@ -166,7 +166,7 @@ namespace LogicaNegocio
         }
         public List<Articulo> ObtenerArticuloPorNombre(List<string> nombres)
         {
-            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá el o los artículos
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             try
             {
                 for (int i = 0; i < _articulos.Count; i++)
@@ -191,7 +191,7 @@ namespace LogicaNegocio
         }
         public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres)
         {
-            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá el o las publicaciones
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             try
             {
                 for (int i = 0; i < _publicaciones.Count; i++)
@@ -216,7 +216,7 @@ namespace LogicaNegocio
         }
         public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres)
         {
-            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá el o los usuarios
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             try
             {
                 for (int i = 0; i < _usuarios.Count; i++)
@@ -268,6 +268,35 @@ namespace LogicaNegocio
                 Console.WriteLine($"Cliente: {_publicaciones[i].Cliente}");
                 Console.WriteLine($"Administrador: {_publicaciones[i].Administrador}");
                 Console.WriteLine($"Fecha Fin: {_publicaciones[i].FechaFin}");
+                if (_publicaciones[i] is Venta venta)
+                {
+                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
+                }
+                if (_publicaciones[i] is Subasta subasta)
+                {
+                    Console.WriteLine($"Ofertas:");
+                }
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        public void ImprimirVenta()
+        {
+            for (int i = 0; i < _publicaciones.Count; i++)
+            {
+                if (_publicaciones[i] is Venta venta)
+                {
+                    // Mostramos los detalles de las ventas
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {venta.Id}");
+                    Console.WriteLine($"Nombre: {venta.Nombre}");
+                    Console.WriteLine($"Estado: {venta.Estado}");
+                    Console.WriteLine($"Fecha: {venta.Fecha}");
+                    Console.WriteLine($"Articulos: {ParseoArticulo(venta.Articulos)}");
+                    Console.WriteLine($"Cliente: {venta.Cliente}");
+                    Console.WriteLine($"Administrador: {venta.Administrador}");
+                    Console.WriteLine($"Fecha Fin: {venta.FechaFin}");
+                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
+                }
             }
             Console.WriteLine("-------------------------------------");
         }
