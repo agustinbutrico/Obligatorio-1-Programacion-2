@@ -450,6 +450,32 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        public void AltaSubasta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, List<Oferta> ofertas, bool imprimir)
+        {
+            try
+            {
+                Subasta nuevaSubasta = new Subasta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertas);
+                // Validación de la relacion entre los datos ingresados
+                nuevaSubasta.Validar();
+                // Si los datos son validos entonces se registra la Subasta
+                if (!_publicaciones.Contains(nuevaSubasta))
+                {
+                    _publicaciones.Add(nuevaSubasta);
+                    if (imprimir)
+                    {
+                        Console.WriteLine("La subasta fue registrada correctamente");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ya existe una subasta con el mismo nombre");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
         public void AltaUsuario(string nombre, string apellido, string email, string contrasenia, bool imprimir)
         {
             try

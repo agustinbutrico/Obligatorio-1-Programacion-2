@@ -131,11 +131,13 @@ namespace InterfazUsuario
             else if (tipoUsuario == "ADMINISTRADOR")
             {
                 Console.WriteLine("4. Dar de alta venta");
+                Console.WriteLine("5. Dar de alta subasta");
             }
             else
             {
                 Console.WriteLine("4. Dar de alta publicacion");
                 Console.WriteLine("5. Dar de alta venta");
+                Console.WriteLine("6. Dar de alta subasta");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -307,6 +309,12 @@ namespace InterfazUsuario
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
+                    case 5:
+                        Console.Clear();
+                        AltaSubasta();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                        MenuPublicacion(tipoUsuario);
+                        break;
                     default:
                         Console.WriteLine("Seleccione una opcion valida");
                         break;
@@ -347,6 +355,12 @@ namespace InterfazUsuario
                     case 5:
                         Console.Clear();
                         AltaVenta();
+                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                        MenuPublicacion(tipoUsuario);
+                        break;
+                    case 6:
+                        Console.Clear();
+                        AltaSubasta();
                         VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                         MenuPublicacion(tipoUsuario);
                         break;
@@ -574,7 +588,7 @@ namespace InterfazUsuario
             DateTime fechaFin = DateTime.MinValue;
 
             // Solicitud datos
-            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+            Console.WriteLine("Ingrese los datos que desea asociar a la venta");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Id de los articulos separados por ,:");
@@ -591,6 +605,27 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaVenta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertaRelampago, true);
+        }
+        static void AltaSubasta()
+        {
+            // Valores por defecto
+            string estado = "ABIERTA";
+            DateTime fecha = DateTime.Now;
+            Cliente? cliente = null;
+            Administrador? administrador = null;
+            DateTime fechaFin = DateTime.MinValue;
+            List<Oferta> ofertas = new List<Oferta>();
+
+            // Solicitud datos
+            Console.WriteLine("Ingrese los datos que desea asociar a la subasta");
+            Console.WriteLine("Nombre:");
+            string nombre = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Id de los articulos separados por ,:");
+            string ids_crudos = Console.ReadLine() ?? string.Empty;
+            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
+
+            miSistema.AltaSubasta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertas, true);
         }
         static void AltaUsuario()
         {
