@@ -284,47 +284,90 @@ namespace LogicaNegocio
             }
             Console.WriteLine("-------------------------------------");
         }
-        public void ImprimirArticulo(List<Articulo> articulos)
+        public void ImprimirArticulo(List<Articulo> articulos, bool margenesGrandes)
         {
             for (int i = 0; i < articulos.Count; i++)
             {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
                 // Mostramos los detalles del Artículo
-                Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {articulos[i].Id}");
                 Console.WriteLine($"Nombre: {articulos[i].Nombre}");
                 Console.WriteLine($"Precio: {articulos[i].Precio}");
             }
-            Console.WriteLine("-------------------------------------");
+            if (margenesGrandes)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
         }
-        public void ImprimirPublicacion(List<Publicacion> publicaciones)
+        public void ImprimirPublicacion(List<Publicacion> publicaciones, bool margenesGrandes)
         {
             for (int i = 0; i < publicaciones.Count; i++)
             {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
                 // Mostramos los detalles de las publicaciones
-                Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {publicaciones[i].Id}");
                 Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
                 Console.WriteLine($"Estado: {publicaciones[i].Estado}");
                 Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
-                Console.WriteLine($"Articulos: {publicaciones[i].Articulos}");
+                Console.WriteLine($"Articulos: {ParseoArticulo(publicaciones[i].Articulos)}");
+                ImprimirArticulo(publicaciones[i].Articulos, false); // Imprime los datos de los articulos asociados
                 Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
                 Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
                 Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
             }
-            Console.WriteLine("-------------------------------------");
+            if (margenesGrandes)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
         }
-        public void ImprimirUsuario(List<Usuario> usuarios)
+        public void ImprimirUsuario(List<Usuario> usuarios, bool margenesGrandes)
         {
             for (int i = 0; i < usuarios.Count; i++)
             {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
                 // Mostramos los detalles del Usuario
-                Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {usuarios[i].Id}");
                 Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
                 Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
                 Console.WriteLine($"Email: {usuarios[i].Email}");
             }
-            Console.WriteLine("-------------------------------------");
+            if (margenesGrandes)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
         }
         #endregion
 
@@ -381,6 +424,32 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        public void AltaVenta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, bool ofertaRelampago, bool imprimir)
+        {
+            try
+            {
+                Venta nuevaVenta = new Venta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertaRelampago);
+                // Validación de la relacion entre los datos ingresados
+                nuevaVenta.Validar();
+                // Si los datos son validos entonces se registra la Venta
+                if (!_publicaciones.Contains(nuevaVenta))
+                {
+                    _publicaciones.Add(nuevaVenta);
+                    if (imprimir)
+                    {
+                        Console.WriteLine("La venta fue registrada correctamente");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ya existe una venta con el mismo nombre");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
         public void AltaUsuario(string nombre, string apellido, string email, string contrasenia, bool imprimir)
         {
             try
@@ -423,6 +492,7 @@ namespace LogicaNegocio
             AltaArticulo("Bolsa de gimnasio", 950, false);
             AltaArticulo("Bicicleta de montaña", 15000, false);
             AltaArticulo("Mochila de trekking", 2100, false);
+            AltaArticulo("Protector solar", 320, false);
             AltaArticulo("Botella térmica", 750, false);
             AltaArticulo("Palo de hockey", 1700, false);
             AltaArticulo("Pesas ajustables", 3000, false);
@@ -435,17 +505,22 @@ namespace LogicaNegocio
             AltaArticulo("Bola de bowling", 3500, false);
             AltaArticulo("Skateboard", 2400, false);
             AltaArticulo("Patines en línea", 2900, false);
+            AltaArticulo("Salvavidas", 1200, false);
             AltaArticulo("Set de pesas", 4200, false);
             AltaArticulo("Cuerda para saltar", 300, false);
+            AltaArticulo("Bicicleta de carrera", 18500, false);
             AltaArticulo("Tobilleras con peso", 850, false);
             AltaArticulo("Set de dardos", 400, false);
             AltaArticulo("Bate de béisbol", 1900, false);
             AltaArticulo("Bola de voleibol", 850, false);
             AltaArticulo("Aro de baloncesto", 2700, false);
+            AltaArticulo("Zapatilla de ciclismo", 1900, false);
             AltaArticulo("Silla de camping", 1100, false);
+            AltaArticulo("Sombrilla", 1600, false);
             AltaArticulo("Tienda de campaña", 8700, false);
             AltaArticulo("Colchoneta de yoga", 1200, false);
             AltaArticulo("Barra de dominadas", 1900, false);
+            AltaArticulo("Malla", 600, false);
             AltaArticulo("Reloj deportivo", 6500, false);
             AltaArticulo("Monopatín eléctrico", 18000, false);
             AltaArticulo("Kit de pesca", 3200, false);
@@ -460,12 +535,14 @@ namespace LogicaNegocio
             AltaArticulo("Kit de arquería", 9800, false);
             AltaArticulo("Soga de escalada", 5600, false);
             AltaArticulo("Casco de esquí", 3700, false);
+            AltaArticulo("Balde", 1050, false);
             AltaArticulo("Gafas de ciclismo", 900, false);
 
         }
         public void PrecargarPublicacion()
         {
-            AltaPublicacion("Set de football", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 2, 3, 8 }), null, null, DateTime.MinValue, false);
+            AltaPublicacion("Verano en la playa", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 11, 24, 35, 54 }), null, null, DateTime.MinValue, false);
+            AltaPublicacion("Vuelta ciclista", "ABIERTA", DateTime.ParseExact("06/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 27, 33, 39 }), null, null, DateTime.MinValue, false);
             AltaPublicacion("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false);
         }
         public void PrecargaUsuario()
