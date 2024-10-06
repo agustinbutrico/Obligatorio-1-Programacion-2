@@ -619,22 +619,22 @@ namespace LogicaNegocio
         }
         public void PrecargarPublicacion()
         {
-            AltaPublicacion("Verano en la playa", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 11, 24, 35, 54 }), null, null, DateTime.MinValue, false);
-            AltaPublicacion("Vuelta ciclista", "ABIERTA", DateTime.ParseExact("06/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 27, 33, 39 }), null, null, DateTime.MinValue, false);
-            AltaPublicacion("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false);
+            AltaVenta("Verano en la playa", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 11, 24, 35, 54 }), null, null, DateTime.MinValue, false, false);
+            AltaSubasta("Vuelta ciclista", "ABIERTA", DateTime.ParseExact("06/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 27, 33, 39 }), null, null, DateTime.MinValue, new List<Oferta>(), false);
+            AltaVenta("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false, false);
         }
         public void PrecargaUsuario()
         {
-            AltaUsuario("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234", false);
-            AltaUsuario("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234", false);
-            AltaUsuario("Juan", "Peres", "Juanperes@hmail.com", "Juan1234", false);
-            AltaUsuario("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643", false);
-            AltaUsuario("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234", false);
-            AltaUsuario("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2", false);
-            AltaUsuario("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46", false);
-            AltaUsuario("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31", false);
-            AltaUsuario("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990", false);
-            AltaUsuario("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", false);
+            AltaAdministrador("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234", false);
+            AltaAdministrador("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234", false);
+            AltaCliente("Juan", "Peres", "Juanperes@hmail.com", "Juan1234", 2000, false);
+            AltaCliente("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643", 2000, false);
+            AltaCliente("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234", 4500, false);
+            AltaCliente("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2", 5000, false);
+            AltaCliente("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46", 300, false);
+            AltaCliente("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31", 30000, false);
+            AltaCliente("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990", 7200, false);
+            AltaCliente("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", 900, false);
         }
         #endregion
     }
