@@ -25,6 +25,7 @@ namespace LogicaNegocio
         #endregion
 
         #region Parseo Datos
+        #region Universal
         // Convierte en una lista de ids el string pasado por parametros
         public List<int> ParseoId(string ids_crudos)
         {
@@ -63,6 +64,8 @@ namespace LogicaNegocio
             }
             return lista_nombres;
         }
+        #endregion
+        #region Articulo
         // Convierte en string los ids de la lista de articulos pasada por parametros
         public string ParseoArticulo(List<Articulo> articulos)
         {
@@ -87,8 +90,10 @@ namespace LogicaNegocio
             return ids_articulos;
         }
         #endregion
+        #endregion
 
         #region Obtención de listas
+        #region Articulo
         public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
@@ -113,56 +118,6 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
             return articulos;
-        }
-        public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
-        {
-            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
-            try
-            {
-                for (int i = 0; i < _publicaciones.Count; i++)
-                {
-                    if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
-                    {
-                        publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
-                    }
-                }
-
-                if (publicaciones.Count == 0)
-                {
-                    // Mensaje si no encontramos ninguna publicación
-                    Console.WriteLine("Publicación no encontrada");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return publicaciones;
-        }
-        public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
-        {
-            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
-            try
-            {
-                for (int i = 0; i < _usuarios.Count; i++)
-                {
-                    if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
-                    {
-                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
-                    }
-                }
-
-                if (usuarios.Count == 0)
-                {
-                    // Mensaje si no encontramos ningún usuario
-                    Console.WriteLine("Usuario no encontrado");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return usuarios;
         }
         public List<Articulo> ObtenerArticuloPorNombre(List<string> nombres)
         {
@@ -189,6 +144,33 @@ namespace LogicaNegocio
             }
             return articulos;
         }
+        #endregion
+        #region Publicacion
+        public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
+                    {
+                        publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                    }
+                }
+
+                if (publicaciones.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna publicación
+                    Console.WriteLine("Publicación no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return publicaciones;
+        }
         public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
@@ -213,6 +195,33 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
             return publicaciones;
+        }
+            #endregion
+        #region Usuario
+        public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
+        {
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
+                    {
+                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    }
+                }
+
+                if (usuarios.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún usuario
+                    Console.WriteLine("Usuario no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return usuarios;
         }
         public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres)
         {
@@ -240,8 +249,10 @@ namespace LogicaNegocio
             return usuarios;
         }
         #endregion
+        #endregion
 
         #region Impresion de listas
+        #region Articulo
         public void ImprimirArticulo()
         {
             for (int i = 0; i < _articulos.Count; i++)
@@ -251,65 +262,6 @@ namespace LogicaNegocio
                 Console.WriteLine($"ID: {_articulos[i].Id}");
                 Console.WriteLine($"Nombre: {_articulos[i].Nombre}");
                 Console.WriteLine($"Estado: {_articulos[i].Precio}");
-            }
-            Console.WriteLine("-------------------------------------");
-        }
-        public void ImprimirPublicacion()
-        {
-            for (int i = 0; i < _publicaciones.Count; i++)
-            {
-                // Mostramos los detalles de las publicaciones
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine($"ID: {_publicaciones[i].Id}");
-                Console.WriteLine($"Nombre: {_publicaciones[i].Nombre}");
-                Console.WriteLine($"Estado: {_publicaciones[i].Estado}");
-                Console.WriteLine($"Fecha: {_publicaciones[i].Fecha}");
-                Console.WriteLine($"Articulos: {ParseoArticulo(_publicaciones[i].Articulos)}");
-                Console.WriteLine($"Cliente: {_publicaciones[i].Cliente}");
-                Console.WriteLine($"Administrador: {_publicaciones[i].Administrador}");
-                Console.WriteLine($"Fecha Fin: {_publicaciones[i].FechaFin}");
-                if (_publicaciones[i] is Venta venta)
-                {
-                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
-                }
-                if (_publicaciones[i] is Subasta subasta)
-                {
-                    Console.WriteLine($"Ofertas:");
-                }
-            }
-            Console.WriteLine("-------------------------------------");
-        }
-        public void ImprimirVenta()
-        {
-            for (int i = 0; i < _publicaciones.Count; i++)
-            {
-                if (_publicaciones[i] is Venta venta)
-                {
-                    // Mostramos los detalles de las ventas
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {venta.Id}");
-                    Console.WriteLine($"Nombre: {venta.Nombre}");
-                    Console.WriteLine($"Estado: {venta.Estado}");
-                    Console.WriteLine($"Fecha: {venta.Fecha}");
-                    Console.WriteLine($"Articulos: {ParseoArticulo(venta.Articulos)}");
-                    Console.WriteLine($"Cliente: {venta.Cliente}");
-                    Console.WriteLine($"Administrador: {venta.Administrador}");
-                    Console.WriteLine($"Fecha Fin: {venta.FechaFin}");
-                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
-                }
-            }
-            Console.WriteLine("-------------------------------------");
-        }
-        public void ImprimirUsuario()
-        {
-            for (int i = 0; i < _usuarios.Count; i++)
-            {
-                // Mostramos los detalles del Usuario
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine($"ID: {_usuarios[i].Id}");
-                Console.WriteLine($"Nombre: {_usuarios[i].Nombre}");
-                Console.WriteLine($"Apellido: {_usuarios[i].Apellido}");
-                Console.WriteLine($"Email: {_usuarios[i].Email}");
             }
             Console.WriteLine("-------------------------------------");
         }
@@ -338,6 +290,33 @@ namespace LogicaNegocio
             {
                 Console.WriteLine("------------------");
             }
+        }
+        #endregion
+        #region Publicacion
+        public void ImprimirPublicacion()
+        {
+            for (int i = 0; i < _publicaciones.Count; i++)
+            {
+                // Mostramos los detalles de las publicaciones
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {_publicaciones[i].Id}");
+                Console.WriteLine($"Nombre: {_publicaciones[i].Nombre}");
+                Console.WriteLine($"Estado: {_publicaciones[i].Estado}");
+                Console.WriteLine($"Fecha: {_publicaciones[i].Fecha}");
+                Console.WriteLine($"Articulos: {ParseoArticulo(_publicaciones[i].Articulos)}");
+                Console.WriteLine($"Cliente: {_publicaciones[i].Cliente}");
+                Console.WriteLine($"Administrador: {_publicaciones[i].Administrador}");
+                Console.WriteLine($"Fecha Fin: {_publicaciones[i].FechaFin}");
+                if (_publicaciones[i] is Venta venta)
+                {
+                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
+                }
+                if (_publicaciones[i] is Subasta subasta)
+                {
+                    Console.WriteLine($"Ofertas:");
+                }
+            }
+            Console.WriteLine("-------------------------------------");
         }
         public void ImprimirPublicacion(List<Publicacion> publicaciones, bool margenesGrandes)
         {
@@ -371,6 +350,42 @@ namespace LogicaNegocio
                 Console.WriteLine("------------------");
             }
         }
+        public void ImprimirVenta()
+        {
+            for (int i = 0; i < _publicaciones.Count; i++)
+            {
+                if (_publicaciones[i] is Venta venta)
+                {
+                    // Mostramos los detalles de las ventas
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {venta.Id}");
+                    Console.WriteLine($"Nombre: {venta.Nombre}");
+                    Console.WriteLine($"Estado: {venta.Estado}");
+                    Console.WriteLine($"Fecha: {venta.Fecha}");
+                    Console.WriteLine($"Articulos: {ParseoArticulo(venta.Articulos)}");
+                    Console.WriteLine($"Cliente: {venta.Cliente}");
+                    Console.WriteLine($"Administrador: {venta.Administrador}");
+                    Console.WriteLine($"Fecha Fin: {venta.FechaFin}");
+                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
+                }
+            }
+            Console.WriteLine("-------------------------------------");
+        }
+        #endregion
+        #region Usuario
+        public void ImprimirUsuario()
+        {
+            for (int i = 0; i < _usuarios.Count; i++)
+            {
+                // Mostramos los detalles del Usuario
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {_usuarios[i].Id}");
+                Console.WriteLine($"Nombre: {_usuarios[i].Nombre}");
+                Console.WriteLine($"Apellido: {_usuarios[i].Apellido}");
+                Console.WriteLine($"Email: {_usuarios[i].Email}");
+            }
+            Console.WriteLine("-------------------------------------");
+        }
         public void ImprimirUsuario(List<Usuario> usuarios, bool margenesGrandes)
         {
             for (int i = 0; i < usuarios.Count; i++)
@@ -399,8 +414,10 @@ namespace LogicaNegocio
             }
         }
         #endregion
+        #endregion
 
         #region Altas
+        #region Articulo
         public void AltaArticulo(string nombre, decimal precio, bool imprimir)
         {
             try
@@ -427,6 +444,8 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        #endregion
+        #region Publicacion
         public void AltaPublicacion(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, bool imprimir)
         {
             try
@@ -505,6 +524,8 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        #endregion
+        #region Usuario
         public void AltaUsuario(string nombre, string apellido, string email, string contrasenia, bool imprimir)
         {
             try
@@ -584,8 +605,10 @@ namespace LogicaNegocio
             }
         }
         #endregion
+        #endregion
 
         #region Precargas
+        #region Articulo
         public void PrecargaArticulo()
         {
             AltaArticulo("Pelota de fútbol", 450, false);
@@ -644,14 +667,17 @@ namespace LogicaNegocio
             AltaArticulo("Casco de esquí", 3700, false);
             AltaArticulo("Balde", 1050, false);
             AltaArticulo("Gafas de ciclismo", 900, false);
-
         }
+        #endregion
+        #region Publicacion
         public void PrecargarPublicacion()
         {
             AltaVenta("Verano en la playa", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 11, 24, 35, 54 }), null, null, DateTime.MinValue, false, false);
             AltaSubasta("Vuelta ciclista", "ABIERTA", DateTime.ParseExact("06/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 27, 33, 39 }), null, null, DateTime.MinValue, new List<Oferta>(), false);
             AltaVenta("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false, false);
         }
+        #endregion
+        #region Usuario
         public void PrecargaUsuario()
         {
             AltaAdministrador("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234", false);
@@ -665,6 +691,7 @@ namespace LogicaNegocio
             AltaCliente("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990", 7200, false);
             AltaCliente("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", 900, false);
         }
+        #endregion
         #endregion
     }
 }
