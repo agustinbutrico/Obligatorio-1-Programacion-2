@@ -21,8 +21,8 @@ namespace LogicaNegocio
         #endregion
 
         #region Constructor
-        public Subasta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente cliente, Administrador administrador, DateTime fechaFin, List<Oferta> ofertas)
-            : base(nombre, estado, fecha, articulos, cliente, administrador, fechaFin) // Llamada al constructor de la clase base (Usuario)
+        public Subasta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, List<Oferta> ofertas)
+            : base(nombre, estado, fecha, articulos, cliente, administrador, fechaFin) // Llamada al constructor de la clase base (Publicacion)
         {
             Ofertas = ofertas;
         }

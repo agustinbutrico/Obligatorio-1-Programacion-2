@@ -450,6 +450,32 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        public void AltaSubasta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, List<Oferta> ofertas, bool imprimir)
+        {
+            try
+            {
+                Subasta nuevaSubasta = new Subasta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertas);
+                // Validación de la relacion entre los datos ingresados
+                nuevaSubasta.Validar();
+                // Si los datos son validos entonces se registra la Subasta
+                if (!_publicaciones.Contains(nuevaSubasta))
+                {
+                    _publicaciones.Add(nuevaSubasta);
+                    if (imprimir)
+                    {
+                        Console.WriteLine("La subasta fue registrada correctamente");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ya existe una subasta con el mismo nombre");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
         public void AltaUsuario(string nombre, string apellido, string email, string contrasenia, bool imprimir)
         {
             try
@@ -469,6 +495,58 @@ namespace LogicaNegocio
                 else
                 {
                     throw new Exception("Ya existe un usuario con el mismo nombre y apellido");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+        public void AltaCliente(string nombre, string apellido, string email, string contrasenia, decimal saldo, bool imprimir)
+        {
+            try
+            {
+                Cliente nuevoCliente = new Cliente(nombre, apellido, email, contrasenia, saldo);
+                // Validación de la relacion entre los datos ingresados
+                nuevoCliente.Validar();
+                // Si los datos son validos entonces se registra el Cliente
+                if (!_usuarios.Contains(nuevoCliente))
+                {
+                    _usuarios.Add(nuevoCliente);
+                    if (imprimir)
+                    {
+                        Console.WriteLine("El cliente fue registrado correctamente");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ya existe un cliente con el mismo nombre y apellido");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+        public void AltaAdministrador(string nombre, string apellido, string email, string contrasenia, bool imprimir)
+        {
+            try
+            {
+                Administrador nuevoAdministrador = new Administrador(nombre, apellido, email, contrasenia);
+                // Validación de la relacion entre los datos ingresados
+                nuevoAdministrador.Validar();
+                // Si los datos son validos entonces se registra el Administrador
+                if (!_usuarios.Contains(nuevoAdministrador))
+                {
+                    _usuarios.Add(nuevoAdministrador);
+                    if (imprimir)
+                    {
+                        Console.WriteLine("El administrador fue registrado correctamente");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ya existe un administrador con el mismo nombre y apellido");
                 }
             }
             catch (Exception ex)
