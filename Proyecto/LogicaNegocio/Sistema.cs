@@ -502,6 +502,58 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        public void AltaCliente(string nombre, string apellido, string email, string contrasenia, decimal saldo, bool imprimir)
+        {
+            try
+            {
+                Cliente nuevoCliente = new Cliente(nombre, apellido, email, contrasenia, saldo);
+                // Validación de la relacion entre los datos ingresados
+                nuevoCliente.Validar();
+                // Si los datos son validos entonces se registra el Cliente
+                if (!_usuarios.Contains(nuevoCliente))
+                {
+                    _usuarios.Add(nuevoCliente);
+                    if (imprimir)
+                    {
+                        Console.WriteLine("El cliente fue registrado correctamente");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ya existe un cliente con el mismo nombre y apellido");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+        public void AltaAdministrador(string nombre, string apellido, string email, string contrasenia, bool imprimir)
+        {
+            try
+            {
+                Administrador nuevoAdministrador = new Administrador(nombre, apellido, email, contrasenia);
+                // Validación de la relacion entre los datos ingresados
+                nuevoAdministrador.Validar();
+                // Si los datos son validos entonces se registra el Administrador
+                if (!_usuarios.Contains(nuevoAdministrador))
+                {
+                    _usuarios.Add(nuevoAdministrador);
+                    if (imprimir)
+                    {
+                        Console.WriteLine("El administrador fue registrado correctamente");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Ya existe un administrador con el mismo nombre y apellido");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
         #endregion
 
         #region Precargas

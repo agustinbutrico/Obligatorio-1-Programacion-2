@@ -157,11 +157,14 @@ namespace InterfazUsuario
             }
             else if (tipoUsuario == "ADMINISTRADOR")
             {
-                Console.WriteLine("4. Dar de alta usuario");
+                Console.WriteLine("4. Dar de alta cliente");
+                Console.WriteLine("5. Dar de alta administrador");
             }
             else
             {
                 Console.WriteLine("4. Dar de alta usuario");
+                Console.WriteLine("5. Dar de alta cliente");
+                Console.WriteLine("6. Dar de alta administrador");
             }
             Console.WriteLine("-------------------------------------");
             int.TryParse(Console.ReadLine(), out int opcionSelecionada);
@@ -640,6 +643,38 @@ namespace InterfazUsuario
             string contrasenia = Console.ReadLine() ?? string.Empty;
 
             miSistema.AltaUsuario(nombre, apellido, email, contrasenia, true);
+        }
+        static void AltaCliente()
+        {
+            // Valores por defecto
+            int saldo = 0;
+
+            // Solicitud datos
+            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+            Console.WriteLine("Nombre:");
+            string nombre = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Apellido:");
+            string apellido = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Email:");
+            string email = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Contraseña:");
+            string contrasenia = Console.ReadLine() ?? string.Empty;
+
+            miSistema.AltaCliente(nombre, apellido, email, contrasenia, saldo, true);
+        }
+        static void AltaAdministrador()
+        {
+            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+            Console.WriteLine("Nombre:");
+            string nombre = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Apellido:");
+            string apellido = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Email:");
+            string email = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Contraseña:");
+            string contrasenia = Console.ReadLine() ?? string.Empty;
+
+            miSistema.AltaAdministrador(nombre, apellido, email, contrasenia, true);
         }
         #endregion
     }
