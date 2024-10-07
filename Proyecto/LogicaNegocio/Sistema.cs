@@ -154,7 +154,7 @@ namespace LogicaNegocio
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
-            }
+            }   
             return articulos;
         }
         public List<Articulo> ObtenerArticuloPorId(List<int> ids)
@@ -209,38 +209,24 @@ namespace LogicaNegocio
         }
         #endregion
         #region Publicacion
-        public List<Publicacion> ObtenerPublicaciones()
+        public List<Publicacion> ObtenerPublicaciones(bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             try
             {
                 for (int i = 0; i < _publicaciones.Count; i++)
                 {
-                    publicaciones.Add(_publicaciones[i]); // Se añade cualquier publicacion a la lista publicaciones
-                }
-
-                if (publicaciones.Count == 0)
-                {
-                    // Mensaje si no encontramos ninguna publicación
-                    Console.WriteLine("Publicación no encontrada");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return publicaciones;
-        }
-        public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
-        {
-            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
-            try
-            {
-                for (int i = 0; i < _publicaciones.Count; i++)
-                {
-                    if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
+                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
                     {
-                        publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                        publicaciones.Add(_publicaciones[i]); // Se añade cualquier publicacion a la lista publicaciones
+                    }
+                    if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                    {
+                        publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
+                    }
+                    if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
+                    {
+                        publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
                     }
                 }
 
@@ -256,7 +242,43 @@ namespace LogicaNegocio
             }
             return publicaciones;
         }
-        public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres)
+        public List<Publicacion> ObtenerPublicacionPorId(List<int> ids, bool esUnicamenteVenta, bool esUnicamenteSubasta)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
+                    {
+                        if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                        {
+                            publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                        }
+                        if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                        {
+                            publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
+                        }
+                        if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
+                        {
+                            publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
+                        }
+                    }
+                }
+
+                if (publicaciones.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna publicación
+                    Console.WriteLine("Publicación no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return publicaciones;
+        }
+        public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres, bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             try
@@ -265,7 +287,18 @@ namespace LogicaNegocio
                 {
                     if (nombres.Contains(_publicaciones[i].Nombre)) // Si la lista de nombres contiene algúna publicación
                     {
-                        publicaciones.Add(_publicaciones[i]); // Se añade la publicación a la lista publicaciones
+                        if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                        {
+                            publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                        }
+                        if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                        {
+                            publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
+                        }
+                        if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
+                        {
+                            publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
+                        }
                     }
                 }
 
@@ -280,172 +313,6 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
             return publicaciones;
-        }
-        #endregion
-        #region Venta
-        public List<Publicacion> ObtenerVentas()
-        {
-            List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
-            try
-            {
-                for (int i = 0; i < _publicaciones.Count; i++)
-                {
-                    if (_publicaciones[i] is Venta venta)
-                    {
-                        ventas.Add(venta); // Se añade la venta a la lista ventas
-                    }
-                }
-
-                if (ventas.Count == 0)
-                {
-                    // Mensaje si no encontramos ninguna venta
-                    Console.WriteLine("Venta no encontrada");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return ventas;
-        }
-        public List<Publicacion> ObtenerVentaPorId(List<int> ids)
-        {
-            List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
-            try
-            {
-                for (int i = 0; i < _publicaciones.Count; i++)
-                {
-                    if (_publicaciones[i] is Venta venta)
-                    {
-                        if (ids.Contains(venta.Id)) // Si la lista de ids contiene algúna venta
-                        {
-                            ventas.Add(venta); // Se añade la venta a la lista ventas
-                        }
-                    }
-                }
-
-                if (ventas.Count == 0)
-                {
-                    // Mensaje si no encontramos ninguna venta
-                    Console.WriteLine("Venta no encontrada");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return ventas;
-        }
-        public List<Publicacion> ObtenerVentaPorNombre(List<string> nombres)
-        {
-            List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
-            try
-            {
-                for (int i = 0; i < _publicaciones.Count; i++)
-                {
-                    if (_publicaciones[i] is Venta venta)
-                    {
-                        if (nombres.Contains(venta.Nombre)) // Si la lista de nombres contiene algúna venta
-                        {
-                            ventas.Add(venta); // Se añade la venta a la lista ventas
-                        }
-                    }
-                }
-
-                if (ventas.Count == 0)
-                {
-                    // Mensaje si no encontramos ningúna venta
-                    Console.WriteLine("Venta no encontrada");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return ventas;
-        }
-        #endregion
-        #region Subasta
-        public List<Publicacion> ObtenerSubastas()
-        {
-            List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
-            try
-            {
-                for (int i = 0; i < _publicaciones.Count; i++)
-                {
-                    if (_publicaciones[i] is Subasta subasta)
-                    {
-                        subastas.Add(subasta); // Se añade la subasta a la lista subastas
-                    }
-                }
-
-                if (subastas.Count == 0)
-                {
-                    // Mensaje si no encontramos ninguna subasta
-                    Console.WriteLine("Subasta no encontrada");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return subastas;
-        }
-        public List<Publicacion> ObtenerSubastaPorId(List<int> ids)
-        {
-            List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
-            try
-            {
-                for (int i = 0; i < _publicaciones.Count; i++)
-                {
-                    if (_publicaciones[i] is Subasta subasta)
-                    {
-                        if (ids.Contains(subasta.Id)) // Si la lista de ids contiene algúna subasta
-                        {
-                            subastas.Add(subasta); // Se añade la subasta a la lista subastas
-                        }
-                    }
-                }
-
-                if (subastas.Count == 0)
-                {
-                    // Mensaje si no encontramos ninguna subasta
-                    Console.WriteLine("Subasta no encontrada");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return subastas;
-        }
-        public List<Publicacion> ObtenerSubastaPorNombre(List<string> nombres)
-        {
-            List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
-            try
-            {
-                for (int i = 0; i < _publicaciones.Count; i++)
-                {
-                    if (_publicaciones[i] is Subasta subasta)
-                    {
-                        if (nombres.Contains(subasta.Nombre)) // Si la lista de nombres contiene algúna subasta
-                        {
-                            subastas.Add(subasta); // Se añade la subasta a la lista subastas
-                        }
-                    }
-                }
-
-                if (subastas.Count == 0)
-                {
-                    // Mensaje si no encontramos ningúna subasta
-                    Console.WriteLine("Subasta no encontrada");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return subastas;
         }
         #endregion
         #region Usuario
