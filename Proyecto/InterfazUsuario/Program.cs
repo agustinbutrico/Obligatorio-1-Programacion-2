@@ -713,7 +713,7 @@ namespace InterfazUsuario
                 string nombres_crudos = Console.ReadLine() ?? string.Empty;
                 Console.Clear();
                 List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
-                List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres, false, false)
+                List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres, false, false);
 
                 miSistema.ImprimirPublicacion(publicaciones, true, false);
             }

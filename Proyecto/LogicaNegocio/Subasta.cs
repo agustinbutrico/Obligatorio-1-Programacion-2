@@ -28,6 +28,16 @@ namespace LogicaNegocio
         }
         #endregion
 
+        #region Alta
+        public void AltaOferta(Oferta oferta)
+        {
+            if (Ofertas[Ofertas.Count - 1].Monto < oferta.Monto)
+            {
+                Ofertas.Add(oferta);
+            }
+        }
+        #endregion
+
         #region Validación
         // Validación de Subasta, hereda de Publicacion
         public override void Validar()

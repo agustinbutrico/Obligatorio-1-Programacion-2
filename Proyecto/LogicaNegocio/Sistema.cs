@@ -603,6 +603,14 @@ namespace LogicaNegocio
         }
         #endregion
 
+        #region Ofertas
+        public void RealizarOferta(List<Publicacion> publicaciones)
+        {
+            List<Publicacion>
+        }
+
+        #endregion
+
         /// <summary>
         /// Las precargas son relizadas a travez de las funciones de alta,
         /// esto se hace de este modo para que el id autoincremental se asigne correctamente
