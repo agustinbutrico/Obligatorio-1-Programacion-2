@@ -330,7 +330,7 @@ namespace InterfazUsuario
                     Menu(tipoUsuario);
                     break;
                 case 1:
-                    miSistema.ImprimirArticulo(miSistema.ObtenerArticulos(), true);
+                    ImprimirArticulo(miSistema.ObtenerArticulos(), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuArticulo(tipoUsuario);
                     break;
@@ -404,17 +404,17 @@ namespace InterfazUsuario
                     MenuPublicacion(tipoUsuario);
                     break;
                 case 1:
-                    ImprimirPublicacion(false, false);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
                 case 2:
-                    ImprimirPublicacion(false, false);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), false, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
                 case 3:
-                    ImprimirPublicacion(false, false);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), false, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
@@ -521,7 +521,7 @@ namespace InterfazUsuario
                     MenuAltaUsuario(tipoUsuario);
                     break;
                 case 4:
-                    ImprimirUsuario(true, false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuUsuario(tipoUsuario);
                     break;
@@ -535,17 +535,17 @@ namespace InterfazUsuario
                     MenuUsuario(tipoUsuario);
                     break;
                 case 1:
-                    ImprimirUsuario(false, false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
                 case 2:
-                    ImprimirUsuario(true, false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
                 case 3:
-                    ImprimirUsuario(false, true);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, true), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
@@ -613,32 +613,149 @@ namespace InterfazUsuario
         #endregion
         #endregion
 
-        #region Impresion
-        #region Publicacion
-        static void ImprimirPublicacion(bool esUnicamenteVenta, bool esUnicamenteSubasta)
+        /// <summary>
+        /// Las funciones de impresión son las menores posibles para evitar diferencias en la impresion.
+        /// Estas imprimen los datos basandose en listas de datos.
+        /// Tambien tienen booleanos como margenesGrandes o vistaResumida que sirven para facilitar
+        /// la lectura de los datos por parte del usuario al utilizar el programa
+        /// </summary>
+        #region Impresion de listas
+        #region Articulo
+        static void ImprimirArticulo(List<Articulo> articulos, bool margenesGrandes)
         {
-            try
+            for (int i = 0; i < articulos.Count; i++)
             {
-                List<Publicacion> publicaciones = miSistema.ObtenerPublicaciones(esUnicamenteVenta, esUnicamenteSubasta);
-                miSistema.ImprimirPublicacion(publicaciones, true, true);
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
+                // Mostramos los detalles del Artículo
+                Console.WriteLine($"ID: {articulos[i].Id}");
+                Console.WriteLine($"Nombre: {articulos[i].Nombre}");
+                Console.WriteLine($"Precio: {articulos[i].Precio}");
             }
-            catch (Exception ex)
+            if (margenesGrandes)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
+        }
+        #endregion
+        #region Publicacion
+        static void ImprimirPublicacion(List<Publicacion> publicaciones, bool margenesGrandes, bool vistaResumida)
+        {
+            for (int i = 0; i < publicaciones.Count; i++)
+            {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
+                // Mostramos los detalles de las publicaciones
+                Console.WriteLine($"ID: {publicaciones[i].Id}");
+                Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
+                Console.WriteLine($"Estado: {publicaciones[i].Estado}");
+                Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
+                Console.WriteLine($"Articulos: {miSistema.ParseoArticulo(publicaciones[i].Articulos)}");
+                if (!vistaResumida)
+                {
+                    ImprimirArticulo(publicaciones[i].Articulos, false); // Imprime los datos de los articulos asociados
+                }
+                Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
+                Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
+                Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
+                if (publicaciones[i] is Venta venta)
+                {
+                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
+                }
+                if (publicaciones[i] is Subasta subasta)
+                {
+                    Console.WriteLine($"Ofertas: {miSistema.ParseoOferta(subasta.Ofertas)}");
+                    if (!vistaResumida)
+                    {
+                        ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
+                    }
+                }
+            }
+            if (margenesGrandes)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
             }
         }
         #endregion
         #region Usuario
-        static void ImprimirUsuario(bool esUnicamenteCliente, bool esUnicamenteAdministrador)
+        static void ImprimirUsuario(List<Usuario> usuarios, bool margenesGrandes)
         {
-            try
+            for (int i = 0; i < usuarios.Count; i++)
             {
-                List<Usuario> usuarios = miSistema.ObtenerUsuarios(esUnicamenteCliente, esUnicamenteAdministrador);
-                miSistema.ImprimirUsuario(usuarios, true);
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
+                // Mostramos los detalles del Usuario
+                Console.WriteLine($"ID: {usuarios[i].Id}");
+                Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
+                Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
+                Console.WriteLine($"Email: {usuarios[i].Email}");
+                if (usuarios[i] is Cliente cliente)
+                {
+                    Console.WriteLine($"Saldo: {cliente.Saldo}");
+                }
             }
-            catch (Exception ex)
+            if (margenesGrandes)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
+        }
+        #endregion
+        #region Oferta
+        static void ImprimirOferta(List<Oferta> ofertas, bool margenesGrandes)
+        {
+            for (int i = 0; i < ofertas.Count; i++)
+            {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
+                // Mostramos los detalles de las ofertas
+                Console.WriteLine($"ID: {ofertas[i].Id}");
+                Console.WriteLine($"Usuario: {ofertas[i].Usuario}");
+                Console.WriteLine($"Monto: {ofertas[i].Monto}");
+                Console.WriteLine($"Fecha: {ofertas[i].Fecha}");
+            }
+            if (margenesGrandes)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
             }
         }
         #endregion
@@ -662,7 +779,7 @@ namespace InterfazUsuario
                 List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
                 List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids);
 
-                miSistema.ImprimirArticulo(articulos, true);
+                ImprimirArticulo(articulos, true);
             }
             catch (Exception ex)
             {
@@ -679,7 +796,7 @@ namespace InterfazUsuario
                 List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
                 List<Articulo> articulos = miSistema.ObtenerArticuloPorNombre(nombres);
 
-                miSistema.ImprimirArticulo(articulos, true);
+                ImprimirArticulo(articulos, true);
             }
             catch (Exception ex)
             {
@@ -698,7 +815,7 @@ namespace InterfazUsuario
                 List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
                 List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorId(ids, false, false);
 
-                miSistema.ImprimirPublicacion(publicaciones, true, false);
+                ImprimirPublicacion(publicaciones, true, false);
             }
             catch (Exception ex)
             {
@@ -715,7 +832,7 @@ namespace InterfazUsuario
                 List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
                 List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres, false, false);
 
-                miSistema.ImprimirPublicacion(publicaciones, true, false);
+                ImprimirPublicacion(publicaciones, true, false);
             }
             catch (Exception ex)
             {
@@ -734,7 +851,7 @@ namespace InterfazUsuario
                 List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
                 List<Usuario> usuarios = miSistema.ObtenerUsuarioPorId(ids, false, false);
 
-                miSistema.ImprimirUsuario(usuarios, true);
+                ImprimirUsuario(usuarios, true);
             }
             catch (Exception ex)
             {
@@ -751,7 +868,7 @@ namespace InterfazUsuario
                 List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
                 List<Usuario> usuarios = miSistema.ObtenerUsuarioPorNombre(nombres, false, false);
 
-                miSistema.ImprimirUsuario(usuarios, true);
+                ImprimirUsuario(usuarios, true);
             }
             catch (Exception ex)
             {

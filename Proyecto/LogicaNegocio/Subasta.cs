@@ -29,11 +29,12 @@ namespace LogicaNegocio
         #endregion
 
         #region Alta
-        public void AltaOferta(Oferta oferta)
+        public void AltaOferta(Usuario? usuario, decimal monto, DateTime fecha)
         {
-            if (Ofertas[Ofertas.Count - 1].Monto < oferta.Monto)
+            if (Ofertas[Ofertas.Count - 1].Monto < monto)
             {
-                Ofertas.Add(oferta);
+                Oferta oferta = new Oferta(usuario, monto, fecha); // Llama al costructor de Oferta
+                Ofertas.Add(oferta); // Añade a la lista _ofertas
             }
         }
         #endregion
