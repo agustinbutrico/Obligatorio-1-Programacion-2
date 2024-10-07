@@ -16,6 +16,7 @@ namespace InterfazUsuario
         private static Sistema miSistema = new Sistema();
 
         #region Menu
+        #region Principal
         static void VolverAlMenu()
         {
             Console.WriteLine("Precione Intro para volver al menu");
@@ -96,6 +97,8 @@ namespace InterfazUsuario
                 }
             }
         }
+        #endregion
+        #region Articulo
         static void MenuArticulo(string tipoUsuario)
         {
             // Menu
@@ -117,6 +120,8 @@ namespace InterfazUsuario
 
             OpcionSeleccionadaArticulo(tipoUsuario, opcionSelecionada);
         }
+        #endregion
+        #region Publicacion
         static void MenuPublicacion(string tipoUsuario)
         {
             Console.WriteLine("-------------------------------------");
@@ -145,6 +150,8 @@ namespace InterfazUsuario
 
             OpcionSeleccionadaPublicacion(tipoUsuario, opcionSelecionada);
         }
+        #endregion
+        #region Usuario
         static void MenuUsuario(string tipoUsuario)
         {
             Console.WriteLine("-------------------------------------");
@@ -173,8 +180,10 @@ namespace InterfazUsuario
             OpcionSeleccionadaUsuario(tipoUsuario, opcionSelecionada);
         }
         #endregion
+        #endregion
 
         #region Opciones del menu
+        #region Articulo
         static void OpcionSeleccionadaArticulo(string tipoUsuario, int opcionSelecionada)
         {
             // Ejecución de las opciones del menu por tipo de usuario
@@ -247,6 +256,8 @@ namespace InterfazUsuario
                 }
             }
         }
+        #endregion
+        #region Publicacion
         static void OpcionSeleccionadaPublicacion(string tipoUsuario, int opcionSelecionada)
         {
             // Ejecución de las opciones del menu por tipo de usuario
@@ -392,6 +403,8 @@ namespace InterfazUsuario
                 }
             }
         }
+        #endregion
+        #region Usuario
         static void OpcionSeleccionadaUsuario(string tipoUsuario, int opcionSelecionada)
         {
             // Ejecución de las opciones del menu por tipo de usuario
@@ -502,8 +515,10 @@ namespace InterfazUsuario
             }
         }
         #endregion
+        #endregion
 
         #region Solicitud datos
+        #region Articulo
         static void ObtenerArticuloPorId()
         {
             Console.WriteLine("Id de los articulos separados por ,:");
@@ -513,26 +528,6 @@ namespace InterfazUsuario
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de articulos con los ids
 
             miSistema.ImprimirArticulo(articulos, true);
-        }
-        static void ObtenerPublicacionPorId()
-        {
-            Console.WriteLine("Id de las publicaciones separadas por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
-            List<Publicacion> publicacion = miSistema.ObtenerPublicacionPorId(ids); // Obtiene la lista de publicaciones con los ids
-
-            miSistema.ImprimirPublicacion(publicacion, true);
-        }
-        static void ObtenerUsuarioPorId()
-        {
-            Console.WriteLine("Id de los usuarios separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
-            List<Usuario> usuario = miSistema.ObtenerUsuarioPorId(ids); // Obtiene la lista de usuarios con los ids
-
-            miSistema.ImprimirUsuario(usuario, true);
         }
         static void ObtenerArticuloPorNombre()
         {
@@ -544,6 +539,18 @@ namespace InterfazUsuario
 
             miSistema.ImprimirArticulo(articulos, true);
         }
+        #endregion
+        #region Publicacion
+        static void ObtenerPublicacionPorId()
+        {
+            Console.WriteLine("Id de las publicaciones separadas por ,:");
+            string ids_crudos = Console.ReadLine() ?? string.Empty;
+            Console.Clear();
+            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<Publicacion> publicacion = miSistema.ObtenerPublicacionPorId(ids); // Obtiene la lista de publicaciones con los ids
+
+            miSistema.ImprimirPublicacion(publicacion, true);
+        }
         static void ObtenerPublicacionPorNombre()
         {
             Console.WriteLine("Nombre de las publicaciones separadas por ,:");
@@ -553,6 +560,18 @@ namespace InterfazUsuario
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres); // Obtiene la lista de publicaciones con los nombres
 
             miSistema.ImprimirPublicacion(publicaciones, true);
+        }
+        #endregion
+        #region Usuario
+        static void ObtenerUsuarioPorId()
+        {
+            Console.WriteLine("Id de los usuarios separados por ,:");
+            string ids_crudos = Console.ReadLine() ?? string.Empty;
+            Console.Clear();
+            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<Usuario> usuario = miSistema.ObtenerUsuarioPorId(ids); // Obtiene la lista de usuarios con los ids
+
+            miSistema.ImprimirUsuario(usuario, true);
         }
         static void ObtenerUsuarioPorNombre()
         {
@@ -564,6 +583,7 @@ namespace InterfazUsuario
 
             miSistema.ImprimirUsuario(usuarios, true);
         }
+        #endregion
         #endregion
 
         #region Altas
