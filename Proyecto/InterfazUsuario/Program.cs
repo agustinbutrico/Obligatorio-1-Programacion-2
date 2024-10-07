@@ -404,17 +404,17 @@ namespace InterfazUsuario
                     MenuPublicacion(tipoUsuario);
                     break;
                 case 1:
-                    miSistema.ImprimirPublicacion(miSistema.ObtenerPublicaciones(), true, true);
+                    miSistema.ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
                 case 2:
-                    miSistema.ImprimirPublicacion(miSistema.ObtenerVentas(), true, true);
+                    miSistema.ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
                 case 3:
-                    miSistema.ImprimirPublicacion(miSistema.ObtenerSubastas(), true, true);
+                    miSistema.ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
@@ -521,7 +521,7 @@ namespace InterfazUsuario
                     MenuAltaUsuario(tipoUsuario);
                     break;
                 case 4:
-                    miSistema.ImprimirUsuario(miSistema.ObtenerClientes(), true);
+                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuUsuario(tipoUsuario);
                     break;
@@ -535,17 +535,17 @@ namespace InterfazUsuario
                     MenuUsuario(tipoUsuario);
                     break;
                 case 1:
-                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(), true);
+                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(false, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
                 case 2:
-                    miSistema.ImprimirUsuario(miSistema.ObtenerClientes(), true);
+                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
                 case 3:
-                    miSistema.ImprimirUsuario(miSistema.ObtenerAdministradores(), true);
+                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(false, true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
@@ -648,7 +648,7 @@ namespace InterfazUsuario
             Console.Clear();
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
 
-            miSistema.ImprimirPublicacion(miSistema.ObtenerPublicacionPorId(ids), true, false);
+            miSistema.ImprimirPublicacion(miSistema.ObtenerPublicacionPorId(ids, false, false), true, false);
         }
         static void ObtenerPublicacionPorNombre()
         {
@@ -657,7 +657,7 @@ namespace InterfazUsuario
             Console.Clear();
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
 
-            miSistema.ImprimirPublicacion(miSistema.ObtenerPublicacionPorNombre(nombres), true, false);
+            miSistema.ImprimirPublicacion(miSistema.ObtenerPublicacionPorNombre(nombres, false, false), true, false);
         }
         #endregion
         #region Usuario
@@ -668,7 +668,7 @@ namespace InterfazUsuario
             Console.Clear();
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
 
-            miSistema.ImprimirUsuario(miSistema.ObtenerUsuarioPorId(ids), true);
+            miSistema.ImprimirUsuario(miSistema.ObtenerUsuarioPorId(ids, false, false), true);
         }
         static void ObtenerUsuarioPorNombre()
         {
@@ -677,7 +677,7 @@ namespace InterfazUsuario
             Console.Clear();
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
 
-            miSistema.ImprimirUsuario(miSistema.ObtenerUsuarioPorNombre(nombres), true);
+            miSistema.ImprimirUsuario(miSistema.ObtenerUsuarioPorNombre(nombres, false, false), true);
         }
         #endregion
         #endregion
