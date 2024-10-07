@@ -975,5 +975,39 @@ namespace LogicaNegocio
         }
         #endregion
         #endregion
+
+        #region Consultas
+        /// <summary>
+        /// Estas función averigua el precio total de una lista de ventas
+        /// que puede obtenerse con funciones como ObtenerVentaPorId y ObtenerVentaPorNombre
+        /// La función recorre la lista pasada por parametros, castea las ventas y entra en otro for
+        /// para acceder a los articulos de esa venta y sumar sus precios.
+        /// Los precios sumados de los articulos de una venta son almacenados en la posicion de la
+        /// lista precio correspondiente (siempre es i).
+        /// Una vez sumados los precios de los articulos de una venta, se evalua si es oferta,
+        /// si así lo es, entonces se aplica el 20% de descuento.
+        /// </summary>
+        public List<decimal> ConsultarPrecioVentaDeListaVenta(List<Publicacion> ventas)
+        {
+            List<decimal> precio = new List<decimal>();
+            for (int i = 0; i < ventas.Count; i++)
+            {
+                if (ventas[i] is Venta venta)
+                {
+                    // Recorre la lista de articulos de la venta en especifico y suma su precio al total
+                    for (int j = 0; j < venta.Articulos.Count; j++)
+                    {
+                        precio[i] += venta.Articulos[j].Precio;
+                    }
+                    if (venta.OfertaRelampago)
+                    {
+                        precio[i] = precio[i] * 80 / 100;
+                    }
+                }
+                
+            }
+            return precio;
+        }
+        #endregion
     }
 }
