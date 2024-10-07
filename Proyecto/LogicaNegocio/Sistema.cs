@@ -736,19 +736,6 @@ namespace LogicaNegocio
         }
         #endregion
         #region Usuario
-        public void ImprimirUsuario()
-        {
-            for (int i = 0; i < _usuarios.Count; i++)
-            {
-                // Mostramos los detalles del Usuario
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine($"ID: {_usuarios[i].Id}");
-                Console.WriteLine($"Nombre: {_usuarios[i].Nombre}");
-                Console.WriteLine($"Apellido: {_usuarios[i].Apellido}");
-                Console.WriteLine($"Email: {_usuarios[i].Email}");
-            }
-            Console.WriteLine("-------------------------------------");
-        }
         public void ImprimirUsuario(List<Usuario> usuarios, bool margenesGrandes)
         {
             for (int i = 0; i < usuarios.Count; i++)
@@ -766,6 +753,10 @@ namespace LogicaNegocio
                 Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
                 Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
                 Console.WriteLine($"Email: {usuarios[i].Email}");
+                if (usuarios[i] is Cliente cliente)
+                {
+                    Console.WriteLine($"Saldo: {cliente.Saldo}");
+                }
             }
             if (margenesGrandes)
             {
@@ -774,120 +765,6 @@ namespace LogicaNegocio
             else
             {
                 Console.WriteLine("------------------");
-            }
-        }
-        public void ImprimirCliente()
-        {
-            bool hayCliente = false;
-            for (int i = 0; i < _usuarios.Count; i++)
-            {
-                if (_usuarios[i] is Cliente cliente)
-                {
-                    hayCliente = true;
-                    // Mostramos los detalles de los usuarios
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {cliente.Id}");
-                    Console.WriteLine($"Nombre: {cliente.Nombre}");
-                    Console.WriteLine($"Apellido: {cliente.Apellido}");
-                    Console.WriteLine($"Email: {cliente.Email}");
-                    Console.WriteLine($"Saldo: {cliente.Saldo}");
-                }
-            }
-            if (hayCliente)
-            {
-                Console.WriteLine("-------------------------------------");
-            }
-        }
-        public void ImprimirCliente(List<Usuario> usuarios, bool margenesGrandes)
-        {
-            bool hayCliente = false;
-            for (int i = 0; i < usuarios.Count; i++)
-            {
-                if (usuarios[i] is Cliente cliente)
-                {
-                    hayCliente = true;
-                    if (margenesGrandes)
-                    {
-                        Console.WriteLine("-------------------------------------");
-                    }
-                    else
-                    {
-                        Console.WriteLine("------------------");
-                    }
-                    // Mostramos los detalles de los usuarios
-                    Console.WriteLine($"ID: {cliente.Id}");
-                    Console.WriteLine($"Nombre: {cliente.Nombre}");
-                    Console.WriteLine($"Apellido: {cliente.Apellido}");
-                    Console.WriteLine($"Email: {cliente.Email}");
-                    Console.WriteLine($"Saldo: {cliente.Saldo}");
-                }
-            }
-            if (hayCliente)
-            {
-                if (margenesGrandes)
-                {
-                    Console.WriteLine("-------------------------------------");
-                }
-                else
-                {
-                    Console.WriteLine("------------------");
-                }
-            }
-        }
-        public void ImprimirAdministrador()
-        {
-            bool hayAdministrador = false;
-            for (int i = 0; i < _usuarios.Count; i++)
-            {
-                if (_usuarios[i] is Administrador administrador)
-                {
-                    hayAdministrador = true;
-                    // Mostramos los detalles de los usuarios
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {administrador.Id}");
-                    Console.WriteLine($"Nombre: {administrador.Nombre}");
-                    Console.WriteLine($"Apellido: {administrador.Apellido}");
-                    Console.WriteLine($"Email: {administrador.Email}");
-                }
-            }
-            if (hayAdministrador)
-            {
-                Console.WriteLine("-------------------------------------");
-            }
-        }
-        public void ImprimirAdministrador(List<Usuario> usuarios, bool margenesGrandes)
-        {
-            bool hayAdministrador = false;
-            for (int i = 0; i < usuarios.Count; i++)
-            {
-                if (usuarios[i] is Administrador administrador)
-                {
-                    hayAdministrador = true;
-                    if (margenesGrandes)
-                    {
-                        Console.WriteLine("-------------------------------------");
-                    }
-                    else
-                    {
-                        Console.WriteLine("------------------");
-                    }
-                    // Mostramos los detalles de los usuarios
-                    Console.WriteLine($"ID: {administrador.Id}");
-                    Console.WriteLine($"Nombre: {administrador.Nombre}");
-                    Console.WriteLine($"Apellido: {administrador.Apellido}");
-                    Console.WriteLine($"Email: {administrador.Email}");
-                }
-            }
-            if (hayAdministrador)
-            {
-                if (margenesGrandes)
-                {
-                    Console.WriteLine("-------------------------------------");
-                }
-                else
-                {
-                    Console.WriteLine("------------------");
-                }
             }
         }
         #endregion
