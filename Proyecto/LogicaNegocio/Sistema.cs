@@ -495,7 +495,7 @@ namespace LogicaNegocio
                     Console.WriteLine($"Administrador: {subasta.Administrador}");
                     Console.WriteLine($"Fecha Fin: {subasta.FechaFin}");
                     Console.WriteLine($"Ofertas: {ParseoOferta(subasta.Ofertas)}");
-                    ImprimirOferta(subasta.Articulos, false);
+                    ImprimirOferta(subasta.Ofertas); // Imprime los datos de las ofertas asociadas
                 }
             }
             if (haySubasta)
@@ -551,6 +551,21 @@ namespace LogicaNegocio
             {
                 Console.WriteLine("------------------");
             }
+        }
+        #endregion
+        #region Oferta
+        public void ImprimirOferta(List<Oferta> ofertas)
+        {
+            for (int i = 0; i < ofertas.Count; i++)
+            {
+                // Mostramos los detalles de las ofertas
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine($"ID: {ofertas[i].Id}");
+                Console.WriteLine($"Usuario: {ofertas[i].Usuario}");
+                Console.WriteLine($"Monto: {ofertas[i].Monto}");
+                Console.WriteLine($"Fecha: {ofertas[i].Fecha}");
+            }
+                Console.WriteLine("-------------------------------------");
         }
         #endregion
         #endregion
