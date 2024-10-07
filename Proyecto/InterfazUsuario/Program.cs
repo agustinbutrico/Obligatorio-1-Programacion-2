@@ -31,14 +31,14 @@ namespace InterfazUsuario
             Console.WriteLine("2. Administrador");
             Console.WriteLine("3. Testeo");
             Console.WriteLine("-------------------------------------");
-            int.TryParse(Console.ReadLine(), out int opcionSelecionada);
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
             string tipoUsuario;
 
-            switch (opcionSelecionada)
+            switch (opcionSeleccionada)
             {
                 case 1:
                     Console.Clear();
-                    tipoUsuario = "USUARIO";
+                    tipoUsuario = "CLIENTE";
                     Menu(tipoUsuario);
                     break;
                 case 2:
@@ -60,7 +60,7 @@ namespace InterfazUsuario
         }
         static void Menu(string tipoUsuario)
         {
-            if (tipoUsuario == "USUARIO" || tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
+            if (tipoUsuario == "CLIENTE" || tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
             {
                 Console.WriteLine("-------------------------------------");
                 Console.WriteLine("Menu");
@@ -69,9 +69,9 @@ namespace InterfazUsuario
                 Console.WriteLine("2. Publicaciones");
                 Console.WriteLine("3. Usuarios");
                 Console.WriteLine("-------------------------------------");
-                int.TryParse(Console.ReadLine(), out int opcionSelecionada);
+                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
-                switch (opcionSelecionada)
+                switch (opcionSeleccionada)
                 {
                     case 0:
                         Console.Clear();
@@ -106,19 +106,27 @@ namespace InterfazUsuario
             Console.WriteLine("Menu Artículos");
             Console.WriteLine("0. ...");
             Console.WriteLine("1. Mostrar catálogo");
-            Console.WriteLine("2. Buscar artículos por ID");
-            Console.WriteLine("3. Buscar artículos por Nombre");
-            if (tipoUsuario == "USUARIO")
+            Console.WriteLine("2. Buscar");
+            if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
             {
-            }
-            else if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
-            {
-                Console.WriteLine("4. Dar de alta artículo");
+                Console.WriteLine("3. Dar de alta articulo");
             }
             Console.WriteLine("-------------------------------------");
-            int.TryParse(Console.ReadLine(), out int opcionSelecionada);
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
-            OpcionSeleccionadaArticulo(tipoUsuario, opcionSelecionada);
+            OpcionSeleccionadaArticulo(tipoUsuario, opcionSeleccionada);
+        }
+        static void MenuBuscarArticulo(string tipoUsuario)
+        {
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Menu Busqueda");
+            Console.WriteLine("0. ...");
+            Console.WriteLine("1. Buscar artículo por ID");
+            Console.WriteLine("2. Buscar artículo por Nombre");
+            Console.WriteLine("-------------------------------------");
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+
+            OpcionBuscarArticulo(tipoUsuario, opcionSeleccionada);
         }
         #endregion
         #region Publicacion
@@ -127,28 +135,58 @@ namespace InterfazUsuario
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Publicaciones");
             Console.WriteLine("0. ...");
-            Console.WriteLine("1. Mostrar publicaciones");
-            Console.WriteLine("2. Mostrar ventas");
-            Console.WriteLine("3. Buscar publicaciones por ID");
-            Console.WriteLine("4. Buscar publicaciones por Nombre");
-            if (tipoUsuario == "USUARIO")
+            Console.WriteLine("1. Mostrar");
+            Console.WriteLine("2. Buscar");
+            if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
             {
-            }
-            else if (tipoUsuario == "ADMINISTRADOR")
-            {
-                Console.WriteLine("5. Dar de alta venta");
-                Console.WriteLine("6. Dar de alta subasta");
-            }
-            else
-            {
-                Console.WriteLine("5. Dar de alta publicacion");
-                Console.WriteLine("6. Dar de alta venta");
-                Console.WriteLine("7. Dar de alta subasta");
+                Console.WriteLine("3. Dar de alta");
             }
             Console.WriteLine("-------------------------------------");
-            int.TryParse(Console.ReadLine(), out int opcionSelecionada);
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
-            OpcionSeleccionadaPublicacion(tipoUsuario, opcionSelecionada);
+            OpcionSeleccionadaPublicacion(tipoUsuario, opcionSeleccionada);
+        }
+        static void MenuMostrarPublicacion(string tipoUsuario)
+        {
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Menu Mostrar");
+            Console.WriteLine("0. ...");
+            Console.WriteLine("1. Mostrar todas las publicaciones");
+            Console.WriteLine("2. Mostrar todas las ventas");
+            Console.WriteLine("3. Mostrar todas las subastas");
+            Console.WriteLine("-------------------------------------");
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+
+            OpcionMostrarPublicacion(tipoUsuario, opcionSeleccionada);
+        }
+        static void MenuBuscarPublicacion(string tipoUsuario)
+        {
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Menu Busqueda");
+            Console.WriteLine("0. ...");
+            Console.WriteLine("1. Buscar publicaciones por ID");
+            Console.WriteLine("2. Buscar publicaciones por Nombre");
+            Console.WriteLine("-------------------------------------");
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+
+            OpcionBuscarPublicacion(tipoUsuario, opcionSeleccionada);
+        }
+        static void MenuAltaPublicacion(string tipoUsuario)
+        {
+            int indice = 0;
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Menu Alta");
+            Console.WriteLine($"{indice}. ..."); indice++;
+            if (tipoUsuario == "TESTEO")
+            {
+                Console.WriteLine($"{indice}. Dar de alta publicacion"); indice++;
+            }
+            Console.WriteLine($"{indice}. Dar de alta venta"); indice++;
+            Console.WriteLine($"{indice}. Dar de alta subasta");
+            Console.WriteLine("-------------------------------------");
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+
+            OpcionAltaPublicacion(tipoUsuario, opcionSeleccionada);
         }
         #endregion
         #region Usuario
@@ -157,27 +195,63 @@ namespace InterfazUsuario
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Menu Usuarios");
             Console.WriteLine("0. ...");
-            Console.WriteLine("1. Mostrar usuarios");
-            Console.WriteLine("2. Buscar usuarios por ID");
-            Console.WriteLine("3. Buscar usuarios por Nombre");
-            if (tipoUsuario == "USUARIO")
+            if (tipoUsuario == "CLIENTE")
             {
+                Console.WriteLine("1. Mostrar todos los usuarios");
+                Console.WriteLine("2. Buscar");
             }
-            else if (tipoUsuario == "ADMINISTRADOR")
+            else if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
             {
-                Console.WriteLine("4. Dar de alta cliente");
-                Console.WriteLine("5. Dar de alta administrador");
-            }
-            else
-            {
-                Console.WriteLine("4. Dar de alta usuario");
-                Console.WriteLine("5. Dar de alta cliente");
-                Console.WriteLine("6. Dar de alta administrador");
+                Console.WriteLine("1. Mostrar");
+                Console.WriteLine("2. Buscar");
+                Console.WriteLine("3. Dar de alta");
             }
             Console.WriteLine("-------------------------------------");
-            int.TryParse(Console.ReadLine(), out int opcionSelecionada);
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
             
-            OpcionSeleccionadaUsuario(tipoUsuario, opcionSelecionada);
+            OpcionSeleccionadaUsuario(tipoUsuario, opcionSeleccionada);
+        }
+        static void MenuMostrarUsuario(string tipoUsuario)
+        {
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Menu Mostrar");
+            Console.WriteLine("0. ...");
+            Console.WriteLine("1. Mostrar todos los usuarios");
+            Console.WriteLine("2. Mostrar todos los clientes");
+            Console.WriteLine("3. Mostrar todos los administradores");
+            Console.WriteLine("-------------------------------------");
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+
+            OpcionMostrarUsuario(tipoUsuario, opcionSeleccionada);
+        }
+        static void MenuBuscarUsuario(string tipoUsuario)
+        {
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Menu Busqueda");
+            Console.WriteLine("0. ...");
+            Console.WriteLine("1. Buscar usuario por ID");
+            Console.WriteLine("2. Buscar usuario por Nombre");
+            Console.WriteLine("-------------------------------------");
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+
+            OpcionBuscarUsuario(tipoUsuario, opcionSeleccionada);
+        }
+        static void MenuAltaUsuario(string tipoUsuario)
+        {
+            int indice = 0;
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Menu Alta");
+            Console.WriteLine($"{indice}. ..."); indice++;
+            if (tipoUsuario == "TESTEO")
+            {
+                Console.WriteLine($"{indice}. Dar de alta usuario"); indice++;
+            }
+            Console.WriteLine($"{indice}. Dar de alta cliente"); indice++;
+            Console.WriteLine($"{indice}. Dar de alta administrador");
+            Console.WriteLine("-------------------------------------");
+            int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+
+            OpcionAltaUsuario(tipoUsuario, opcionSeleccionada);
         }
         #endregion
         #endregion
@@ -186,332 +260,365 @@ namespace InterfazUsuario
         #region Articulo
         static void OpcionSeleccionadaArticulo(string tipoUsuario, int opcionSelecionada)
         {
-            // Ejecución de las opciones del menu por tipo de usuario
-            if (tipoUsuario == "USUARIO")
-                switch (opcionSelecionada)
-                {
-                    case 0:
-                        Console.Clear();
-                        Menu(tipoUsuario);
-                        break;
-                    case 1:
-                        Console.Clear();
-                        miSistema.ImprimirArticulo();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuArticulo(tipoUsuario);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        ObtenerArticuloPorId();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuArticulo(tipoUsuario);
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ObtenerArticuloPorNombre();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuArticulo(tipoUsuario);
-                        break;
-                    default:
-                        Console.WriteLine("Seleccione una opcion valida");
-                        break;
-                        {
-                        }
-                }
-            else if (tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
+            if (tipoUsuario == "CLIENTE")
             {
-                switch (opcionSelecionada)
+                if (opcionSelecionada > 2)
                 {
-                    case 0:
-                        Console.Clear();
-                        Menu(tipoUsuario);
-                        break;
-                    case 1:
-                        Console.Clear();
-                        miSistema.ImprimirArticulo();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuArticulo(tipoUsuario);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        ObtenerArticuloPorId();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuArticulo(tipoUsuario);
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ObtenerArticuloPorNombre();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuArticulo(tipoUsuario);
-                        break;
-                    case 4:
-                        Console.Clear();
-                        AltaArticulo();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuArticulo(tipoUsuario);
-                        break;
-                    default:
-                        Console.WriteLine("Seleccione una opcion valida");
-                        break;
+                    opcionSelecionada = 99;
                 }
+            }
+
+            OpcionArticulo(tipoUsuario, opcionSelecionada);
+        }
+        static void OpcionArticulo(string tipoUsuario, int opcionSeleccionada)
+        {
+
+            switch (opcionSeleccionada)
+            {
+                case 0:
+                    Console.Clear();
+                    Menu(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    miSistema.ImprimirArticulo();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuArticulo(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    MenuBuscarArticulo(tipoUsuario);
+                    break;
+                case 3:
+                    Console.Clear();
+                    AltaArticulo();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuArticulo(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
+            }
+        }
+        static void OpcionBuscarArticulo(string tipoUsuario, int opcionSeleccionada)
+        {
+            switch (opcionSeleccionada)
+            {
+                case 0:
+                    Console.Clear();
+                    MenuArticulo(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    ObtenerArticuloPorId();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuBuscarArticulo(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    ObtenerArticuloPorNombre();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuBuscarArticulo(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
             }
         }
         #endregion
         #region Publicacion
         static void OpcionSeleccionadaPublicacion(string tipoUsuario, int opcionSelecionada)
         {
+            if (tipoUsuario == "CLIENTE")
+            {
+                if (opcionSelecionada > 2)
+                {
+                    opcionSelecionada = 99;
+                }
+            }
+
+            OpcionPublicacion(tipoUsuario, opcionSelecionada);
+        }
+        static void OpcionPublicacion(string tipoUsuario, int opcionSelecionada)
+        {
             // Ejecución de las opciones del menu por tipo de usuario
-            if (tipoUsuario == "USUARIO")
+            switch (opcionSelecionada)
             {
-                switch (opcionSelecionada)
+                case 0:
+                    Console.Clear();
+                    Menu(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    MenuMostrarPublicacion(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    MenuBuscarPublicacion(tipoUsuario);
+                    break;
+                case 3:
+                    Console.Clear();
+                    MenuAltaPublicacion(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
+            }
+        }
+        static void OpcionMostrarPublicacion(string tipoUsuario, int opcionSeleccionada)
+        {
+            switch (opcionSeleccionada)
+            {
+                case 0:
+                    Console.Clear();
+                    MenuPublicacion(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    miSistema.ImprimirPublicacion();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuMostrarPublicacion(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    miSistema.ImprimirVenta();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuMostrarPublicacion(tipoUsuario);
+                    break;
+                case 3:
+                    Console.Clear();
+                    miSistema.ImprimirSubasta();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuMostrarPublicacion(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
+            }
+        }
+        static void OpcionBuscarPublicacion(string tipoUsuario, int opcionSeleccionada)
+        {
+            switch (opcionSeleccionada)
+            {
+                case 0:
+                    Console.Clear();
+                    MenuPublicacion(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    ObtenerPublicacionPorId();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuBuscarPublicacion(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    ObtenerPublicacionPorNombre();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuBuscarPublicacion(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
+            }
+        }
+        static void OpcionSeleccionadaAltaPublicacion(string tipoUsuario, int opcionSelecionada)
+        {
+            if (tipoUsuario == "ADMINISTRADOR")
+            {
+                if (opcionSelecionada > 2)
                 {
-                    case 0:
-                        Console.Clear();
-                        Menu(tipoUsuario);
-                        break;
-                    case 1:
-                        Console.Clear();
-                        miSistema.ImprimirPublicacion();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        miSistema.ImprimirVenta();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ObtenerPublicacionPorId();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 4:
-                        Console.Clear();
-                        ObtenerPublicacionPorNombre();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    default:
-                        Console.WriteLine("Seleccione una opcion valida");
-                        break;
+                    opcionSelecionada = 99;
+                }
+                else if (opcionSelecionada <= 2)
+                {
+                    opcionSelecionada++;
                 }
             }
-            else if (tipoUsuario == "ADMINISTRADOR")
+
+            OpcionAltaPublicacion(tipoUsuario, opcionSelecionada);
+        }
+        static void OpcionAltaPublicacion(string tipoUsuario, int opcionSeleccionada)
+        {
+            switch (opcionSeleccionada)
             {
-                switch (opcionSelecionada)
-                {
-                    case 0:
-                        Console.Clear();
-                        Menu(tipoUsuario);
-                        break;
-                    case 1:
-                        Console.Clear();
-                        miSistema.ImprimirPublicacion();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        miSistema.ImprimirVenta();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ObtenerPublicacionPorId();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 4:
-                        Console.Clear();
-                        ObtenerPublicacionPorNombre();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 5:
-                        Console.Clear();
-                        AltaPublicacion();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 6:
-                        Console.Clear();
-                        AltaVenta();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 7:
-                        Console.Clear();
-                        AltaSubasta();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    default:
-                        Console.WriteLine("Seleccione una opcion valida");
-                        break;
-                }
-            }
-            else
-            {
-                switch (opcionSelecionada)
-                {
-                    case 0:
-                        Console.Clear();
-                        Menu(tipoUsuario);
-                        break;
-                    case 1:
-                        Console.Clear();
-                        miSistema.ImprimirPublicacion();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        ObtenerPublicacionPorId();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ObtenerPublicacionPorNombre();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 4:
-                        Console.Clear();
-                        AltaPublicacion();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 5:
-                        Console.Clear();
-                        AltaVenta();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    case 6:
-                        Console.Clear();
-                        AltaSubasta();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuPublicacion(tipoUsuario);
-                        break;
-                    default:
-                        Console.WriteLine("Seleccione una opcion valida");
-                        break;
-                }
+                case 0:
+                    Console.Clear();
+                    MenuPublicacion(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    AltaPublicacion();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuAltaPublicacion(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    AltaVenta();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuAltaPublicacion(tipoUsuario);
+                    break;
+                case 3:
+                    Console.Clear();
+                    AltaSubasta();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuAltaPublicacion(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
             }
         }
         #endregion
         #region Usuario
         static void OpcionSeleccionadaUsuario(string tipoUsuario, int opcionSelecionada)
         {
+            if (tipoUsuario == "CLIENTE")
+            {
+                if (opcionSelecionada > 2)
+                {
+                    opcionSelecionada = 99;
+                }
+                if (opcionSelecionada == 1)
+                {
+                    opcionSelecionada = 4;
+                }
+            }
+
+            OpcionUsuario(tipoUsuario, opcionSelecionada);
+        }
+        static void OpcionUsuario(string tipoUsuario, int opcionSelecionada)
+        {
             // Ejecución de las opciones del menu por tipo de usuario
-            if (tipoUsuario == "USUARIO")
+            switch (opcionSelecionada)
             {
-                switch (opcionSelecionada)
+                case 0:
+                    Console.Clear();
+                    Menu(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    MenuMostrarUsuario(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    MenuBuscarUsuario(tipoUsuario);
+                    break;
+                case 3:
+                    Console.Clear();
+                    MenuAltaUsuario(tipoUsuario);
+                    break;
+                case 4:
+                    Console.Clear();
+                    miSistema.ImprimirCliente();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuUsuario(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida" + opcionSelecionada);
+                    break;
+            }
+        }
+        static void OpcionMostrarUsuario(string tipoUsuario, int opcionSeleccionada)
+        {
+            switch (opcionSeleccionada)
+            {
+                case 0:
+                    Console.Clear();
+                    MenuUsuario(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    miSistema.ImprimirUsuario();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuMostrarUsuario(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    miSistema.ImprimirCliente();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuMostrarUsuario(tipoUsuario);
+                    break;
+                case 3:
+                    Console.Clear();
+                    miSistema.ImprimirAdministrador();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuMostrarUsuario(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
+            }
+        }
+        static void OpcionBuscarUsuario(string tipoUsuario, int opcionSeleccionada)
+        {
+            switch (opcionSeleccionada)
+            {
+                case 0:
+                    Console.Clear();
+                    MenuUsuario(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    ObtenerUsuarioPorId();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuBuscarUsuario(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    ObtenerUsuarioPorNombre();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuBuscarUsuario(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
+            }
+        }
+        static void OpcionSeleccionadaAltaUsuario(string tipoUsuario, int opcionSelecionada)
+        {
+            if (tipoUsuario == "ADMINISTRADOR")
+            {
+                if (opcionSelecionada > 2)
                 {
-                    case 0:
-                        Console.Clear();
-                        Menu(tipoUsuario);
-                        break;
-                    case 1:
-                        Console.Clear();
-                        miSistema.ImprimirUsuario();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        ObtenerUsuarioPorId();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ObtenerUsuarioPorNombre();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    default:
-                        Console.WriteLine("Seleccione una opcion valida");
-                        break;
+                    opcionSelecionada = 99;
+                }
+                else if (opcionSelecionada <= 2)
+                {
+                    opcionSelecionada++;
                 }
             }
-            else if (tipoUsuario == "ADMINISTRADOR")
+
+            OpcionAltaUsuario(tipoUsuario, opcionSelecionada);
+        }
+        static void OpcionAltaUsuario(string tipoUsuario, int opcionSeleccionada)
+        {
+            switch (opcionSeleccionada)
             {
-                switch (opcionSelecionada)
-                {
-                    case 0:
-                        Console.Clear();
-                        Menu(tipoUsuario);
-                        break;
-                    case 1:
-                        Console.Clear();
-                        miSistema.ImprimirUsuario();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        ObtenerUsuarioPorId();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ObtenerUsuarioPorNombre();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    case 4:
-                        Console.Clear();
-                        AltaUsuario();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    default:
-                        Console.WriteLine("Seleccione una opcion valida");
-                        break;
-                }
-            }
-            else
-            {
-                switch (opcionSelecionada)
-                {
-                    case 0:
-                        Console.Clear();
-                        Menu(tipoUsuario);
-                        break;
-                    case 1:
-                        Console.Clear();
-                        miSistema.ImprimirUsuario();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        ObtenerUsuarioPorId();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ObtenerUsuarioPorNombre();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    case 4:
-                        Console.Clear();
-                        AltaUsuario();
-                        VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                        MenuUsuario(tipoUsuario);
-                        break;
-                    default:
-                        Console.WriteLine("Seleccione una opcion valida");
-                        break;
-                }
+                case 0:
+                    Console.Clear();
+                    MenuUsuario(tipoUsuario);
+                    break;
+                case 1:
+                    Console.Clear();
+                    AltaUsuario();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuAltaUsuario(tipoUsuario);
+                    break;
+                case 2:
+                    Console.Clear();
+                    AltaCliente();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuAltaUsuario(tipoUsuario);
+                    break;
+                case 3:
+                    Console.Clear();
+                    AltaAdministrador();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    MenuAltaUsuario(tipoUsuario);
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una opcion valida");
+                    break;
             }
         }
         #endregion
