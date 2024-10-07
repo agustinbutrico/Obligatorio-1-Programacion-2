@@ -25,6 +25,12 @@ namespace LogicaNegocio
         }
         #endregion
 
+        /// <summary>
+        /// El Parseo de datos sirve para modificar los datos ingresados por el usuario
+        /// o modificar datos para mostrarlos al usuario.
+        /// La funcion ParseoId permite obtener una lista de Ids a partir de una cadena de texto
+        /// La funcion ParseoArticulo permite obtener una cadena de texto a partir de una lista de articulos
+        /// </summary>
         #region Parseo Datos
         #region Universal
         // Convierte en una lista de ids el string pasado por parametros
@@ -118,6 +124,15 @@ namespace LogicaNegocio
         #endregion
         #endregion
 
+        /// <summary>
+        /// Las lista son utilizadas en todas las funciones de impresión.
+        /// Por ejemplo si queremos imprimir clientes, debemos pasarle a la función
+        /// imprimirUsuario una lista de clientes.
+        /// Esta lista se puede conseguir con:
+        /// ObtenerCliente, almacena en una lista todos los usuarios que sean clientes
+        /// obtenerClientePorId, almacena en una lista los clientes de ids determinados
+        /// obtenerClientePorNombre, almacena en una lista los clientes de nombres determinados
+        /// </summary>
         #region Obtención de listas
         #region Articulo
         public List<Articulo> ObtenerArticulos()
@@ -142,14 +157,14 @@ namespace LogicaNegocio
             }
             return articulos;
         }
-        public List<Articulo> ObtenerArticuloPorId(List<int> ids, bool buscarTodos)
+        public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             try 
             {
                 for (int i = 0; i < _articulos.Count; i++)
                 {
-                    if (ids.Contains(_articulos[i].Id) || buscarTodos) // Si la lista de ids contiene algún artículo
+                    if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
                     {
                         articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                     }
@@ -167,14 +182,14 @@ namespace LogicaNegocio
             }
             return articulos;
         }
-        public List<Articulo> ObtenerArticuloPorNombre(List<string> nombres, bool buscarTodos)
+        public List<Articulo> ObtenerArticuloPorNombre(List<string> nombres)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             try
             {
                 for (int i = 0; i < _articulos.Count; i++)
                 {
-                    if (nombres.Contains(_articulos[i].Nombre) || buscarTodos) // Si la lista de nombres contiene algún artículo
+                    if (nombres.Contains(_articulos[i].Nombre)) // Si la lista de nombres contiene algún artículo
                     {
                         articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                     }
@@ -674,7 +689,13 @@ namespace LogicaNegocio
         }
         #endregion
         #endregion
-
+        
+        /// <summary>
+        /// Las funciones de impresión son las menores posibles para evitar diferencias en la impresion.
+        /// Estas imprimen los datos basandose en listas de datos.
+        /// Tambien tienen booleanos como margenesGrandes o vistaResumida que sirven para facilitar
+        /// la lectura de los datos por parte del usuario al utilizar el programa
+        /// </summary>
         #region Impresion de listas
         #region Articulo
         public void ImprimirArticulo(List<Articulo> articulos, bool margenesGrandes)
@@ -816,7 +837,11 @@ namespace LogicaNegocio
         }
         #endregion
         #endregion
-
+        
+        /// <summary>
+        /// Las funciones de alta se encargan de llamar a los constructores de las
+        /// diferentes clases y pasar los parametros obtenidos en Program.
+        /// </summary>
         #region Altas
         #region Articulo
         public void AltaArticulo(string nombre, decimal precio, bool imprimir)
@@ -1007,7 +1032,42 @@ namespace LogicaNegocio
         }
         #endregion
         #endregion
+        
+        /// <summary>
+        /// Las funciones de consulta tienen el objetivo de obtener datos calculados.
+        /// Por ejemplo ConsultarPrecioVentaDeListaVenta obtiene los precios de las ventas buscadas.
+        /// Este es un dato calculado ya que es necesario acceder a la venta y sumar el precio de todos sus articulos.
+        /// </summary>
+        #region Consultas
+        public List<decimal> ConsultarPrecioVentaDeListaVenta(List<Publicacion> ventas)
+        {
+            List<decimal> precio = new List<decimal>();
+            for (int i = 0; i < ventas.Count; i++)
+            {
+                // Accede a la venta en especifico
+                if (ventas[i] is Venta venta)
+                {
+                    // Recorre la lista de articulos de la venta en especifico y suma su precio al total
+                    for (int j = 0; j < venta.Articulos.Count; j++)
+                    {
+                        precio[i] += venta.Articulos[j].Precio;
+                    }
+                    // Una vez sumado los precios de todos los articulos
+                    // se aplica descuento si corresponde a la venta en especifico
+                    if (venta.OfertaRelampago)
+                    {
+                        precio[i] = precio[i] * 80 / 100;
+                    }
+                }
+            }
+            return precio;
+        }
+        #endregion
 
+        /// <summary>
+        /// Las precargas son relizadas a travez de las funciones de alta,
+        /// esto se hace de este modo para que el id autoincremental se asigne correctamente
+        /// </summary>
         #region Precargas
         #region Articulo
         public void PrecargaArticulo()
@@ -1093,39 +1153,6 @@ namespace LogicaNegocio
             AltaCliente("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", 900, false);
         }
         #endregion
-        #endregion
-
-        #region Consultas
-        /// <summary>
-        /// Estas función averigua el precio total de una lista de ventas
-        /// que puede obtenerse con funciones como ObtenerVentaPorId y ObtenerVentaPorNombre
-        /// La función recorre la lista pasada por parametros, castea las ventas y entra en otro for
-        /// para acceder a los articulos de esa venta y sumar sus precios.
-        /// Los precios sumados de los articulos de una venta son almacenados en la posicion de la
-        /// lista precio correspondiente (siempre es i).
-        /// Una vez sumados los precios de los articulos de una venta, se evalua si es oferta,
-        /// si así lo es, entonces se aplica el 20% de descuento.
-        /// </summary>
-        public List<decimal> ConsultarPrecioVentaDeListaVenta(List<Publicacion> ventas)
-        {
-            List<decimal> precio = new List<decimal>();
-            for (int i = 0; i < ventas.Count; i++)
-            {
-                if (ventas[i] is Venta venta)
-                {
-                    // Recorre la lista de articulos de la venta en especifico y suma su precio al total
-                    for (int j = 0; j < venta.Articulos.Count; j++)
-                    {
-                        precio[i] += venta.Articulos[j].Precio;
-                    }
-                    if (venta.OfertaRelampago)
-                    {
-                        precio[i] = precio[i] * 80 / 100;
-                    }
-                }
-            }
-            return precio;
-        }
         #endregion
     }
 }
