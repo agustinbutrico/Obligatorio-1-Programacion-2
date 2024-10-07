@@ -120,14 +120,36 @@ namespace LogicaNegocio
 
         #region Obtención de listas
         #region Articulo
-        public List<Articulo> ObtenerArticuloPorId(List<int> ids)
+        public List<Articulo> ObtenerArticulos()
+        {
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
+            try
+            {
+                for (int i = 0; i < _articulos.Count; i++)
+                {
+                    articulos.Add(_articulos[i]); // Se añade cualquier artículo a la lista artículos
+                }
+
+                if (articulos.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún artículo
+                    Console.WriteLine("Articulo no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return articulos;
+        }
+        public List<Articulo> ObtenerArticuloPorId(List<int> ids, bool buscarTodos)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             try 
             {
                 for (int i = 0; i < _articulos.Count; i++)
                 {
-                    if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
+                    if (ids.Contains(_articulos[i].Id) || buscarTodos) // Si la lista de ids contiene algún artículo
                     {
                         articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                     }
@@ -145,14 +167,14 @@ namespace LogicaNegocio
             }
             return articulos;
         }
-        public List<Articulo> ObtenerArticuloPorNombre(List<string> nombres)
+        public List<Articulo> ObtenerArticuloPorNombre(List<string> nombres, bool buscarTodos)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             try
             {
                 for (int i = 0; i < _articulos.Count; i++)
                 {
-                    if (nombres.Contains(_articulos[i].Nombre)) // Si la lista de nombres contiene algún artículo
+                    if (nombres.Contains(_articulos[i].Nombre) || buscarTodos) // Si la lista de nombres contiene algún artículo
                     {
                         articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                     }
@@ -172,14 +194,36 @@ namespace LogicaNegocio
         }
         #endregion
         #region Publicacion
-        public List<Publicacion> ObtenerPublicacionPorId(List<int> ids, bool buscarTodas)
+        public List<Publicacion> ObtenerPublicaciones()
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             try
             {
                 for (int i = 0; i < _publicaciones.Count; i++)
                 {
-                    if (ids.Contains(_publicaciones[i].Id) || buscarTodas) // Si la lista de ids contiene algúna publicacion
+                    publicaciones.Add(_publicaciones[i]); // Se añade cualquier publicacion a la lista publicaciones
+                }
+
+                if (publicaciones.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna publicación
+                    Console.WriteLine("Publicación no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return publicaciones;
+        }
+        public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
                     {
                         publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
                     }
@@ -197,14 +241,14 @@ namespace LogicaNegocio
             }
             return publicaciones;
         }
-        public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres, bool buscarTodas)
+        public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             try
             {
                 for (int i = 0; i < _publicaciones.Count; i++)
                 {
-                    if (nombres.Contains(_publicaciones[i].Nombre) || buscarTodas) // Si la lista de nombres contiene algúna publicación
+                    if (nombres.Contains(_publicaciones[i].Nombre)) // Si la lista de nombres contiene algúna publicación
                     {
                         publicaciones.Add(_publicaciones[i]); // Se añade la publicación a la lista publicaciones
                     }
@@ -222,7 +266,9 @@ namespace LogicaNegocio
             }
             return publicaciones;
         }
-        public List<Publicacion> ObtenerVentaPorId(List<int> ids, bool buscarTodas)
+        #endregion
+        #region Venta
+        public List<Publicacion> ObtenerVentas()
         {
             List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
             try
@@ -231,7 +277,32 @@ namespace LogicaNegocio
                 {
                     if (_publicaciones[i] is Venta venta)
                     {
-                        if (ids.Contains(venta.Id) || buscarTodas) // Si la lista de ids contiene algúna venta
+                        ventas.Add(venta); // Se añade la venta a la lista ventas
+                    }
+                }
+
+                if (ventas.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna venta
+                    Console.WriteLine("Venta no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return ventas;
+        }
+        public List<Publicacion> ObtenerVentaPorId(List<int> ids)
+        {
+            List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (_publicaciones[i] is Venta venta)
+                    {
+                        if (ids.Contains(venta.Id)) // Si la lista de ids contiene algúna venta
                         {
                             ventas.Add(venta); // Se añade la venta a la lista ventas
                         }
@@ -250,7 +321,7 @@ namespace LogicaNegocio
             }
             return ventas;
         }
-        public List<Publicacion> ObtenerVentaPorNombre(List<string> nombres, bool buscarTodas)
+        public List<Publicacion> ObtenerVentaPorNombre(List<string> nombres)
         {
             List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
             try
@@ -259,7 +330,7 @@ namespace LogicaNegocio
                 {
                     if (_publicaciones[i] is Venta venta)
                     {
-                        if (nombres.Contains(venta.Nombre) || buscarTodas) // Si la lista de nombres contiene algúna venta
+                        if (nombres.Contains(venta.Nombre)) // Si la lista de nombres contiene algúna venta
                         {
                             ventas.Add(venta); // Se añade la venta a la lista ventas
                         }
@@ -278,7 +349,9 @@ namespace LogicaNegocio
             }
             return ventas;
         }
-        public List<Publicacion> ObtenerSubastaPorId(List<int> ids, bool buscarTodas)
+        #endregion
+        #region Subasta
+        public List<Publicacion> ObtenerSubastas()
         {
             List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
             try
@@ -287,7 +360,32 @@ namespace LogicaNegocio
                 {
                     if (_publicaciones[i] is Subasta subasta)
                     {
-                        if (ids.Contains(subasta.Id) || buscarTodas) // Si la lista de ids contiene algúna subasta
+                        subastas.Add(subasta); // Se añade la subasta a la lista subastas
+                    }
+                }
+
+                if (subastas.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna subasta
+                    Console.WriteLine("Subasta no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return subastas;
+        }
+        public List<Publicacion> ObtenerSubastaPorId(List<int> ids)
+        {
+            List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (_publicaciones[i] is Subasta subasta)
+                    {
+                        if (ids.Contains(subasta.Id)) // Si la lista de ids contiene algúna subasta
                         {
                             subastas.Add(subasta); // Se añade la subasta a la lista subastas
                         }
@@ -306,7 +404,7 @@ namespace LogicaNegocio
             }
             return subastas;
         }
-        public List<Publicacion> ObtenerSubastaPorNombre(List<string> nombres, bool buscarTodas)
+        public List<Publicacion> ObtenerSubastaPorNombre(List<string> nombres)
         {
             List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
             try
@@ -315,7 +413,7 @@ namespace LogicaNegocio
                 {
                     if (_publicaciones[i] is Subasta subasta)
                     {
-                        if (nombres.Contains(subasta.Nombre) || buscarTodas) // Si la lista de nombres contiene algúna subasta
+                        if (nombres.Contains(subasta.Nombre)) // Si la lista de nombres contiene algúna subasta
                         {
                             subastas.Add(subasta); // Se añade la subasta a la lista subastas
                         }
@@ -336,14 +434,36 @@ namespace LogicaNegocio
         }
         #endregion
         #region Usuario
-        public List<Usuario> ObtenerUsuarioPorId(List<int> ids, bool buscarTodos)
+        public List<Usuario> ObtenerUsuarios()
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             try
             {
                 for (int i = 0; i < _usuarios.Count; i++)
                 {
-                    if (ids.Contains(_usuarios[i].Id) || buscarTodos) // Si la lista de ids contiene algún usuario
+                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                }
+
+                if (usuarios.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún usuario
+                    Console.WriteLine("Usuario no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return usuarios;
+        }
+        public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
+        {
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
                     {
                         usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
                     }
@@ -361,14 +481,14 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
-        public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres, bool buscarTodos)
+        public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres)
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             try
             {
                 for (int i = 0; i < _usuarios.Count; i++)
                 {
-                    if (nombres.Contains(_usuarios[i].Nombre) || buscarTodos) // Si la lista de nombres contiene algún usuario
+                    if (nombres.Contains(_usuarios[i].Nombre)) // Si la lista de nombres contiene algún usuario
                     {
                         usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
                     }
@@ -386,7 +506,9 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
-        public List<Usuario> ObtenerClientePorId(List<int> ids, bool buscarTodos)
+        #endregion
+        #region Cliente
+        public List<Usuario> ObtenerClientes()
         {
             List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
             try
@@ -395,7 +517,32 @@ namespace LogicaNegocio
                 {
                     if (_usuarios[i] is Cliente cliente)
                     {
-                        if (ids.Contains(cliente.Id) || buscarTodos) // Si la lista de ids contiene algún cliente
+                        clientes.Add(cliente); // Se añade el cliente a la lista clientes
+                    }
+                }
+
+                if (clientes.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún cliente
+                    Console.WriteLine("Cliente no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return clientes;
+        }
+        public List<Usuario> ObtenerClientePorId(List<int> ids)
+        {
+            List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (_usuarios[i] is Cliente cliente)
+                    {
+                        if (ids.Contains(cliente.Id)) // Si la lista de ids contiene algún cliente
                         {
                             clientes.Add(cliente); // Se añade el cliente a la lista clientes
                         }
@@ -414,7 +561,7 @@ namespace LogicaNegocio
             }
             return clientes;
         }
-        public List<Usuario> ObtenerClientePorNombre(List<string> nombres, bool buscarTodos)
+        public List<Usuario> ObtenerClientePorNombre(List<string> nombres)
         {
             List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
             try
@@ -423,7 +570,7 @@ namespace LogicaNegocio
                 {
                     if (_usuarios[i] is Cliente cliente)
                     {
-                        if (nombres.Contains(cliente.Nombre) || buscarTodos) // Si la lista de nombres contiene algún cliente
+                        if (nombres.Contains(cliente.Nombre)) // Si la lista de nombres contiene algún cliente
                         {
                             clientes.Add(cliente); // Se añade el cliente a la lista clientes
                         }
@@ -442,7 +589,9 @@ namespace LogicaNegocio
             }
             return clientes;
         }
-        public List<Usuario> ObtenerAdministradorPorId(List<int> ids, bool buscarTodos)
+        #endregion
+        #region Administrador
+        public List<Usuario> ObtenerAdministradores()
         {
             List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
             try
@@ -451,7 +600,32 @@ namespace LogicaNegocio
                 {
                     if (_usuarios[i] is Administrador administrador)
                     {
-                        if (ids.Contains(administrador.Id) || buscarTodos) // Si la lista de ids contiene algún administrador
+                        administradores.Add(administrador); // Se añade el administrador a la lista administradores
+                    }
+                }
+
+                if (administradores.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún administrador
+                    Console.WriteLine("Administrador no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return administradores;
+        }
+        public List<Usuario> ObtenerAdministradorPorId(List<int> ids)
+        {
+            List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (_usuarios[i] is Administrador administrador)
+                    {
+                        if (ids.Contains(administrador.Id)) // Si la lista de ids contiene algún administrador
                         {
                             administradores.Add(administrador); // Se añade el administrador a la lista administradores
                         }
@@ -470,7 +644,7 @@ namespace LogicaNegocio
             }
             return administradores;
         }
-        public List<Usuario> ObtenerAdministradorPorNombre(List<string> nombres, bool buscarTodos)
+        public List<Usuario> ObtenerAdministradorPorNombre(List<string> nombres)
         {
             List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
             try
@@ -479,7 +653,7 @@ namespace LogicaNegocio
                 {
                     if (_usuarios[i] is Administrador administrador)
                     {
-                        if (nombres.Contains(administrador.Nombre) || buscarTodos) // Si la lista de nombres contiene algún administrador
+                        if (nombres.Contains(administrador.Nombre)) // Si la lista de nombres contiene algún administrador
                         {
                             administradores.Add(administrador); // Se añade el administrador a la lista administradores
                         }
@@ -568,6 +742,7 @@ namespace LogicaNegocio
                         ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
                     }
                 }
+            }
             if (margenesGrandes)
             {
                 Console.WriteLine("-------------------------------------");

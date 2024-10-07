@@ -330,7 +330,7 @@ namespace InterfazUsuario
                     Menu(tipoUsuario);
                     break;
                 case 1:
-                    miSistema.ImprimirArticulo();
+                    miSistema.ImprimirArticulo(miSistema.ObtenerArticuloPorId(new List<int>(), true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuArticulo(tipoUsuario);
                     break;
@@ -404,17 +404,17 @@ namespace InterfazUsuario
                     MenuPublicacion(tipoUsuario);
                     break;
                 case 1:
-                    miSistema.ImprimirPublicacion();
+                    miSistema.ImprimirPublicacion(miSistema.ObtenerPublicacionPorId(new List<int>(), true), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
                 case 2:
-                    miSistema.ImprimirVenta();
+                    miSistema.ImprimirPublicacion(miSistema.ObtenerVentaPorId(new List<int>(), true), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
                 case 3:
-                    miSistema.ImprimirSubasta();
+                    miSistema.ImprimirPublicacion(miSistema.ObtenerSubastaPorId(new List<int>(), true), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
@@ -521,7 +521,7 @@ namespace InterfazUsuario
                     MenuAltaUsuario(tipoUsuario);
                     break;
                 case 4:
-                    miSistema.ImprimirCliente();
+                    miSistema.ImprimirUsuario(miSistema.ObtenerClientePorId(new List<int>(), true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuUsuario(tipoUsuario);
                     break;
@@ -535,17 +535,17 @@ namespace InterfazUsuario
                     MenuUsuario(tipoUsuario);
                     break;
                 case 1:
-                    miSistema.ImprimirUsuario();
+                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarioPorId(new List<int>(), true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
                 case 2:
-                    miSistema.ImprimirCliente();
+                    miSistema.ImprimirUsuario(miSistema.ObtenerClientePorId(new List<int>(), true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
                 case 3:
-                    miSistema.ImprimirAdministrador();
+                    miSistema.ImprimirUsuario(miSistema.ObtenerAdministradorPorId(new List<int>(), true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
