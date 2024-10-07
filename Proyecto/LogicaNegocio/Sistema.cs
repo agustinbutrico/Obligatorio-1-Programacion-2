@@ -566,6 +566,7 @@ namespace LogicaNegocio
                     Console.WriteLine($"Nombre: {cliente.Nombre}");
                     Console.WriteLine($"Apellido: {cliente.Apellido}");
                     Console.WriteLine($"Email: {cliente.Email}");
+                    Console.WriteLine($"Saldo: {cliente.Saldo}");
                 }
             }
             if (hayCliente)
@@ -594,9 +595,66 @@ namespace LogicaNegocio
                     Console.WriteLine($"Nombre: {cliente.Nombre}");
                     Console.WriteLine($"Apellido: {cliente.Apellido}");
                     Console.WriteLine($"Email: {cliente.Email}");
+                    Console.WriteLine($"Saldo: {cliente.Saldo}");
                 }
             }
             if (hayCliente)
+            {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
+            }
+        }
+        public void ImprimirAdministrador()
+        {
+            bool hayAdministrador = false;
+            for (int i = 0; i < _usuarios.Count; i++)
+            {
+                if (_usuarios[i] is Administrador administrador)
+                {
+                    hayAdministrador = true;
+                    // Mostramos los detalles de los usuarios
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {administrador.Id}");
+                    Console.WriteLine($"Nombre: {administrador.Nombre}");
+                    Console.WriteLine($"Apellido: {administrador.Apellido}");
+                    Console.WriteLine($"Email: {administrador.Email}");
+                }
+            }
+            if (hayAdministrador)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+        }
+        public void ImprimirAdministrador(List<Usuario> usuarios, bool margenesGrandes)
+        {
+            bool hayAdministrador = false;
+            for (int i = 0; i < usuarios.Count; i++)
+            {
+                if (usuarios[i] is Administrador administrador)
+                {
+                    hayAdministrador = true;
+                    if (margenesGrandes)
+                    {
+                        Console.WriteLine("-------------------------------------");
+                    }
+                    else
+                    {
+                        Console.WriteLine("------------------");
+                    }
+                    // Mostramos los detalles de los usuarios
+                    Console.WriteLine($"ID: {administrador.Id}");
+                    Console.WriteLine($"Nombre: {administrador.Nombre}");
+                    Console.WriteLine($"Apellido: {administrador.Apellido}");
+                    Console.WriteLine($"Email: {administrador.Email}");
+                }
+            }
+            if (hayAdministrador)
             {
                 if (margenesGrandes)
                 {
