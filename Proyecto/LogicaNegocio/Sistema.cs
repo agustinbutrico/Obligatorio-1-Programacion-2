@@ -495,7 +495,7 @@ namespace LogicaNegocio
                     Console.WriteLine($"Administrador: {subasta.Administrador}");
                     Console.WriteLine($"Fecha Fin: {subasta.FechaFin}");
                     Console.WriteLine($"Ofertas: {ParseoOferta(subasta.Ofertas)}");
-                    ImprimirOferta(subasta.Ofertas); // Imprime los datos de las ofertas asociadas
+                    ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
                 }
             }
             if (haySubasta)
@@ -552,20 +552,90 @@ namespace LogicaNegocio
                 Console.WriteLine("------------------");
             }
         }
+        public void ImprimirCliente()
+        {
+            bool hayCliente = false;
+            for (int i = 0; i < _usuarios.Count; i++)
+            {
+                if (_usuarios[i] is Cliente cliente)
+                {
+                    hayCliente = true;
+                    // Mostramos los detalles de los usuarios
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {cliente.Id}");
+                    Console.WriteLine($"Nombre: {cliente.Nombre}");
+                    Console.WriteLine($"Apellido: {cliente.Apellido}");
+                    Console.WriteLine($"Email: {cliente.Email}");
+                }
+            }
+            if (hayCliente)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+        }
+        public void ImprimirCliente(List<Usuario> usuarios, bool margenesGrandes)
+        {
+            bool hayCliente = false;
+            for (int i = 0; i < usuarios.Count; i++)
+            {
+                if (usuarios[i] is Cliente cliente)
+                {
+                    hayCliente = true;
+                    if (margenesGrandes)
+                    {
+                        Console.WriteLine("-------------------------------------");
+                    }
+                    else
+                    {
+                        Console.WriteLine("------------------");
+                    }
+                    // Mostramos los detalles de los usuarios
+                    Console.WriteLine($"ID: {cliente.Id}");
+                    Console.WriteLine($"Nombre: {cliente.Nombre}");
+                    Console.WriteLine($"Apellido: {cliente.Apellido}");
+                    Console.WriteLine($"Email: {cliente.Email}");
+                }
+            }
+            if (hayCliente)
+            {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
+            }
+        }
         #endregion
         #region Oferta
-        public void ImprimirOferta(List<Oferta> ofertas)
+        public void ImprimirOferta(List<Oferta> ofertas, bool margenesGrandes)
         {
             for (int i = 0; i < ofertas.Count; i++)
             {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
                 // Mostramos los detalles de las ofertas
-                Console.WriteLine("-------------------------------------");
                 Console.WriteLine($"ID: {ofertas[i].Id}");
                 Console.WriteLine($"Usuario: {ofertas[i].Usuario}");
                 Console.WriteLine($"Monto: {ofertas[i].Monto}");
                 Console.WriteLine($"Fecha: {ofertas[i].Fecha}");
             }
+            if (margenesGrandes)
+            {
                 Console.WriteLine("-------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------");
+            }
         }
         #endregion
         #endregion
