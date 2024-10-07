@@ -90,6 +90,31 @@ namespace LogicaNegocio
             return ids_articulos;
         }
         #endregion
+        #region Oferta
+        // Convierte en string los ids de la lista de ofertas pasada por parametros
+        public string ParseoOferta(List<Oferta> ofertas)
+        {
+            string ids_ofertas = string.Empty;
+            try
+            {
+                for (int i = 0; i < ofertas.Count; i++)
+                {
+                    ids_ofertas += $"{ofertas[i].Id}, ";
+                }
+
+                if (ofertas.Count > 0)
+                {
+                    // Quitamos la , del final de los ids
+                    ids_ofertas = ids_ofertas.Substring(0, ids_ofertas.Length - 2);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return ids_ofertas;
+        }
+        #endregion
         #endregion
 
         #region Obtención de listas
@@ -352,10 +377,12 @@ namespace LogicaNegocio
         }
         public void ImprimirVenta()
         {
+            bool hayVenta = false;
             for (int i = 0; i < _publicaciones.Count; i++)
             {
                 if (_publicaciones[i] is Venta venta)
                 {
+                    hayVenta = true;
                     // Mostramos los detalles de las ventas
                     Console.WriteLine("-------------------------------------");
                     Console.WriteLine($"ID: {venta.Id}");
@@ -369,7 +396,119 @@ namespace LogicaNegocio
                     Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
                 }
             }
-            Console.WriteLine("-------------------------------------");
+            if (hayVenta)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+        }
+        public void ImprimirVenta(List<Publicacion> publicaciones, bool margenesGrandes)
+        {
+            bool hayVenta = false;
+            for (int i = 0; i < publicaciones.Count; i++)
+            {
+                if (publicaciones[i] is Venta venta)
+                {
+                    hayVenta = true;
+                    if (margenesGrandes)
+                    {
+                        Console.WriteLine("-------------------------------------");
+                    }
+                    else
+                    {
+                        Console.WriteLine("------------------");
+                    }
+                    // Mostramos los detalles de las ventas
+                    Console.WriteLine($"ID: {venta.Id}");
+                    Console.WriteLine($"Nombre: {venta.Nombre}");
+                    Console.WriteLine($"Estado: {venta.Estado}");
+                    Console.WriteLine($"Fecha: {venta.Fecha}");
+                    Console.WriteLine($"Articulos: {ParseoArticulo(venta.Articulos)}");
+                    ImprimirArticulo(venta.Articulos, false); // Imprime los datos de los articulos asociados
+                    Console.WriteLine($"Cliente: {venta.Cliente}");
+                    Console.WriteLine($"Administrador: {venta.Administrador}");
+                    Console.WriteLine($"Fecha Fin: {venta.FechaFin}");
+                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
+                }
+            }
+            if (hayVenta)
+            {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
+            }
+        }
+        public void ImprimirSubasta()
+        {
+            bool haySubasta = false;
+            for (int i = 0; i < _publicaciones.Count; i++)
+            {
+                if (_publicaciones[i] is Subasta subasta)
+                {
+                    haySubasta = true;
+                    // Mostramos los detalles de las ventas
+                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine($"ID: {subasta.Id}");
+                    Console.WriteLine($"Nombre: {subasta.Nombre}");
+                    Console.WriteLine($"Estado: {subasta.Estado}");
+                    Console.WriteLine($"Fecha: {subasta.Fecha}");
+                    Console.WriteLine($"Articulos: {ParseoArticulo(subasta.Articulos)}");
+                    Console.WriteLine($"Cliente: {subasta.Cliente}");
+                    Console.WriteLine($"Administrador: {subasta.Administrador}");
+                    Console.WriteLine($"Fecha Fin: {subasta.FechaFin}");
+                    Console.WriteLine($"Ofertas: {ParseoOferta(subasta.Ofertas)}");
+                }
+            }
+            if (haySubasta)
+            {
+                Console.WriteLine("-------------------------------------");
+            }
+        }
+        public void ImprimirSubasta(List<Publicacion> publicaciones, bool margenesGrandes)
+        {
+            bool haySubasta = false;
+            for (int i = 0; i < publicaciones.Count; i++)
+            {
+                if (publicaciones[i] is Subasta subasta)
+                {
+                    haySubasta = true;
+                    if (margenesGrandes)
+                    {
+                        Console.WriteLine("-------------------------------------");
+                    }
+                    else
+                    {
+                        Console.WriteLine("------------------");
+                    }
+                    // Mostramos los detalles de las ventas
+                    Console.WriteLine($"ID: {subasta.Id}");
+                    Console.WriteLine($"Nombre: {subasta.Nombre}");
+                    Console.WriteLine($"Estado: {subasta.Estado}");
+                    Console.WriteLine($"Fecha: {subasta.Fecha}");
+                    Console.WriteLine($"Articulos: {ParseoArticulo(subasta.Articulos)}");
+                    ImprimirArticulo(subasta.Articulos, false); // Imprime los datos de los articulos asociados
+                    Console.WriteLine($"Cliente: {subasta.Cliente}");
+                    Console.WriteLine($"Administrador: {subasta.Administrador}");
+                    Console.WriteLine($"Fecha Fin: {subasta.FechaFin}");
+                    Console.WriteLine($"Ofertas: {ParseoOferta(subasta.Ofertas)}");
+                    ImprimirOferta(subasta.Articulos, false);
+                }
+            }
+            if (haySubasta)
+            {
+                if (margenesGrandes)
+                {
+                    Console.WriteLine("-------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("------------------");
+                }
+            }
         }
         #endregion
         #region Usuario
