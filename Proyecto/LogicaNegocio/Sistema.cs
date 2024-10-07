@@ -220,11 +220,11 @@ namespace LogicaNegocio
                     {
                         publicaciones.Add(_publicaciones[i]); // Se añade cualquier publicacion a la lista publicaciones
                     }
-                    if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                    else if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
                     {
                         publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
                     }
-                    if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
+                    else if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
                     {
                         publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
                     }
@@ -255,11 +255,11 @@ namespace LogicaNegocio
                         {
                             publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
                         }
-                        if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                        else if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
                         {
                             publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
                         }
-                        if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
+                        else if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
                         {
                             publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
                         }
@@ -291,11 +291,11 @@ namespace LogicaNegocio
                         {
                             publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
                         }
-                        if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                        else if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
                         {
                             publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
                         }
-                        if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
+                        else if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
                         {
                             publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
                         }
@@ -316,14 +316,25 @@ namespace LogicaNegocio
         }
         #endregion
         #region Usuario
-        public List<Usuario> ObtenerUsuarios()
+        public List<Usuario> ObtenerUsuarios(bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             try
             {
                 for (int i = 0; i < _usuarios.Count; i++)
                 {
-                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    {
+                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    }
+                    else if (_usuarios[i] is Cliente cliente && esUnicamenteCliente)
+                    {
+                        usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
+                    }
+                    else if (_usuarios[i] is Administrador administrador && esUnicamenteAdministrador)
+                    {
+                        usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
+                    }
                 }
 
                 if (usuarios.Count == 0)
@@ -338,7 +349,7 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
-        public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
+        public List<Usuario> ObtenerUsuarioPorId(List<int> ids, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             try
@@ -347,7 +358,18 @@ namespace LogicaNegocio
                 {
                     if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
                     {
-                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                        if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                        {
+                            usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                        }
+                        else if (_usuarios[i] is Cliente cliente && esUnicamenteCliente)
+                        {
+                            usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
+                        }
+                        else if (_usuarios[i] is Administrador administrador && esUnicamenteAdministrador)
+                        {
+                            usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
+                        }
                     }
                 }
 
@@ -363,7 +385,7 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
-        public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres)
+        public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             try
@@ -372,7 +394,18 @@ namespace LogicaNegocio
                 {
                     if (nombres.Contains(_usuarios[i].Nombre)) // Si la lista de nombres contiene algún usuario
                     {
-                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                        if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                        {
+                            usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                        }
+                        else if (_usuarios[i] is Cliente cliente && esUnicamenteCliente)
+                        {
+                            usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
+                        }
+                        else if (_usuarios[i] is Administrador administrador && esUnicamenteAdministrador)
+                        {
+                            usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
+                        }
                     }
                 }
 
@@ -387,172 +420,6 @@ namespace LogicaNegocio
                 Console.WriteLine($"Error: {ex.Message}");
             }
             return usuarios;
-        }
-        #endregion
-        #region Cliente
-        public List<Usuario> ObtenerClientes()
-        {
-            List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
-            try
-            {
-                for (int i = 0; i < _usuarios.Count; i++)
-                {
-                    if (_usuarios[i] is Cliente cliente)
-                    {
-                        clientes.Add(cliente); // Se añade el cliente a la lista clientes
-                    }
-                }
-
-                if (clientes.Count == 0)
-                {
-                    // Mensaje si no encontramos ningún cliente
-                    Console.WriteLine("Cliente no encontrado");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return clientes;
-        }
-        public List<Usuario> ObtenerClientePorId(List<int> ids)
-        {
-            List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
-            try
-            {
-                for (int i = 0; i < _usuarios.Count; i++)
-                {
-                    if (_usuarios[i] is Cliente cliente)
-                    {
-                        if (ids.Contains(cliente.Id)) // Si la lista de ids contiene algún cliente
-                        {
-                            clientes.Add(cliente); // Se añade el cliente a la lista clientes
-                        }
-                    }
-                }
-
-                if (clientes.Count == 0)
-                {
-                    // Mensaje si no encontramos ningún cliente
-                    Console.WriteLine("Cliente no encontrado");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return clientes;
-        }
-        public List<Usuario> ObtenerClientePorNombre(List<string> nombres)
-        {
-            List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
-            try
-            {
-                for (int i = 0; i < _usuarios.Count; i++)
-                {
-                    if (_usuarios[i] is Cliente cliente)
-                    {
-                        if (nombres.Contains(cliente.Nombre)) // Si la lista de nombres contiene algún cliente
-                        {
-                            clientes.Add(cliente); // Se añade el cliente a la lista clientes
-                        }
-                    }
-                }
-
-                if (clientes.Count == 0)
-                {
-                    // Mensaje si no encontramos ningún cliente
-                    Console.WriteLine("Cliente no encontrado");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return clientes;
-        }
-        #endregion
-        #region Administrador
-        public List<Usuario> ObtenerAdministradores()
-        {
-            List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
-            try
-            {
-                for (int i = 0; i < _usuarios.Count; i++)
-                {
-                    if (_usuarios[i] is Administrador administrador)
-                    {
-                        administradores.Add(administrador); // Se añade el administrador a la lista administradores
-                    }
-                }
-
-                if (administradores.Count == 0)
-                {
-                    // Mensaje si no encontramos ningún administrador
-                    Console.WriteLine("Administrador no encontrado");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return administradores;
-        }
-        public List<Usuario> ObtenerAdministradorPorId(List<int> ids)
-        {
-            List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
-            try
-            {
-                for (int i = 0; i < _usuarios.Count; i++)
-                {
-                    if (_usuarios[i] is Administrador administrador)
-                    {
-                        if (ids.Contains(administrador.Id)) // Si la lista de ids contiene algún administrador
-                        {
-                            administradores.Add(administrador); // Se añade el administrador a la lista administradores
-                        }
-                    }
-                }
-
-                if (administradores.Count == 0)
-                {
-                    // Mensaje si no encontramos ningún administrador
-                    Console.WriteLine("Administrador no encontrado");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return administradores;
-        }
-        public List<Usuario> ObtenerAdministradorPorNombre(List<string> nombres)
-        {
-            List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
-            try
-            {
-                for (int i = 0; i < _usuarios.Count; i++)
-                {
-                    if (_usuarios[i] is Administrador administrador)
-                    {
-                        if (nombres.Contains(administrador.Nombre)) // Si la lista de nombres contiene algún administrador
-                        {
-                            administradores.Add(administrador); // Se añade el administrador a la lista administradores
-                        }
-                    }
-                }
-
-                if (administradores.Count == 0)
-                {
-                    // Mensaje si no encontramos ningún administrador
-                    Console.WriteLine("Administrador no encontrado");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return administradores;
         }
         #endregion
         #endregion
