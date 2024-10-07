@@ -404,17 +404,17 @@ namespace InterfazUsuario
                     MenuPublicacion(tipoUsuario);
                     break;
                 case 1:
-                    miSistema.ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true, true);
+                    ImprimirPublicacion(false, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
                 case 2:
-                    miSistema.ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true, true);
+                    ImprimirPublicacion(false, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
                 case 3:
-                    miSistema.ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true, true);
+                    ImprimirPublicacion(false, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarPublicacion(tipoUsuario);
                     break;
@@ -521,7 +521,7 @@ namespace InterfazUsuario
                     MenuAltaUsuario(tipoUsuario);
                     break;
                 case 4:
-                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), true);
+                    ImprimirUsuario(true, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuUsuario(tipoUsuario);
                     break;
@@ -535,17 +535,17 @@ namespace InterfazUsuario
                     MenuUsuario(tipoUsuario);
                     break;
                 case 1:
-                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(false, false), true);
+                    ImprimirUsuario(false, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
                 case 2:
-                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), true);
+                    ImprimirUsuario(true, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
                 case 3:
-                    miSistema.ImprimirUsuario(miSistema.ObtenerUsuarios(false, true), true);
+                    ImprimirUsuario(false, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     MenuMostrarUsuario(tipoUsuario);
                     break;
@@ -613,6 +613,37 @@ namespace InterfazUsuario
         #endregion
         #endregion
 
+        #region Impresion
+        #region Publicacion
+        static void ImprimirPublicacion(bool esUnicamenteVenta, bool esUnicamenteSubasta)
+        {
+            try
+            {
+                List<Publicacion> publicaciones = miSistema.ObtenerPublicaciones(esUnicamenteVenta, esUnicamenteSubasta);
+                miSistema.ImprimirPublicacion(publicaciones, true, true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+        #endregion
+        #region Usuario
+        static void ImprimirUsuario(bool esUnicamenteCliente, bool esUnicamenteAdministrador)
+        {
+            try
+            {
+                List<Usuario> usuarios = miSistema.ObtenerUsuarios(esUnicamenteCliente, esUnicamenteAdministrador);
+                miSistema.ImprimirUsuario(usuarios, true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+        #endregion
+        #endregion
+
         /// <summary>
         /// En las funciones de busqueda se solicitan datos simples como id o nombre
         /// pero tambien se habilita la posibilidad de buscar varios ids o nombres al mismo tiempo.
@@ -623,61 +654,109 @@ namespace InterfazUsuario
         #region Articulo
         static void ObtenerArticuloPorId()
         {
-            Console.WriteLine("Id de los articulos separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            try
+            {
+                Console.WriteLine("Id de los articulos separados por ,:");
+                string ids_crudos = Console.ReadLine() ?? string.Empty;
+                Console.Clear();
+                List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+                List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids);
 
-            miSistema.ImprimirArticulo(miSistema.ObtenerArticuloPorId(ids), true);
+                miSistema.ImprimirArticulo(articulos, true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         static void ObtenerArticuloPorNombre()
         {
-            Console.WriteLine("Nombre de los articulos separados por ,:");
-            string nombres_crudos = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            try
+            {
+                Console.WriteLine("Nombre de los articulos separados por ,:");
+                string nombres_crudos = Console.ReadLine() ?? string.Empty;
+                Console.Clear();
+                List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+                List<Articulo> articulos = miSistema.ObtenerArticuloPorNombre(nombres);
 
-            miSistema.ImprimirArticulo(miSistema.ObtenerArticuloPorNombre(nombres), true);
+                miSistema.ImprimirArticulo(articulos, true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         #endregion
         #region Publicacion
         static void ObtenerPublicacionPorId()
         {
-            Console.WriteLine("Id de las publicaciones separadas por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            try
+            {
+                Console.WriteLine("Id de las publicaciones separadas por ,:");
+                string ids_crudos = Console.ReadLine() ?? string.Empty;
+                Console.Clear();
+                List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+                List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorId(ids, false, false);
 
-            miSistema.ImprimirPublicacion(miSistema.ObtenerPublicacionPorId(ids, false, false), true, false);
+                miSistema.ImprimirPublicacion(publicaciones, true, false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         static void ObtenerPublicacionPorNombre()
         {
-            Console.WriteLine("Nombre de las publicaciones separadas por ,:");
-            string nombres_crudos = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            try
+            {
+                Console.WriteLine("Nombre de las publicaciones separadas por ,:");
+                string nombres_crudos = Console.ReadLine() ?? string.Empty;
+                Console.Clear();
+                List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+                List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres, false, false)
 
-            miSistema.ImprimirPublicacion(miSistema.ObtenerPublicacionPorNombre(nombres, false, false), true, false);
+                miSistema.ImprimirPublicacion(publicaciones, true, false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         #endregion
         #region Usuario
         static void ObtenerUsuarioPorId()
         {
-            Console.WriteLine("Id de los usuarios separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            try
+            {
+                Console.WriteLine("Id de los usuarios separados por ,:");
+                string ids_crudos = Console.ReadLine() ?? string.Empty;
+                Console.Clear();
+                List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+                List<Usuario> usuarios = miSistema.ObtenerUsuarioPorId(ids, false, false);
 
-            miSistema.ImprimirUsuario(miSistema.ObtenerUsuarioPorId(ids, false, false), true);
+                miSistema.ImprimirUsuario(usuarios, true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         static void ObtenerUsuarioPorNombre()
         {
-            Console.WriteLine("Nombre de los usuarios separados por ,:");
-            string nombres_crudos = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            try
+            {
+                Console.WriteLine("Nombre de los usuarios separados por ,:");
+                string nombres_crudos = Console.ReadLine() ?? string.Empty;
+                Console.Clear();
+                List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+                List<Usuario> usuarios = miSistema.ObtenerUsuarioPorNombre(nombres, false, false);
 
-            miSistema.ImprimirUsuario(miSistema.ObtenerUsuarioPorNombre(nombres, false, false), true);
+                miSistema.ImprimirUsuario(usuarios, true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         #endregion
         #endregion
@@ -690,135 +769,184 @@ namespace InterfazUsuario
         #region Articulo
         static void AltaArticulo()
         {
-            Console.WriteLine("Ingrese los datos del artículo");
-            Console.WriteLine("Nombre:");
-            // ?? operador de coalescencia nula
-            // Si es null devuelve el valor de la derecha
-            // Si no es null devuelve el valor de la izquierda
-            string nombre = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Precio:");
-            decimal.TryParse(Console.ReadLine(), out decimal precio);
+            try
+            {
+                Console.WriteLine("Ingrese los datos del artículo");
+                Console.WriteLine("Nombre:");
+                // ?? operador de coalescencia nula
+                // Si es null devuelve el valor de la derecha
+                // Si no es null devuelve el valor de la izquierda
+                string nombre = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Precio:");
+                decimal.TryParse(Console.ReadLine(), out decimal precio);
 
-            miSistema.AltaArticulo(nombre, precio, true);
+                miSistema.AltaArticulo(nombre, precio);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         #endregion
         #region Publicacion
         static void AltaPublicacion()
         {
-            // Valores por defecto
-            string estado = "ABIERTA";
-            DateTime fecha = DateTime.Now;
-            Cliente? cliente = null;
-            Administrador? administrador = null;
-            DateTime fechaFin = DateTime.MinValue;
+            try
+            {
+                // Valores por defecto
+                string estado = "ABIERTA";
+                DateTime fecha = DateTime.Now;
+                Cliente? cliente = null;
+                Administrador? administrador = null;
+                DateTime fechaFin = DateTime.MinValue;
 
-            // Solicitud datos
-            Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
-            Console.WriteLine("Nombre:");
-            string nombre = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Id de los articulos separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
-            List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
+                // Solicitud datos
+                Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
+                Console.WriteLine("Nombre:");
+                string nombre = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Id de los articulos separados por ,:");
+                string ids_crudos = Console.ReadLine() ?? string.Empty;
+                List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+                List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
             
-            miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, true);
+                miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         static void AltaVenta()
         {
-            // Valores por defecto
-            string estado = "ABIERTA";
-            DateTime fecha = DateTime.Now;
-            Cliente? cliente = null;
-            Administrador? administrador = null;
-            DateTime fechaFin = DateTime.MinValue;
-
-            // Solicitud datos
-            Console.WriteLine("Ingrese los datos que desea asociar a la venta");
-            Console.WriteLine("Nombre:");
-            string nombre = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Id de los articulos separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
-            List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
-            Console.WriteLine("Es oferta relampago?\n1. Si\n2. No");
-            int.TryParse(Console.ReadLine(), out int esOferta);
-            bool ofertaRelampago = false;
-
-            if ( esOferta == 1 )
+            try
             {
-                ofertaRelampago = true;
-            }
+                // Valores por defecto
+                string estado = "ABIERTA";
+                DateTime fecha = DateTime.Now;
+                Cliente? cliente = null;
+                Administrador? administrador = null;
+                DateTime fechaFin = DateTime.MinValue;
 
-            miSistema.AltaVenta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertaRelampago, true);
+                // Solicitud datos
+                Console.WriteLine("Ingrese los datos que desea asociar a la venta");
+                Console.WriteLine("Nombre:");
+                string nombre = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Id de los articulos separados por ,:");
+                string ids_crudos = Console.ReadLine() ?? string.Empty;
+                List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+                List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
+                Console.WriteLine("Es oferta relampago?\n1. Si\n2. No");
+                int.TryParse(Console.ReadLine(), out int esOferta);
+                bool ofertaRelampago = false;
+
+                if ( esOferta == 1 )
+                {
+                    ofertaRelampago = true;
+                }
+
+                miSistema.AltaVenta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertaRelampago);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         static void AltaSubasta()
         {
-            // Valores por defecto
-            string estado = "ABIERTA";
-            DateTime fecha = DateTime.Now;
-            Cliente? cliente = null;
-            Administrador? administrador = null;
-            DateTime fechaFin = DateTime.MinValue;
-            List<Oferta> ofertas = new List<Oferta>();
+            try 
+            {
+                // Valores por defecto
+                string estado = "ABIERTA";
+                DateTime fecha = DateTime.Now;
+                Cliente? cliente = null;
+                Administrador? administrador = null;
+                DateTime fechaFin = DateTime.MinValue;
+                List<Oferta> ofertas = new List<Oferta>();
 
-            // Solicitud datos
-            Console.WriteLine("Ingrese los datos que desea asociar a la subasta");
-            Console.WriteLine("Nombre:");
-            string nombre = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Id de los articulos separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
-            List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
+                // Solicitud datos
+                Console.WriteLine("Ingrese los datos que desea asociar a la subasta");
+                Console.WriteLine("Nombre:");
+                string nombre = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Id de los articulos separados por ,:");
+                string ids_crudos = Console.ReadLine() ?? string.Empty;
+                List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+                List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
 
-            miSistema.AltaSubasta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertas, true);
+                miSistema.AltaSubasta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertas);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         #endregion
         #region Usuario
         static void AltaUsuario()
         {
-            Console.WriteLine("Ingrese los datos que desea asociar al usuario");
-            Console.WriteLine("Nombre:");
-            string nombre = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Apellido:");
-            string apellido = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Email:");
-            string email = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Contraseña:");
-            string contrasenia = Console.ReadLine() ?? string.Empty;
+            try 
+            {
+                Console.WriteLine("Ingrese los datos que desea asociar al usuario");
+                Console.WriteLine("Nombre:");
+                string nombre = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Apellido:");
+                string apellido = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Email:");
+                string email = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Contraseña:");
+                string contrasenia = Console.ReadLine() ?? string.Empty;
 
-            miSistema.AltaUsuario(nombre, apellido, email, contrasenia, true);
+                miSistema.AltaUsuario(nombre, apellido, email, contrasenia);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         static void AltaCliente()
         {
-            // Valores por defecto
-            int saldo = 0;
+            try
+            {
+                // Valores por defecto
+                int saldo = 0;
 
-            // Solicitud datos
-            Console.WriteLine("Ingrese los datos que desea asociar al cliente");
-            Console.WriteLine("Nombre:");
-            string nombre = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Apellido:");
-            string apellido = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Email:");
-            string email = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Contraseña:");
-            string contrasenia = Console.ReadLine() ?? string.Empty;
+                // Solicitud datos
+                Console.WriteLine("Ingrese los datos que desea asociar al cliente");
+                Console.WriteLine("Nombre:");
+                string nombre = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Apellido:");
+                string apellido = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Email:");
+                string email = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Contraseña:");
+                string contrasenia = Console.ReadLine() ?? string.Empty;
 
-            miSistema.AltaCliente(nombre, apellido, email, contrasenia, saldo, true);
+                miSistema.AltaCliente(nombre, apellido, email, contrasenia, saldo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         static void AltaAdministrador()
         {
-            Console.WriteLine("Ingrese los datos que desea asociar al administrador");
-            Console.WriteLine("Nombre:");
-            string nombre = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Apellido:");
-            string apellido = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Email:");
-            string email = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Contraseña:");
-            string contrasenia = Console.ReadLine() ?? string.Empty;
+            try 
+            {
+                Console.WriteLine("Ingrese los datos que desea asociar al administrador");
+                Console.WriteLine("Nombre:");
+                string nombre = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Apellido:");
+                string apellido = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Email:");
+                string email = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Contraseña:");
+                string contrasenia = Console.ReadLine() ?? string.Empty;
 
-            miSistema.AltaAdministrador(nombre, apellido, email, contrasenia, true);
+                miSistema.AltaAdministrador(nombre, apellido, email, contrasenia);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         #endregion
         #endregion
