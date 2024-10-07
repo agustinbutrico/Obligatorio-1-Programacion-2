@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,12 @@ namespace LogicaNegocio
         }
         #endregion
 
+        /// <summary>
+        /// El Parseo de datos sirve para modificar los datos ingresados por el usuario
+        /// o modificar datos para mostrarlos al usuario.
+        /// La funcion ParseoId permite obtener una lista de Ids a partir de una cadena de texto
+        /// La funcion ParseoArticulo permite obtener una cadena de texto a partir de una lista de articulos
+        /// </summary>
         #region Parseo Datos
         #region Universal
         // Convierte en una lista de ids el string pasado por parametros
@@ -117,8 +124,39 @@ namespace LogicaNegocio
         #endregion
         #endregion
 
+        /// <summary>
+        /// Las lista son utilizadas en todas las funciones de impresión.
+        /// Por ejemplo si queremos imprimir clientes, debemos pasarle a la función
+        /// imprimirUsuario una lista de clientes.
+        /// Esta lista se puede conseguir con:
+        /// ObtenerCliente, almacena en una lista todos los usuarios que sean clientes
+        /// obtenerClientePorId, almacena en una lista los clientes de ids determinados
+        /// obtenerClientePorNombre, almacena en una lista los clientes de nombres determinados
+        /// </summary>
         #region Obtención de listas
         #region Articulo
+        public List<Articulo> ObtenerArticulos()
+        {
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
+            try
+            {
+                for (int i = 0; i < _articulos.Count; i++)
+                {
+                    articulos.Add(_articulos[i]); // Se añade cualquier artículo a la lista artículos
+                }
+
+                if (articulos.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún artículo
+                    Console.WriteLine("Articulo no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return articulos;
+        }
         public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
@@ -171,6 +209,28 @@ namespace LogicaNegocio
         }
         #endregion
         #region Publicacion
+        public List<Publicacion> ObtenerPublicaciones()
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    publicaciones.Add(_publicaciones[i]); // Se añade cualquier publicacion a la lista publicaciones
+                }
+
+                if (publicaciones.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna publicación
+                    Console.WriteLine("Publicación no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return publicaciones;
+        }
         public List<Publicacion> ObtenerPublicacionPorId(List<int> ids)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
@@ -221,8 +281,196 @@ namespace LogicaNegocio
             }
             return publicaciones;
         }
-            #endregion
+        #endregion
+        #region Venta
+        public List<Publicacion> ObtenerVentas()
+        {
+            List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (_publicaciones[i] is Venta venta)
+                    {
+                        ventas.Add(venta); // Se añade la venta a la lista ventas
+                    }
+                }
+
+                if (ventas.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna venta
+                    Console.WriteLine("Venta no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return ventas;
+        }
+        public List<Publicacion> ObtenerVentaPorId(List<int> ids)
+        {
+            List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (_publicaciones[i] is Venta venta)
+                    {
+                        if (ids.Contains(venta.Id)) // Si la lista de ids contiene algúna venta
+                        {
+                            ventas.Add(venta); // Se añade la venta a la lista ventas
+                        }
+                    }
+                }
+
+                if (ventas.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna venta
+                    Console.WriteLine("Venta no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return ventas;
+        }
+        public List<Publicacion> ObtenerVentaPorNombre(List<string> nombres)
+        {
+            List<Publicacion> ventas = new List<Publicacion>();  // Inicializamos la lista que contendrá las ventas
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (_publicaciones[i] is Venta venta)
+                    {
+                        if (nombres.Contains(venta.Nombre)) // Si la lista de nombres contiene algúna venta
+                        {
+                            ventas.Add(venta); // Se añade la venta a la lista ventas
+                        }
+                    }
+                }
+
+                if (ventas.Count == 0)
+                {
+                    // Mensaje si no encontramos ningúna venta
+                    Console.WriteLine("Venta no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return ventas;
+        }
+        #endregion
+        #region Subasta
+        public List<Publicacion> ObtenerSubastas()
+        {
+            List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (_publicaciones[i] is Subasta subasta)
+                    {
+                        subastas.Add(subasta); // Se añade la subasta a la lista subastas
+                    }
+                }
+
+                if (subastas.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna subasta
+                    Console.WriteLine("Subasta no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return subastas;
+        }
+        public List<Publicacion> ObtenerSubastaPorId(List<int> ids)
+        {
+            List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (_publicaciones[i] is Subasta subasta)
+                    {
+                        if (ids.Contains(subasta.Id)) // Si la lista de ids contiene algúna subasta
+                        {
+                            subastas.Add(subasta); // Se añade la subasta a la lista subastas
+                        }
+                    }
+                }
+
+                if (subastas.Count == 0)
+                {
+                    // Mensaje si no encontramos ninguna subasta
+                    Console.WriteLine("Subasta no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return subastas;
+        }
+        public List<Publicacion> ObtenerSubastaPorNombre(List<string> nombres)
+        {
+            List<Publicacion> subastas = new List<Publicacion>();  // Inicializamos la lista que contendrá las subastas
+            try
+            {
+                for (int i = 0; i < _publicaciones.Count; i++)
+                {
+                    if (_publicaciones[i] is Subasta subasta)
+                    {
+                        if (nombres.Contains(subasta.Nombre)) // Si la lista de nombres contiene algúna subasta
+                        {
+                            subastas.Add(subasta); // Se añade la subasta a la lista subastas
+                        }
+                    }
+                }
+
+                if (subastas.Count == 0)
+                {
+                    // Mensaje si no encontramos ningúna subasta
+                    Console.WriteLine("Subasta no encontrada");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return subastas;
+        }
+        #endregion
         #region Usuario
+        public List<Usuario> ObtenerUsuarios()
+        {
+            List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                }
+
+                if (usuarios.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún usuario
+                    Console.WriteLine("Usuario no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return usuarios;
+        }
         public List<Usuario> ObtenerUsuarioPorId(List<int> ids)
         {
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
@@ -274,22 +522,182 @@ namespace LogicaNegocio
             return usuarios;
         }
         #endregion
-        #endregion
+        #region Cliente
+        public List<Usuario> ObtenerClientes()
+        {
+            List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (_usuarios[i] is Cliente cliente)
+                    {
+                        clientes.Add(cliente); // Se añade el cliente a la lista clientes
+                    }
+                }
 
+                if (clientes.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún cliente
+                    Console.WriteLine("Cliente no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return clientes;
+        }
+        public List<Usuario> ObtenerClientePorId(List<int> ids)
+        {
+            List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (_usuarios[i] is Cliente cliente)
+                    {
+                        if (ids.Contains(cliente.Id)) // Si la lista de ids contiene algún cliente
+                        {
+                            clientes.Add(cliente); // Se añade el cliente a la lista clientes
+                        }
+                    }
+                }
+
+                if (clientes.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún cliente
+                    Console.WriteLine("Cliente no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return clientes;
+        }
+        public List<Usuario> ObtenerClientePorNombre(List<string> nombres)
+        {
+            List<Usuario> clientes = new List<Usuario>();  // Inicializamos la lista que contendrá los clientes
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (_usuarios[i] is Cliente cliente)
+                    {
+                        if (nombres.Contains(cliente.Nombre)) // Si la lista de nombres contiene algún cliente
+                        {
+                            clientes.Add(cliente); // Se añade el cliente a la lista clientes
+                        }
+                    }
+                }
+
+                if (clientes.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún cliente
+                    Console.WriteLine("Cliente no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return clientes;
+        }
+        #endregion
+        #region Administrador
+        public List<Usuario> ObtenerAdministradores()
+        {
+            List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (_usuarios[i] is Administrador administrador)
+                    {
+                        administradores.Add(administrador); // Se añade el administrador a la lista administradores
+                    }
+                }
+
+                if (administradores.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún administrador
+                    Console.WriteLine("Administrador no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return administradores;
+        }
+        public List<Usuario> ObtenerAdministradorPorId(List<int> ids)
+        {
+            List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (_usuarios[i] is Administrador administrador)
+                    {
+                        if (ids.Contains(administrador.Id)) // Si la lista de ids contiene algún administrador
+                        {
+                            administradores.Add(administrador); // Se añade el administrador a la lista administradores
+                        }
+                    }
+                }
+
+                if (administradores.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún administrador
+                    Console.WriteLine("Administrador no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return administradores;
+        }
+        public List<Usuario> ObtenerAdministradorPorNombre(List<string> nombres)
+        {
+            List<Usuario> administradores = new List<Usuario>();  // Inicializamos la lista que contendrá los administradores
+            try
+            {
+                for (int i = 0; i < _usuarios.Count; i++)
+                {
+                    if (_usuarios[i] is Administrador administrador)
+                    {
+                        if (nombres.Contains(administrador.Nombre)) // Si la lista de nombres contiene algún administrador
+                        {
+                            administradores.Add(administrador); // Se añade el administrador a la lista administradores
+                        }
+                    }
+                }
+
+                if (administradores.Count == 0)
+                {
+                    // Mensaje si no encontramos ningún administrador
+                    Console.WriteLine("Administrador no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return administradores;
+        }
+        #endregion
+        #endregion
+        
+        /// <summary>
+        /// Las funciones de impresión son las menores posibles para evitar diferencias en la impresion.
+        /// Estas imprimen los datos basandose en listas de datos.
+        /// Tambien tienen booleanos como margenesGrandes o vistaResumida que sirven para facilitar
+        /// la lectura de los datos por parte del usuario al utilizar el programa
+        /// </summary>
         #region Impresion de listas
         #region Articulo
-        public void ImprimirArticulo()
-        {
-            for (int i = 0; i < _articulos.Count; i++)
-            {
-                // Mostramos los detalles del Artículo
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine($"ID: {_articulos[i].Id}");
-                Console.WriteLine($"Nombre: {_articulos[i].Nombre}");
-                Console.WriteLine($"Estado: {_articulos[i].Precio}");
-            }
-            Console.WriteLine("-------------------------------------");
-        }
         public void ImprimirArticulo(List<Articulo> articulos, bool margenesGrandes)
         {
             for (int i = 0; i < articulos.Count; i++)
@@ -318,32 +726,7 @@ namespace LogicaNegocio
         }
         #endregion
         #region Publicacion
-        public void ImprimirPublicacion()
-        {
-            for (int i = 0; i < _publicaciones.Count; i++)
-            {
-                // Mostramos los detalles de las publicaciones
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine($"ID: {_publicaciones[i].Id}");
-                Console.WriteLine($"Nombre: {_publicaciones[i].Nombre}");
-                Console.WriteLine($"Estado: {_publicaciones[i].Estado}");
-                Console.WriteLine($"Fecha: {_publicaciones[i].Fecha}");
-                Console.WriteLine($"Articulos: {ParseoArticulo(_publicaciones[i].Articulos)}");
-                Console.WriteLine($"Cliente: {_publicaciones[i].Cliente}");
-                Console.WriteLine($"Administrador: {_publicaciones[i].Administrador}");
-                Console.WriteLine($"Fecha Fin: {_publicaciones[i].FechaFin}");
-                if (_publicaciones[i] is Venta venta)
-                {
-                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
-                }
-                if (_publicaciones[i] is Subasta subasta)
-                {
-                    Console.WriteLine($"Ofertas:");
-                }
-            }
-            Console.WriteLine("-------------------------------------");
-        }
-        public void ImprimirPublicacion(List<Publicacion> publicaciones, bool margenesGrandes)
+        public void ImprimirPublicacion(List<Publicacion> publicaciones, bool margenesGrandes, bool vistaResumida)
         {
             for (int i = 0; i < publicaciones.Count; i++)
             {
@@ -361,10 +744,25 @@ namespace LogicaNegocio
                 Console.WriteLine($"Estado: {publicaciones[i].Estado}");
                 Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
                 Console.WriteLine($"Articulos: {ParseoArticulo(publicaciones[i].Articulos)}");
-                ImprimirArticulo(publicaciones[i].Articulos, false); // Imprime los datos de los articulos asociados
+                if (!vistaResumida)
+                {
+                    ImprimirArticulo(publicaciones[i].Articulos, false); // Imprime los datos de los articulos asociados
+                }
                 Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
                 Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
                 Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
+                if (_publicaciones[i] is Venta venta)
+                {
+                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
+                }
+                if (_publicaciones[i] is Subasta subasta)
+                {
+                    Console.WriteLine($"Ofertas: {ParseoOferta(subasta.Ofertas)}");
+                    if (!vistaResumida)
+                    {
+                        ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
+                    }
+                }
             }
             if (margenesGrandes)
             {
@@ -375,156 +773,8 @@ namespace LogicaNegocio
                 Console.WriteLine("------------------");
             }
         }
-        public void ImprimirVenta()
-        {
-            bool hayVenta = false;
-            for (int i = 0; i < _publicaciones.Count; i++)
-            {
-                if (_publicaciones[i] is Venta venta)
-                {
-                    hayVenta = true;
-                    // Mostramos los detalles de las ventas
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {venta.Id}");
-                    Console.WriteLine($"Nombre: {venta.Nombre}");
-                    Console.WriteLine($"Estado: {venta.Estado}");
-                    Console.WriteLine($"Fecha: {venta.Fecha}");
-                    Console.WriteLine($"Articulos: {ParseoArticulo(venta.Articulos)}");
-                    Console.WriteLine($"Cliente: {venta.Cliente}");
-                    Console.WriteLine($"Administrador: {venta.Administrador}");
-                    Console.WriteLine($"Fecha Fin: {venta.FechaFin}");
-                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
-                }
-            }
-            if (hayVenta)
-            {
-                Console.WriteLine("-------------------------------------");
-            }
-        }
-        public void ImprimirVenta(List<Publicacion> publicaciones, bool margenesGrandes)
-        {
-            bool hayVenta = false;
-            for (int i = 0; i < publicaciones.Count; i++)
-            {
-                if (publicaciones[i] is Venta venta)
-                {
-                    hayVenta = true;
-                    if (margenesGrandes)
-                    {
-                        Console.WriteLine("-------------------------------------");
-                    }
-                    else
-                    {
-                        Console.WriteLine("------------------");
-                    }
-                    // Mostramos los detalles de las ventas
-                    Console.WriteLine($"ID: {venta.Id}");
-                    Console.WriteLine($"Nombre: {venta.Nombre}");
-                    Console.WriteLine($"Estado: {venta.Estado}");
-                    Console.WriteLine($"Fecha: {venta.Fecha}");
-                    Console.WriteLine($"Articulos: {ParseoArticulo(venta.Articulos)}");
-                    ImprimirArticulo(venta.Articulos, false); // Imprime los datos de los articulos asociados
-                    Console.WriteLine($"Cliente: {venta.Cliente}");
-                    Console.WriteLine($"Administrador: {venta.Administrador}");
-                    Console.WriteLine($"Fecha Fin: {venta.FechaFin}");
-                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
-                }
-            }
-            if (hayVenta)
-            {
-                if (margenesGrandes)
-                {
-                    Console.WriteLine("-------------------------------------");
-                }
-                else
-                {
-                    Console.WriteLine("------------------");
-                }
-            }
-        }
-        public void ImprimirSubasta()
-        {
-            bool haySubasta = false;
-            for (int i = 0; i < _publicaciones.Count; i++)
-            {
-                if (_publicaciones[i] is Subasta subasta)
-                {
-                    haySubasta = true;
-                    // Mostramos los detalles de las ventas
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {subasta.Id}");
-                    Console.WriteLine($"Nombre: {subasta.Nombre}");
-                    Console.WriteLine($"Estado: {subasta.Estado}");
-                    Console.WriteLine($"Fecha: {subasta.Fecha}");
-                    Console.WriteLine($"Articulos: {ParseoArticulo(subasta.Articulos)}");
-                    Console.WriteLine($"Cliente: {subasta.Cliente}");
-                    Console.WriteLine($"Administrador: {subasta.Administrador}");
-                    Console.WriteLine($"Fecha Fin: {subasta.FechaFin}");
-                    Console.WriteLine($"Ofertas: {ParseoOferta(subasta.Ofertas)}");
-                }
-            }
-            if (haySubasta)
-            {
-                Console.WriteLine("-------------------------------------");
-            }
-        }
-        public void ImprimirSubasta(List<Publicacion> publicaciones, bool margenesGrandes)
-        {
-            bool haySubasta = false;
-            for (int i = 0; i < publicaciones.Count; i++)
-            {
-                if (publicaciones[i] is Subasta subasta)
-                {
-                    haySubasta = true;
-                    if (margenesGrandes)
-                    {
-                        Console.WriteLine("-------------------------------------");
-                    }
-                    else
-                    {
-                        Console.WriteLine("------------------");
-                    }
-                    // Mostramos los detalles de las ventas
-                    Console.WriteLine($"ID: {subasta.Id}");
-                    Console.WriteLine($"Nombre: {subasta.Nombre}");
-                    Console.WriteLine($"Estado: {subasta.Estado}");
-                    Console.WriteLine($"Fecha: {subasta.Fecha}");
-                    Console.WriteLine($"Articulos: {ParseoArticulo(subasta.Articulos)}");
-                    ImprimirArticulo(subasta.Articulos, false); // Imprime los datos de los articulos asociados
-                    Console.WriteLine($"Cliente: {subasta.Cliente}");
-                    Console.WriteLine($"Administrador: {subasta.Administrador}");
-                    Console.WriteLine($"Fecha Fin: {subasta.FechaFin}");
-                    Console.WriteLine($"Ofertas: {ParseoOferta(subasta.Ofertas)}");
-                    ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
-                }
-            }
-            if (haySubasta)
-            {
-                if (margenesGrandes)
-                {
-                    Console.WriteLine("-------------------------------------");
-                }
-                else
-                {
-                    Console.WriteLine("------------------");
-                }
-            }
-        }
         #endregion
         #region Usuario
-        public void ImprimirUsuario()
-        {
-            for (int i = 0; i < _usuarios.Count; i++)
-            {
-                // Mostramos los detalles del Usuario
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine($"ID: {_usuarios[i].Id}");
-                Console.WriteLine($"Nombre: {_usuarios[i].Nombre}");
-                Console.WriteLine($"Apellido: {_usuarios[i].Apellido}");
-                Console.WriteLine($"Email: {_usuarios[i].Email}");
-            }
-            Console.WriteLine("-------------------------------------");
-        }
         public void ImprimirUsuario(List<Usuario> usuarios, bool margenesGrandes)
         {
             for (int i = 0; i < usuarios.Count; i++)
@@ -542,6 +792,10 @@ namespace LogicaNegocio
                 Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
                 Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
                 Console.WriteLine($"Email: {usuarios[i].Email}");
+                if (usuarios[i] is Cliente cliente)
+                {
+                    Console.WriteLine($"Saldo: {cliente.Saldo}");
+                }
             }
             if (margenesGrandes)
             {
@@ -550,120 +804,6 @@ namespace LogicaNegocio
             else
             {
                 Console.WriteLine("------------------");
-            }
-        }
-        public void ImprimirCliente()
-        {
-            bool hayCliente = false;
-            for (int i = 0; i < _usuarios.Count; i++)
-            {
-                if (_usuarios[i] is Cliente cliente)
-                {
-                    hayCliente = true;
-                    // Mostramos los detalles de los usuarios
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {cliente.Id}");
-                    Console.WriteLine($"Nombre: {cliente.Nombre}");
-                    Console.WriteLine($"Apellido: {cliente.Apellido}");
-                    Console.WriteLine($"Email: {cliente.Email}");
-                    Console.WriteLine($"Saldo: {cliente.Saldo}");
-                }
-            }
-            if (hayCliente)
-            {
-                Console.WriteLine("-------------------------------------");
-            }
-        }
-        public void ImprimirCliente(List<Usuario> usuarios, bool margenesGrandes)
-        {
-            bool hayCliente = false;
-            for (int i = 0; i < usuarios.Count; i++)
-            {
-                if (usuarios[i] is Cliente cliente)
-                {
-                    hayCliente = true;
-                    if (margenesGrandes)
-                    {
-                        Console.WriteLine("-------------------------------------");
-                    }
-                    else
-                    {
-                        Console.WriteLine("------------------");
-                    }
-                    // Mostramos los detalles de los usuarios
-                    Console.WriteLine($"ID: {cliente.Id}");
-                    Console.WriteLine($"Nombre: {cliente.Nombre}");
-                    Console.WriteLine($"Apellido: {cliente.Apellido}");
-                    Console.WriteLine($"Email: {cliente.Email}");
-                    Console.WriteLine($"Saldo: {cliente.Saldo}");
-                }
-            }
-            if (hayCliente)
-            {
-                if (margenesGrandes)
-                {
-                    Console.WriteLine("-------------------------------------");
-                }
-                else
-                {
-                    Console.WriteLine("------------------");
-                }
-            }
-        }
-        public void ImprimirAdministrador()
-        {
-            bool hayAdministrador = false;
-            for (int i = 0; i < _usuarios.Count; i++)
-            {
-                if (_usuarios[i] is Administrador administrador)
-                {
-                    hayAdministrador = true;
-                    // Mostramos los detalles de los usuarios
-                    Console.WriteLine("-------------------------------------");
-                    Console.WriteLine($"ID: {administrador.Id}");
-                    Console.WriteLine($"Nombre: {administrador.Nombre}");
-                    Console.WriteLine($"Apellido: {administrador.Apellido}");
-                    Console.WriteLine($"Email: {administrador.Email}");
-                }
-            }
-            if (hayAdministrador)
-            {
-                Console.WriteLine("-------------------------------------");
-            }
-        }
-        public void ImprimirAdministrador(List<Usuario> usuarios, bool margenesGrandes)
-        {
-            bool hayAdministrador = false;
-            for (int i = 0; i < usuarios.Count; i++)
-            {
-                if (usuarios[i] is Administrador administrador)
-                {
-                    hayAdministrador = true;
-                    if (margenesGrandes)
-                    {
-                        Console.WriteLine("-------------------------------------");
-                    }
-                    else
-                    {
-                        Console.WriteLine("------------------");
-                    }
-                    // Mostramos los detalles de los usuarios
-                    Console.WriteLine($"ID: {administrador.Id}");
-                    Console.WriteLine($"Nombre: {administrador.Nombre}");
-                    Console.WriteLine($"Apellido: {administrador.Apellido}");
-                    Console.WriteLine($"Email: {administrador.Email}");
-                }
-            }
-            if (hayAdministrador)
-            {
-                if (margenesGrandes)
-                {
-                    Console.WriteLine("-------------------------------------");
-                }
-                else
-                {
-                    Console.WriteLine("------------------");
-                }
             }
         }
         #endregion
@@ -697,7 +837,11 @@ namespace LogicaNegocio
         }
         #endregion
         #endregion
-
+        
+        /// <summary>
+        /// Las funciones de alta se encargan de llamar a los constructores de las
+        /// diferentes clases y pasar los parametros obtenidos en Program.
+        /// </summary>
         #region Altas
         #region Articulo
         public void AltaArticulo(string nombre, decimal precio, bool imprimir)
@@ -888,7 +1032,42 @@ namespace LogicaNegocio
         }
         #endregion
         #endregion
+        
+        /// <summary>
+        /// Las funciones de consulta tienen el objetivo de obtener datos calculados.
+        /// Por ejemplo ConsultarPrecioVentaDeListaVenta obtiene los precios de las ventas buscadas.
+        /// Este es un dato calculado ya que es necesario acceder a la venta y sumar el precio de todos sus articulos.
+        /// </summary>
+        #region Consultas
+        public List<decimal> ConsultarPrecioVentaDeListaVenta(List<Publicacion> ventas)
+        {
+            List<decimal> precio = new List<decimal>();
+            for (int i = 0; i < ventas.Count; i++)
+            {
+                // Accede a la venta en especifico
+                if (ventas[i] is Venta venta)
+                {
+                    // Recorre la lista de articulos de la venta en especifico y suma su precio al total
+                    for (int j = 0; j < venta.Articulos.Count; j++)
+                    {
+                        precio[i] += venta.Articulos[j].Precio;
+                    }
+                    // Una vez sumado los precios de todos los articulos
+                    // se aplica descuento si corresponde a la venta en especifico
+                    if (venta.OfertaRelampago)
+                    {
+                        precio[i] = precio[i] * 80 / 100;
+                    }
+                }
+            }
+            return precio;
+        }
+        #endregion
 
+        /// <summary>
+        /// Las precargas son relizadas a travez de las funciones de alta,
+        /// esto se hace de este modo para que el id autoincremental se asigne correctamente
+        /// </summary>
         #region Precargas
         #region Articulo
         public void PrecargaArticulo()
