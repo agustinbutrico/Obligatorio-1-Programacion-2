@@ -28,6 +28,17 @@ namespace LogicaNegocio
         }
         #endregion
 
+        #region Alta
+        public void AltaOferta(Usuario? usuario, decimal monto, DateTime fecha)
+        {
+            if (Ofertas[Ofertas.Count - 1].Monto < monto)
+            {
+                Oferta oferta = new Oferta(usuario, monto, fecha); // Llama al costructor de Oferta
+                Ofertas.Add(oferta); // Añade a la lista _ofertas
+            }
+        }
+        #endregion
+
         #region Validación
         // Validación de Subasta, hereda de Publicacion
         public override void Validar()
