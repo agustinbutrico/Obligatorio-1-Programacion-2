@@ -169,13 +169,13 @@ namespace InterfazUsuario
                             MenuTipoUsuario();
                             break;
                         case 1:
-                            MenuArticulo(tipoUsuario);
+                            ValidacionMenu(0, tipoUsuario);
                             break;
                         case 2:
-                            MenuPublicacion(tipoUsuario);
+                            ValidacionMenu(2, tipoUsuario);
                             break;
                         case 3:
-                            MenuUsuario(tipoUsuario);
+                            ValidacionMenu(6, tipoUsuario);
                             break;
                     }
                 }
