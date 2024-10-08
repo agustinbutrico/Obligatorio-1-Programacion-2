@@ -207,7 +207,7 @@ namespace InterfazUsuario
             while (!valido)
             {
                 Console.Clear();
-                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador) // Imprime las opciones del menu por tipo de usuario
+                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador); // Imprime las opciones del menu por tipo de usuario
                 int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
                 ProcesamientoOpcionArticulo(tipoUsuario, opcionSeleccionada);
@@ -238,7 +238,7 @@ namespace InterfazUsuario
             while (!valido)
             {
                 Console.Clear();
-                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador) // Imprime las opciones del menu por tipo de usuario
+                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador); // Imprime las opciones del menu por tipo de usuario
                 int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
                 ProcesamientoOpcionPublicacion(tipoUsuario, opcionSeleccionada);
@@ -275,14 +275,14 @@ namespace InterfazUsuario
         static void MenuAltaPublicacion(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "" }
+            string[] opcionesCliente = new string[] { "" };
             string[] opcionesAdministrador = new string[] { "Menu Alta", "1. Dar de alta venta", "2. Dar de alta subasta" };
             string[] opcionesTester = new string[] { "Menu Alta", "1. Dar de alta publicacion", "2. Dar de alta venta", "3. Dar de alta subasta" };
 
             while (!valido)
             {
                 Console.Clear();
-                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesTester) // Imprime las opciones del menu por tipo de usuario
+                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesTester); // Imprime las opciones del menu por tipo de usuario
                 int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
                 OpcionAltaPublicacion(tipoUsuario, opcionSeleccionada);
@@ -299,7 +299,7 @@ namespace InterfazUsuario
             while (!valido)
             {
                 Console.Clear();
-                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador) // Imprime las opciones del menu por tipo de usuario
+                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador); // Imprime las opciones del menu por tipo de usuario
                 int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
                 ProcesamientoOpcionUsuario(tipoUsuario, opcionSeleccionada);
@@ -343,7 +343,7 @@ namespace InterfazUsuario
             while (!valido)
             {
                 Console.Clear();
-                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesTester) // Imprime las opciones del menu por tipo de usuario
+                MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesTester); // Imprime las opciones del menu por tipo de usuario
                 int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
                 OpcionAltaUsuario(tipoUsuario, opcionSeleccionada);
