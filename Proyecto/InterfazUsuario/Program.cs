@@ -404,15 +404,15 @@ namespace InterfazUsuario
                 case 1:
                     ImprimirArticulo(miSistema.ObtenerArticulos(), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuArticulo(tipoUsuario);
+                    ValidacionMenu(0, tipoUsuario);
                     break;
                 case 2:
-                    MenuBuscarArticulo(tipoUsuario);
+                    ValidacionMenu(1, tipoUsuario);
                     break;
                 case 3:
                     AltaArticulo();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuArticulo(tipoUsuario);
+                    ValidacionMenu(0, tipoUsuario);
                     break;
             }
         }
@@ -421,17 +421,17 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case 0:
-                    MenuArticulo(tipoUsuario);
+                    ValidacionMenu(0, tipoUsuario);
                     break;
                 case 1:
                     ObtenerArticuloPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuBuscarArticulo(tipoUsuario);
+                    ValidacionMenu(1, tipoUsuario);
                     break;
                 case 2:
                     ObtenerArticuloPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuBuscarArticulo(tipoUsuario);
+                    ValidacionMenu(1, tipoUsuario);
                     break;
             }
         }
@@ -458,13 +458,13 @@ namespace InterfazUsuario
                     Menu(tipoUsuario);
                     break;
                 case 1:
-                    MenuMostrarPublicacion(tipoUsuario);
+                    ValidacionMenu(3, tipoUsuario);
                     break;
                 case 2:
-                    MenuBuscarPublicacion(tipoUsuario);
+                    ValidacionMenu(4, tipoUsuario);
                     break;
                 case 3:
-                    MenuAltaPublicacion(tipoUsuario);
+                    ValidacionMenu(5, tipoUsuario);
                     break;
             }
         }
@@ -473,22 +473,22 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case 0:
-                    MenuPublicacion(tipoUsuario);
+                    ValidacionMenu(2, tipoUsuario);
                     break;
                 case 1:
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuMostrarPublicacion(tipoUsuario);
+                    ValidacionMenu(3, tipoUsuario);
                     break;
                 case 2:
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), false, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuMostrarPublicacion(tipoUsuario);
+                    ValidacionMenu(3, tipoUsuario);
                     break;
                 case 3:
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), false, false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuMostrarPublicacion(tipoUsuario);
+                    ValidacionMenu(3, tipoUsuario);
                     break;
             }
         }
@@ -497,17 +497,17 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case 0:
-                    MenuPublicacion(tipoUsuario);
+                    ValidacionMenu(2, tipoUsuario);
                     break;
                 case 1:
                     ObtenerPublicacionPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuBuscarPublicacion(tipoUsuario);
+                    ValidacionMenu(4, tipoUsuario);
                     break;
                 case 2:
                     ObtenerPublicacionPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuBuscarPublicacion(tipoUsuario);
+                    ValidacionMenu(4, tipoUsuario);
                     break;
             }
         }
@@ -532,22 +532,22 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case 0:
-                    MenuPublicacion(tipoUsuario);
+                    ValidacionMenu(2, tipoUsuario);
                     break;
                 case 1:
                     AltaPublicacion();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuAltaPublicacion(tipoUsuario);
+                    ValidacionMenu(5, tipoUsuario);
                     break;
                 case 2:
                     AltaVenta();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuAltaPublicacion(tipoUsuario);
+                    ValidacionMenu(5, tipoUsuario);
                     break;
                 case 3:
                     AltaSubasta();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuAltaPublicacion(tipoUsuario);
+                    ValidacionMenu(5, tipoUsuario);
                     break;
             }
         }
@@ -584,18 +584,18 @@ namespace InterfazUsuario
                     Menu(tipoUsuario);
                     break;
                 case 1:
-                    MenuMostrarUsuario(tipoUsuario);
+                    ValidacionMenu(7, tipoUsuario);
                     break;
                 case 2:
-                    MenuBuscarUsuario(tipoUsuario);
+                    ValidacionMenu(8, tipoUsuario);
                     break;
                 case 3:
-                    MenuAltaUsuario(tipoUsuario);
+                    ValidacionMenu(9, tipoUsuario);
                     break;
                 case 4:
                     ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuUsuario(tipoUsuario);
+                    ValidacionMenu(6, tipoUsuario);
                     break;
             }
         }
@@ -604,22 +604,22 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case 0:
-                    MenuUsuario(tipoUsuario);
+                    ValidacionMenu(6, tipoUsuario);
                     break;
                 case 1:
                     ImprimirUsuario(miSistema.ObtenerUsuarios(false, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuMostrarUsuario(tipoUsuario);
+                    ValidacionMenu(7, tipoUsuario);
                     break;
                 case 2:
                     ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuMostrarUsuario(tipoUsuario);
+                    ValidacionMenu(7, tipoUsuario);
                     break;
                 case 3:
                     ImprimirUsuario(miSistema.ObtenerUsuarios(false, true), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuMostrarUsuario(tipoUsuario);
+                    ValidacionMenu(7, tipoUsuario);
                     break;
             }
         }
@@ -633,12 +633,12 @@ namespace InterfazUsuario
                 case 1:
                     ObtenerUsuarioPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuBuscarUsuario(tipoUsuario);
+                    ValidacionMenu(8, tipoUsuario);
                     break;
                 case 2:
                     ObtenerUsuarioPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuBuscarUsuario(tipoUsuario);
+                    ValidacionMenu(8, tipoUsuario);
                     break;
             }
         }
@@ -668,17 +668,17 @@ namespace InterfazUsuario
                 case 1:
                     AltaUsuario();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuAltaUsuario(tipoUsuario);
+                    ValidacionMenu(9, tipoUsuario);
                     break;
                 case 2:
                     AltaCliente();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuAltaUsuario(tipoUsuario);
+                    ValidacionMenu(9, tipoUsuario);
                     break;
                 case 3:
                     AltaAdministrador();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    MenuAltaUsuario(tipoUsuario);
+                    ValidacionMenu(9, tipoUsuario);
                     break;
             }
         }
