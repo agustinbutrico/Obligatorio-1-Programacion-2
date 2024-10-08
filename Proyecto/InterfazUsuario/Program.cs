@@ -50,7 +50,7 @@ namespace InterfazUsuario
                 case "ADMINISTRADOR":
                     MostrarOpcionesMenu(opcionesAdministrador);
                     break;
-                case "TESTEO":
+                case "TESTER":
                     MostrarOpcionesMenu(opcionesTester);
                     break;
             }
@@ -141,7 +141,7 @@ namespace InterfazUsuario
                 Console.WriteLine("Menu selección tipo de usuario");
                 Console.WriteLine("1. Usuario");
                 Console.WriteLine("2. Administrador");
-                Console.WriteLine("3. Testeo");
+                Console.WriteLine("3. Tester");
                 Console.WriteLine("-------------------------------------");
                 int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
@@ -159,7 +159,7 @@ namespace InterfazUsuario
                         break;
                     case 3:
                         valido = true;
-                        tipoUsuario = "TESTEO";
+                        tipoUsuario = "TESTER";
                         Menu(tipoUsuario);
                         break;
                 }
@@ -172,7 +172,7 @@ namespace InterfazUsuario
 
             while (!valido)
             {
-                if (tipoUsuario == "CLIENTE" || tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTEO")
+                if (tipoUsuario == "CLIENTE" || tipoUsuario == "ADMINISTRADOR" || tipoUsuario == "TESTER")
                 {
                     Console.Clear();
                     MostrarOpcionesMenu(opciones); // Imprime las opciones del array opciones
