@@ -59,8 +59,26 @@ namespace InterfazUsuario
             {
                 switch (idMenu)
                 {
+                    case 0:
+                        MenuArticulo(tipoUsuario);
                     case 1:
-                        
+                        MenuBuscarArticulo(tipoUsuario);
+                    case 2:
+                        MenuPublicacion(tipoUsuario);
+                    case 3:
+                        MenuMostrarPublicacion(tipoUsuario);
+                    case 4:
+                        MenuBuscarPublicacion(tipoUsuario);
+                    case 5:
+                        MenuAltaPublicacion(tipoUsuario);
+                    case 6:
+                        MenuUsuario(tipoUsuario);
+                    case 7:
+                        MenuMostrarUsuario(tipoUsuario);
+                    case 8:
+                        MenuBuscarUsuario(tipoUsuario);
+                    case 9:
+                        MenuAltaUsuario(tipoUsuario);
                 }
             }
             catch (InvalidOperationException ex)
