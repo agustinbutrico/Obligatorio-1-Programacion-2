@@ -35,11 +35,6 @@ namespace InterfazUsuario
             }
             Console.WriteLine("-------------------------------------");
         }
-        static void VolverAlMenu()
-        {
-            Console.WriteLine("Precione Intro para volver al menu");
-            Console.ReadLine();
-        }
         static void MostrarOpcionesMenuPorTipoUsuario(string tipoUsuario, string[] opcionesCliente, string[] opcionesAdministrador, string[] opcionesTester)
         {
             switch (tipoUsuario)
@@ -54,6 +49,11 @@ namespace InterfazUsuario
                     MostrarOpcionesMenu(opcionesTester);
                     break;
             }
+        }
+        static void VolverAlMenu()
+        {
+            Console.WriteLine("Precione Intro para volver al menu");
+            Console.ReadLine();
         }
         /// <summary>
         /// Implementa el bloque try catch a los menus
