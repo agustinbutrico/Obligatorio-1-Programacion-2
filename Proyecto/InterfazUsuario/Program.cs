@@ -40,6 +40,50 @@ namespace InterfazUsuario
             Console.WriteLine("Precione Intro para volver al menu");
             Console.ReadLine();
         }
+        /// <summary>
+        /// Implementa el bloque try catch a los menus
+        /// idMenu = 0 == MenuArticulo(tipoUsuario)
+        /// idMenu = 1 == MenuBuscarArticulo(tipoUsuario)
+        /// idMenu = 2 == MenuPublicacion(tipoUsuario)
+        /// idMenu = 3 == MenuMostrarPublicacion(tipoUsuario)
+        /// idMenu = 4 == MenuBuscarPublicacion(tipoUsuario)
+        /// idMenu = 5 == MenuAltaPublicacion(tipoUsuario)
+        /// idMenu = 6 == MenuUsuario(tipoUsuario)
+        /// idMenu = 7 == MenuMostrarUsuario(tipoUsuario)
+        /// idMenu = 8 == MenuBuscarUsuario(tipoUsuario)
+        /// idMenu = 9 == MenuAltaUsuario(tipoUsuario)
+        /// </summary>
+        static void ValidacionMenu(int idMenu, string tipoUsuario)
+        {
+            try
+            {
+                switch (idMenu)
+                {
+                    case 1:
+                        
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Error de operación: {ex.Message}");
+        	    VolverAlMenu();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($"Falta un argumento obligatorio: {ex.Message}");
+        	    VolverAlMenu();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Argumento inválido: {ex.Message}");
+        	    VolverAlMenu();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inesperado: {ex.Message}");
+        	    VolverAlMenu();
+            }
+        }
         #endregion
         #region Principal
         static void MenuTipoUsuario()
