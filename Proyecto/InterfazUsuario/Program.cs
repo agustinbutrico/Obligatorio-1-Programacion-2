@@ -7,9 +7,6 @@ namespace InterfazUsuario
     {
         static void Main(string[] args)
         {
-            miSistema.PrecargaArticulo();
-            miSistema.PrecargarPublicacion();
-            miSistema.PrecargaUsuario();
             MenuTipoUsuario();
         }
 
@@ -490,14 +487,14 @@ namespace InterfazUsuario
                 case 2:
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), false, false);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
                 case 3:
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), false, false);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
@@ -769,10 +766,14 @@ namespace InterfazUsuario
                 Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
                 Console.WriteLine($"Estado: {publicaciones[i].Estado}");
                 Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
-                Console.WriteLine($"Articulos: {miSistema.ParseoArticulo(publicaciones[i].Articulos)}");
-                if (!vistaResumida)
+                Console.WriteLine($"Articulos: {publicaciones[i].Articulos.Count}");
+                if (publicaciones[i].Articulos.Count > 0) // Si hay articulos imprimimos sus ids
                 {
-                    ImprimirArticulo(publicaciones[i].Articulos, false); // Imprime los datos de los articulos asociados
+                    Console.WriteLine($"Id de los articulos: {miSistema.ParseoArticulo(publicaciones[i].Articulos)}");
+                    if (!vistaResumida) // Si no es vista resumida mostramos los datos de los articulos
+                    {
+                        ImprimirArticulo(publicaciones[i].Articulos, false); // Imprime los datos de los articulos asociados
+                    }
                 }
                 Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
                 Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
@@ -783,10 +784,14 @@ namespace InterfazUsuario
                 }
                 if (publicaciones[i] is Subasta subasta)
                 {
-                    Console.WriteLine($"Ofertas: {miSistema.ParseoOferta(subasta.Ofertas)}");
-                    if (!vistaResumida)
+                    Console.WriteLine($"Ofertas: {subasta.Ofertas.Count}");
+                    if (subasta.Ofertas.Count > 0) // Si hay ofertas imprimimos sus ids
                     {
-                        ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
+                        Console.WriteLine($"Id de las ofertas: {miSistema.ParseoOferta(subasta.Ofertas)}");
+                        if (!vistaResumida) // Si no es vista resumida mostramos los datos de las ofertas
+                        {
+                            ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
+                        }
                     }
                 }
             }
@@ -936,7 +941,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirPublicacion(publicaciones, false, true);
+            ImprimirPublicacion(publicaciones, true, false);
         }
         static void ObtenerPublicacionPorNombre()
         {
@@ -964,7 +969,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirPublicacion(publicaciones, false, true);
+            ImprimirPublicacion(publicaciones, true, false);
         }
         #endregion
         #region Usuario

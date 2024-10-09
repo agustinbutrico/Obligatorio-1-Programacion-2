@@ -23,6 +23,9 @@ namespace LogicaNegocio
             _usuarios = new List<Usuario>();
             _publicaciones = new List<Publicacion>();
             _articulos = new List<Articulo>();
+            PrecargaArticulo();
+            PrecargaUsuario();
+            PrecargarPublicacion();
         }
         #endregion
 
@@ -32,7 +35,7 @@ namespace LogicaNegocio
         /// La funcion ParseoId permite obtener una lista de Ids a partir de una cadena de texto
         /// La funcion ParseoArticulo permite obtener una cadena de texto a partir de una lista de articulos
         /// </summary>
-        #region Parseo Datos
+        #region Utilidades
         #region Universal
         // Convierte en una lista de ids el string pasado por parametros
         public List<int> ParseoId(string ids_crudos)
