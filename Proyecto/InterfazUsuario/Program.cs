@@ -1126,7 +1126,7 @@ namespace InterfazUsuario
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorFecha(fechaInicio, fechaFin, false, false);
             if (publicaciones == null || publicaciones.Count == 0)
             {
-                Console.WriteLine("No se encontraron publicaciones correspondientes a los nombres proporcionados");
+                Console.WriteLine("No se encontraron publicaciones correspondientes al intervalo proporcionado");
                 return;
             }
 
@@ -1223,6 +1223,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El peecio debe ser un número entero positivo");
                 return;
             }
+            Console.WriteLine("Categoría:");
             string categoria = Console.ReadLine() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(categoria))
             {
@@ -1231,6 +1232,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaArticulo(nombre, precio, categoria);
+            Console.WriteLine("El articulo se ha creado exitosamente");
         }
         #endregion
         #region Publicacion
@@ -1411,6 +1413,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaUsuario(nombre, apellido, email, contrasenia);
+            Console.WriteLine("El usuario se ha creado exitosamente");
         }
         static void AltaCliente()
         {
@@ -1450,6 +1453,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaCliente(nombre, apellido, email, contrasenia, saldo);
+            Console.WriteLine("El cliente se ha creado exitosamente");
         }
         static void AltaAdministrador()
         {
@@ -1486,6 +1490,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaAdministrador(nombre, apellido, email, contrasenia);
+            Console.WriteLine("El administrador se ha creado exitosamente");
         }
         #endregion
         #region Oferta
