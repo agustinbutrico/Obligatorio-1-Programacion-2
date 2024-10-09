@@ -263,7 +263,7 @@ namespace InterfazUsuario
         static void MenuBuscarPublicacion(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu Busqueda", "1. Buscar publicaciones por ID", "2. Buscar publicaciones por Nombre" };
+            string[] opciones = new string[] { "Menu Busqueda", "1. Buscar publicaciones por ID", "2. Buscar publicaciones por Nombre", "3. Buscar publicación por fecha" };
 
             while (!valido)
             {
@@ -519,6 +519,11 @@ namespace InterfazUsuario
                     break;
                 case 2:
                     ObtenerPublicacionPorNombre();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    ValidacionMenu(4, tipoUsuario);
+                    break;
+                case 3:
+                    ObtenerPublicacionPorFecha();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(4, tipoUsuario);
                     break;
@@ -1012,6 +1017,45 @@ namespace InterfazUsuario
                 return;
             }
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres, false, false);
+            if (publicaciones == null || publicaciones.Count == 0)
+            {
+                Console.WriteLine("No se encontraron publicaciones correspondientes a los nombres proporcionados");
+                return;
+            }
+
+            Console.WriteLine(new string('\n', 40));
+            Console.Clear();
+            ImprimirPublicacion(publicaciones, true, false);
+        }
+        static void ObtenerPublicacionPorFecha()
+        {
+            Console.Clear();
+            // Solicitud datos
+            Console.WriteLine("Fecha inicio dd/MM/yyyy:");
+            string fechaInicioCruda = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(fechaInicioCruda))
+            {
+                Console.WriteLine("La fecha de inicio no puede ser vacía");
+                return;
+            }
+            if (!DateTime.TryParse(fechaInicioCruda, out DateTime fechaInicio))
+            {
+                Console.WriteLine("El formato de la fecha de inicio no es válido. Use dd/MM/yyyy.");
+                return;
+            }
+            Console.WriteLine("Fecha fin dd/MM/yyyy:");
+            string fechaFinCruda = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(fechaFinCruda))
+            {
+                Console.WriteLine("La fecha de fin no puede ser vacía");
+                return;
+            }
+            if (!DateTime.TryParse(fechaFinCruda, out DateTime fechaFin))
+            {
+                Console.WriteLine("El formato de la fecha de inicio no es válido. Use dd/MM/yyyy.");
+                return;
+            }
+            List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorFecha(fechaInicio, fechaFin, false, false);
             if (publicaciones == null || publicaciones.Count == 0)
             {
                 Console.WriteLine("No se encontraron publicaciones correspondientes a los nombres proporcionados");
