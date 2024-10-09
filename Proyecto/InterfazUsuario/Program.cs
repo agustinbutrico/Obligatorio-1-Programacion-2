@@ -891,20 +891,35 @@ namespace InterfazUsuario
         #region Usuario
         static void ImprimirUsuario(List<Usuario> usuarios)
         {
-            for (int i = 0; i < usuarios.Count; i++)
+            if (usuarios.Count > 0)
             {
-                Console.WriteLine(new string('-', 70));
-                // Mostramos los detalles del Usuario
-                Console.WriteLine($"ID: {usuarios[i].Id}");
-                Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
-                Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
-                Console.WriteLine($"Email: {usuarios[i].Email}");
-                if (usuarios[i] is Cliente cliente)
+                for (int i = 0; i < usuarios.Count; i++)
                 {
-                    Console.WriteLine($"Saldo: {cliente.Saldo}");
+                    Console.WriteLine(new string('-', 70));
+                    if (usuarios[i] is Administrador administrador)
+                    {
+                        // Mostramos los detalles del Administrador
+                        Console.WriteLine($"ID: {administrador.Id}");
+                        Console.WriteLine($"Nombre: {administrador.Nombre}");
+                        Console.WriteLine($"Apellido: {administrador.Apellido}");
+                        Console.WriteLine($"Email: {administrador.Email}");
+                    }
+                    if (usuarios[i] is Cliente cliente && miSistema.HayCliente())
+                    {
+                        // Mostramos los detalles del Usuario
+                        Console.WriteLine($"ID: {cliente.Id}");
+                        Console.WriteLine($"Nombre: {cliente.Nombre}");
+                        Console.WriteLine($"Apellido: {cliente.Apellido}");
+                        Console.WriteLine($"Email: {cliente.Email}");
+                        Console.WriteLine($"Saldo: {cliente.Saldo}");
+                    }
                 }
+                Console.WriteLine(new string('-', 70));
             }
-            Console.WriteLine(new string('-', 70));
+            if (!miSistema.HayCliente())
+            {
+                Console.WriteLine("No existen clientes actualmente");
+            }
         }
         #endregion
         #region Oferta
