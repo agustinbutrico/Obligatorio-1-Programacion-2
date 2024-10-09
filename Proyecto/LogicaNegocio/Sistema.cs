@@ -287,6 +287,29 @@ namespace LogicaNegocio
             }
             return publicacion;
         }
+        public List<Publicacion> ObtenerPublicacionPorFecha(DateTime fechaInicio, DateTime fechaFin,bool esUnicamenteVenta, bool esUnicamenteSubasta)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
+            for (int i = 0; i < _publicaciones.Count; i++)
+            {
+                if (_publicaciones[i].Fecha > fechaInicio && _publicaciones[i].Fecha < fechaFin) // Si la lista de nombres contiene algúna publicación
+                {
+                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    {
+                        publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                    }
+                    else if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                    {
+                        publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                    }
+                    else if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
+                    {
+                        publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                    }
+                }
+            }
+            return publicaciones;
+        }
         #endregion
         #region Usuario
         public List<Usuario> ObtenerUsuarios(bool esUnicamenteCliente, bool esUnicamenteAdministrador)

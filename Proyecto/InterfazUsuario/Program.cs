@@ -858,7 +858,12 @@ namespace InterfazUsuario
                 Console.WriteLine(new string('-', margenes));
                 // Mostramos los detalles de las ofertas
                 Console.WriteLine($"ID: {ofertas[i].Id}");
-                Console.WriteLine($"Usuario: {ofertas[i].Usuario}");
+                if (ofertas[i].Usuario is Usuario usuario)
+                {
+                    Console.WriteLine($"Id usuario: {usuario.Id}");
+                    Console.WriteLine($"Nombre usuario: {usuario.Nombre}");
+                    Console.WriteLine($"Apellido usuario: {usuario.Apellido}");
+                }
                 Console.WriteLine($"Monto: {ofertas[i].Monto}");
                 Console.WriteLine($"Fecha: {ofertas[i].Fecha}");
             }
