@@ -769,30 +769,40 @@ namespace InterfazUsuario
                 Console.WriteLine($"Articulos: {publicaciones[i].Articulos.Count}");
                 if (publicaciones[i].Articulos.Count > 0) // Si hay articulos imprimimos sus ids
                 {
-                    Console.WriteLine($"Id de los articulos: {miSistema.ParseoArticulo(publicaciones[i].Articulos)}");
+                    Console.WriteLine($"Id de los articulos asociados: {miSistema.ParseoArticulo(publicaciones[i].Articulos)}");
                     if (!vistaResumida) // Si no es vista resumida mostramos los datos de los articulos
                     {
                         ImprimirArticulo(publicaciones[i].Articulos, false); // Imprime los datos de los articulos asociados
                     }
                 }
-                Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
-                Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
-                Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
                 if (publicaciones[i] is Venta venta)
                 {
-                    Console.WriteLine($"Oferta relampago: {venta.OfertaRelampago}");
+                    if (venta.OfertaRelampago)
+                    {
+                        Console.WriteLine($"Oferta relampago: Si");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Oferta relampago: No");
+                    }
                 }
                 if (publicaciones[i] is Subasta subasta)
                 {
                     Console.WriteLine($"Ofertas: {subasta.Ofertas.Count}");
                     if (subasta.Ofertas.Count > 0) // Si hay ofertas imprimimos sus ids
                     {
-                        Console.WriteLine($"Id de las ofertas: {miSistema.ParseoOferta(subasta.Ofertas)}");
+                        Console.WriteLine($"Id de las ofertas asociadas: {miSistema.ParseoOferta(subasta.Ofertas)}");
                         if (!vistaResumida) // Si no es vista resumida mostramos los datos de las ofertas
                         {
                             ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
                         }
                     }
+                }
+                if (publicaciones[i].FechaFin != DateTime.MinValue)
+                {
+                    Console.WriteLine($"Cliente: {publicaciones[i].Cliente}");
+                    Console.WriteLine($"Administrador: {publicaciones[i].Administrador}");
+                    Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
                 }
             }
             Console.WriteLine(new string('-', margenes));

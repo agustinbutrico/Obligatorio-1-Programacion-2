@@ -24,8 +24,9 @@ namespace LogicaNegocio
             _publicaciones = new List<Publicacion>();
             _articulos = new List<Articulo>();
             PrecargaArticulo();
-            PrecargaUsuario();
             PrecargarPublicacion();
+            PrecargaUsuario();
+            PrecargaOferta();
         }
         #endregion
 
@@ -392,6 +393,17 @@ namespace LogicaNegocio
             return usuario;
         }
         #endregion
+        #region Oferta
+        public List<Oferta> ObtenerOfertas(Publicacion? publicacion)
+        {
+            List<Oferta> ofertas = new List<Oferta>();  // Inicializamos la lista que contendrá las ofertas
+            if (publicacion is Subasta subasta)
+            {
+                ofertas = subasta.Ofertas; // Se añade cualquier oferta a la lista ofertas
+            }
+            return ofertas;
+        }
+        #endregion
         #endregion
 
         /// <summary>
@@ -596,6 +608,7 @@ namespace LogicaNegocio
         {
             AltaVenta("Verano en la playa", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 11, 24, 35, 54 }), null, null, DateTime.MinValue, false);
             AltaSubasta("Vuelta ciclista", "ABIERTA", DateTime.ParseExact("06/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 27, 33, 39 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaSubasta("Set natación", "ABIERTA", DateTime.ParseExact("21/07/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 12, 15, 25 }), null, null, DateTime.MinValue, new List<Oferta>());
             AltaVenta("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false);
         }
         #endregion
@@ -612,6 +625,12 @@ namespace LogicaNegocio
             AltaCliente("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31", 30000);
             AltaCliente("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990", 7200);
             AltaCliente("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", 900);
+        }
+        #endregion
+        #region Oferta
+        public void PrecargaOferta()
+        {
+            AltaOferta(ObtenerUsuarioPorId(3, true, false), ObtenerPublicacionPorId(2, false, true), 100, DateTime.ParseExact("24/07/2024", "dd/MM/yyyy", null));
         }
         #endregion
         #endregion
