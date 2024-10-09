@@ -75,13 +75,9 @@ namespace LogicaNegocio
             if (obj != null && obj is Oferta)
             {
                 Oferta oferta = (Oferta)obj;
-                return Monto == oferta.Monto;
+                return Usuario == oferta.Usuario;
             }
             return false;
-        }
-        public override int GetHashCode()
-        {
-            return Monto.GetHashCode();
         }
         #endregion
     }

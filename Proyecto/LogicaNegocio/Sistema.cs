@@ -23,6 +23,10 @@ namespace LogicaNegocio
             _usuarios = new List<Usuario>();
             _publicaciones = new List<Publicacion>();
             _articulos = new List<Articulo>();
+            PrecargaArticulo();
+            PrecargarPublicacion();
+            PrecargaUsuario();
+            PrecargaOferta();
         }
         #endregion
 
@@ -32,10 +36,10 @@ namespace LogicaNegocio
         /// La funcion ParseoId permite obtener una lista de Ids a partir de una cadena de texto
         /// La funcion ParseoArticulo permite obtener una cadena de texto a partir de una lista de articulos
         /// </summary>
-        #region Parseo Datos
+        #region Utilidades
         #region Universal
         // Convierte en una lista de ids el string pasado por parametros
-        public List<int> ParseoId(string ids_crudos)
+        public List<int> ParseoInt(string ids_crudos)
         {
             List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
             string[] ids = ids_crudos.Split(','); // Crea un array de los ids
@@ -47,7 +51,7 @@ namespace LogicaNegocio
             return lista_ids;
         }
         // Convierte en una lista de nombres el string pasado por parametros
-        public List<string> ParseoNombre(string nombres_crudos)
+        public List<string> ParseoString(string nombres_crudos)
         {
             List<string> lista_nombres = new List<string>(); // Crea una lista de los nombres ingresados
             string[] nombres = nombres_crudos.Split(','); // Crea un array de los nombres
@@ -142,6 +146,18 @@ namespace LogicaNegocio
             }
             return articulos;
         }
+        public List<Articulo> ObtenerArticuloPorCategoria(List<string> categoria)
+        {
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
+            for (int i = 0; i < _articulos.Count; i++)
+            {
+                if (categoria.Contains(_articulos[i].Categoria)) // Si la lista de nombres contiene algún artículo
+                {
+                    articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
+                }
+            }
+            return articulos;
+        }
         #endregion
         #region Publicacion
         public List<Publicacion> ObtenerPublicaciones(bool esUnicamenteVenta, bool esUnicamenteSubasta)
@@ -199,7 +215,7 @@ namespace LogicaNegocio
             }
             return publicaciones;
         }
-        public Publicacion? ObtenerPublicacionPorId(int id)
+        public Publicacion? ObtenerPublicacionPorId(int id, bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
             Publicacion? publicacion = null;
             int indice = 0;
@@ -207,7 +223,18 @@ namespace LogicaNegocio
             {
                 if (id == _publicaciones[indice].Id) // Si la lista de ids contiene algúna publicación
                 {
-                    publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                    else if (_publicaciones[indice] is Venta venta && esUnicamenteVenta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                    else if (_publicaciones[indice] is Subasta subasta && esUnicamenteSubasta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
                 }
                 indice++;
             }
@@ -235,6 +262,30 @@ namespace LogicaNegocio
                 }
             }
             return publicaciones;
+        }
+        public Publicacion? ObtenerPublicacionPorNombre(string nombres, bool esUnicamenteVenta, bool esUnicamenteSubasta)
+        {
+            Publicacion? publicacion = null;
+            int indice = 0;
+            while (indice < _publicaciones.Count && publicacion == null)
+            {
+                if (nombres.Contains(_publicaciones[indice].Nombre)) // Si la lista de nombres contiene algúna publicación
+                {
+                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                    else if (_publicaciones[indice] is Venta venta && esUnicamenteVenta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                    else if (_publicaciones[indice] is Subasta subasta && esUnicamenteSubasta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                }
+            }
+            return publicacion;
         }
         #endregion
         #region Usuario
@@ -281,7 +332,7 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
-        public Usuario? ObtenerUsuarioPorId(int id)
+        public Usuario? ObtenerUsuarioPorId(int id, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
             Usuario? usuario = null;
             int indice = 0;
@@ -289,7 +340,18 @@ namespace LogicaNegocio
             {
                 if (id == _usuarios[indice].Id) // Si la lista de ids contiene algúna usuario
                 {
-                    usuario = _usuarios[indice]; // Se asigna el usuario
+                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                    else if (_usuarios[indice] is Cliente cliente && esUnicamenteCliente)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                    else if (_usuarios[indice] is Administrador administrador && esUnicamenteAdministrador)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
                 }
                 indice++;
             }
@@ -318,18 +380,53 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
+        public Usuario? ObtenerUsuarioPorNombre(string nombres, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
+        {
+            Usuario? usuario = null;
+            int indice = 0;
+            while (indice < _usuarios.Count && usuario == null)
+            {
+                if (nombres.Contains(_usuarios[indice].Nombre)) // Si la lista de nombres contiene algún usuario
+                {
+                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                    else if (_usuarios[indice] is Cliente cliente && esUnicamenteCliente)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                    else if (_usuarios[indice] is Administrador administrador && esUnicamenteAdministrador)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                }
+            }
+            return usuario;
+        }
+        #endregion
+        #region Oferta
+        public List<Oferta> ObtenerOfertas(Publicacion? publicacion)
+        {
+            List<Oferta> ofertas = new List<Oferta>();  // Inicializamos la lista que contendrá las ofertas
+            if (publicacion is Subasta subasta)
+            {
+                ofertas = subasta.Ofertas; // Se añade cualquier oferta a la lista ofertas
+            }
+            return ofertas;
+        }
         #endregion
         #endregion
-        
+
         /// <summary>
         /// Las funciones de alta se encargan de llamar a los constructores de las
         /// diferentes clases y pasar los parametros obtenidos en Program.
         /// </summary>
         #region Altas
         #region Articulo
-        public void AltaArticulo(string nombre, decimal precio)
+        public void AltaArticulo(string nombre, decimal precio, string categoria)
         {
-            Articulo nuevoArticulo = new Articulo(nombre, precio);
+            Articulo nuevoArticulo = new Articulo(nombre, precio, categoria);
             // Validación de la relacion entre los datos ingresados
             nuevoArticulo.Validar();
             // Si los datos son validos entonces se registra el Articulo
@@ -411,11 +508,8 @@ namespace LogicaNegocio
         }
         #endregion
         #region Ofertas
-        public void AltaOferta(int id, int idUsuario, decimal monto, DateTime fecha)
+        public void AltaOferta(Usuario? usuario, Publicacion? publicacion, decimal monto, DateTime fecha)
         {
-            Publicacion? publicacion = ObtenerPublicacionPorId(id);
-            Usuario? usuario = ObtenerUsuarioPorId(idUsuario);
-
             if (publicacion != null && publicacion is Subasta subasta) 
             {
                 subasta.AltaOferta(usuario, monto, fecha);
@@ -430,25 +524,19 @@ namespace LogicaNegocio
         /// Este es un dato calculado ya que es necesario acceder a la venta y sumar el precio de todos sus articulos.
         /// </summary>
         #region Consultas
-        public List<decimal> ConsultarPrecioVentaDeListaVenta(List<Publicacion> ventas)
+        public decimal ConsultarPrecioVenta(Publicacion? publicacion, List<Articulo> articulos)
         {
-            List<decimal> precio = new List<decimal>();
-            for (int i = 0; i < ventas.Count; i++)
+            decimal precio = 0;
+            for (int i = 0; i < articulos.Count; i++)
             {
-                // Accede a la venta en especifico
-                if (ventas[i] is Venta venta)
+                precio += articulos[i].Precio;
+            }
+            if (publicacion is Venta venta)
+            {
+                if (venta.OfertaRelampago)
                 {
-                    // Recorre la lista de articulos de la venta en especifico y suma su precio al total
-                    for (int j = 0; j < venta.Articulos.Count; j++)
-                    {
-                        precio[i] += venta.Articulos[j].Precio;
-                    }
-                    // Una vez sumado los precios de todos los articulos
                     // se aplica descuento si corresponde a la venta en especifico
-                    if (venta.OfertaRelampago)
-                    {
-                        precio[i] = precio[i] * 80 / 100;
-                    }
+                    precio = precio * 80 / 100;
                 }
             }
             return precio;
@@ -463,62 +551,62 @@ namespace LogicaNegocio
         #region Articulo
         public void PrecargaArticulo()
         {
-            AltaArticulo("Pelota de fútbol", 450);
-            AltaArticulo("Camiseta deportiva", 1200);
-            AltaArticulo("Zapatillas running", 3500);
-            AltaArticulo("Raqueta de tenis", 4200);
-            AltaArticulo("Balón de baloncesto", 800);
-            AltaArticulo("Guantes de boxeo", 2200);
-            AltaArticulo("Casco de ciclismo", 1800);
-            AltaArticulo("Saco de dormir", 2300);
-            AltaArticulo("Bolsa de gimnasio", 950);
-            AltaArticulo("Bicicleta de montaña", 15000);
-            AltaArticulo("Mochila de trekking", 2100);
-            AltaArticulo("Protector solar", 320);
-            AltaArticulo("Botella térmica", 750);
-            AltaArticulo("Palo de hockey", 1700);
-            AltaArticulo("Pesas ajustables", 3000);
-            AltaArticulo("Cinta para correr", 25000);
-            AltaArticulo("Guantes de arquero", 900);
-            AltaArticulo("Tabla de surf", 12000);
-            AltaArticulo("Canilleras", 600);
-            AltaArticulo("Traje de neopreno", 5400);
-            AltaArticulo("Gafas de natación", 650);
-            AltaArticulo("Bola de bowling", 3500);
-            AltaArticulo("Skateboard", 2400);
-            AltaArticulo("Patines en línea", 2900);
-            AltaArticulo("Salvavidas", 1200);
-            AltaArticulo("Set de pesas", 4200);
-            AltaArticulo("Cuerda para saltar", 300);
-            AltaArticulo("Bicicleta de carrera", 18500);
-            AltaArticulo("Tobilleras con peso", 850);
-            AltaArticulo("Set de dardos", 400);
-            AltaArticulo("Bate de béisbol", 1900);
-            AltaArticulo("Bola de voleibol", 850);
-            AltaArticulo("Aro de baloncesto", 2700);
-            AltaArticulo("Zapatilla de ciclismo", 1900);
-            AltaArticulo("Silla de camping", 1100);
-            AltaArticulo("Sombrilla", 1600);
-            AltaArticulo("Tienda de campaña", 8700);
-            AltaArticulo("Colchoneta de yoga", 1200);
-            AltaArticulo("Barra de dominadas", 1900);
-            AltaArticulo("Malla", 600);
-            AltaArticulo("Reloj deportivo", 6500);
-            AltaArticulo("Monopatín eléctrico", 18000);
-            AltaArticulo("Kit de pesca", 3200);
-            AltaArticulo("Bolsa de golf", 7600);
-            AltaArticulo("Raqueta de bádminton", 1600);
-            AltaArticulo("Patineta longboard", 3300);
-            AltaArticulo("Bola de rugby", 1050);
-            AltaArticulo("Kit de snorkel", 1800);
-            AltaArticulo("Camiseta de compresión", 1300);
-            AltaArticulo("Gorra deportiva", 400);
-            AltaArticulo("Balón medicinal", 2000);
-            AltaArticulo("Kit de arquería", 9800);
-            AltaArticulo("Soga de escalada", 5600);
-            AltaArticulo("Casco de esquí", 3700);
-            AltaArticulo("Balde", 1050);
-            AltaArticulo("Gafas de ciclismo", 900);
+            AltaArticulo("Pelota de football", 450, "Football");
+            AltaArticulo("Camiseta deportiva", 1200, "Deporte");
+            AltaArticulo("Zapatillas treking", 3500, "Treking");
+            AltaArticulo("Raqueta de tenis", 4200, "Tenis");
+            AltaArticulo("Balón de basquetball", 800, "Basquetball");
+            AltaArticulo("Guantes de boxeo", 2200, "Boxeo");
+            AltaArticulo("Casco de ciclismo", 1800, "Ciclismo");
+            AltaArticulo("Saco de dormir", 2300, "Camping");
+            AltaArticulo("Bolsa de gimnasio", 950, "Boxeo");
+            AltaArticulo("Bicicleta de montaña", 15000, "Ciclismo");
+            AltaArticulo("Mochila de trekking", 2100, "Treking");
+            AltaArticulo("Protector solar", 320, "Playa");
+            AltaArticulo("Botella térmica", 750, "Camping");
+            AltaArticulo("Palo de hockey", 1700, "Hokey");
+            AltaArticulo("Pesas ajustables", 3000, "Gimnasio");
+            AltaArticulo("Cinta para correr", 25000, "Gimnasio");
+            AltaArticulo("Guantes de arquero", 900, "Arquería");
+            AltaArticulo("Tabla de surf", 12000, "Surf");
+            AltaArticulo("Canilleras", 600, "Football");
+            AltaArticulo("Traje de neopreno", 5400, "Surf");
+            AltaArticulo("Gafas de natación", 650, "Natación");
+            AltaArticulo("Bola de bowling", 3500, "Bowling");
+            AltaArticulo("Skateboard", 2400, "Skating");
+            AltaArticulo("Patines en línea", 2900, "Patinaaje");
+            AltaArticulo("Salvavidas", 1200, "Playa");
+            AltaArticulo("Set de pesas", 4200, "Gimnasio");
+            AltaArticulo("Cuerda para saltar", 300, "Gimnasio");
+            AltaArticulo("Bicicleta de carrera", 18500, "Ciclismo");
+            AltaArticulo("Tobilleras con peso", 850, "Gimnasio");
+            AltaArticulo("Set de dardos", 400, "Juegos");
+            AltaArticulo("Bate de baseball", 1900, "Baseball");
+            AltaArticulo("Bola de volleyball", 850, "Volleyball");
+            AltaArticulo("Aro de basquetball", 2700, "Basquetball");
+            AltaArticulo("Zapatilla de ciclismo", 1900, "Ciclismo");
+            AltaArticulo("Silla de camping", 1100, "Camping");
+            AltaArticulo("Sombrilla", 1600, "Playa");
+            AltaArticulo("Tienda de campaña", 8700, "Camping");
+            AltaArticulo("Colchoneta de yoga", 1200, "Deporte");
+            AltaArticulo("Barra de dominadas", 1900, "Gimnasio");
+            AltaArticulo("Malla", 600, "Ciclismo");
+            AltaArticulo("Reloj deportivo", 6500, "Deporte");
+            AltaArticulo("Monopatín eléctrico", 18000, "Ciclismo");
+            AltaArticulo("Kit de pesca", 3200, "Pesca");
+            AltaArticulo("Bolsa de golf", 7600, "Golf");
+            AltaArticulo("Raqueta de badminton", 1600, "Badminton");
+            AltaArticulo("Patineta longboard", 3300, "Skating");
+            AltaArticulo("Bola de rugby", 1050, "Rugby");
+            AltaArticulo("Kit de snorkel", 1800, "Natacion");
+            AltaArticulo("Camiseta de compresión", 1300, "Deporte");
+            AltaArticulo("Gorra deportiva", 400, "Deporte");
+            AltaArticulo("Balón medicinal", 2000, "Salud");
+            AltaArticulo("Kit de arquería", 9800, "Arquería");
+            AltaArticulo("Soga de escalada", 5600, "Escalada");
+            AltaArticulo("Casco de ski", 3700, "Ski");
+            AltaArticulo("Balde", 1050, "Playa");
+            AltaArticulo("Gafas de ciclismo", 900, "Ciclismo");
         }
         #endregion
         #region Publicacion
@@ -526,7 +614,8 @@ namespace LogicaNegocio
         {
             AltaVenta("Verano en la playa", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 11, 24, 35, 54 }), null, null, DateTime.MinValue, false);
             AltaSubasta("Vuelta ciclista", "ABIERTA", DateTime.ParseExact("06/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 27, 33, 39 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaVenta("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false);
+            AltaSubasta("Set camping", "ABIERTA", DateTime.ParseExact("21/07/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 7, 34 ,36 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaVenta("Juego gimnasio", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 14, 15, 25, 26, 28, 38 }), null, null, DateTime.MinValue, false);
         }
         #endregion
         #region Usuario
@@ -544,7 +633,12 @@ namespace LogicaNegocio
             AltaCliente("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", 900);
         }
         #endregion
+        #region Oferta
+        public void PrecargaOferta()
+        {
+            AltaOferta(ObtenerUsuarioPorId(3, true, false), ObtenerPublicacionPorId(2, false, true), 100, DateTime.ParseExact("24/07/2024", "dd/MM/yyyy", null));
+        }
         #endregion
-
+        #endregion
     }
 }

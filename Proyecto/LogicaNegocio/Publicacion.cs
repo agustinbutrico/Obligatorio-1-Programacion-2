@@ -119,10 +119,6 @@ namespace LogicaNegocio
             }
             return false;
         }
-        public override int GetHashCode()
-        {
-            return Nombre.GetHashCode();
-        }
         #endregion
     }
 }

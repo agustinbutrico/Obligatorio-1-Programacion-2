@@ -14,6 +14,7 @@ namespace LogicaNegocio
         private static int s_ultId = 0; // Inicializado con el id siguiente a la ultima precarga
         private string _nombre = string.Empty; // Inicializado con una cadena vacía
         private decimal _precio = 0; // Inicializado con 0
+        private string _categoria = string.Empty; // Inicializado con una cadena vacía
         #endregion
 
         #region Propiedades
@@ -31,15 +32,21 @@ namespace LogicaNegocio
             get { return _precio; }
             set { _precio = EvaluarPrecio(value); }
         }
+        public string Categoria
+        {
+            get { return _categoria; }
+            set { _categoria = EvaluarCategoria(value); }
+        }
         #endregion
 
         #region Constructor
-        public Articulo(string nombre, decimal precio)
+        public Articulo(string nombre, decimal precio, string categoria)
         {
             _id = Articulo.s_ultId; // Asigna el ID único
             Articulo.s_ultId++; // Incrementa el ID único
             Nombre = nombre;
             Precio = precio;
+            Categoria = categoria;
         }
         #endregion
 
@@ -61,6 +68,14 @@ namespace LogicaNegocio
             }
             return precio;
         }
+        private static string EvaluarCategoria(string categoria)
+        {
+            if (string.IsNullOrEmpty(categoria))
+            {
+                throw new Exception("La categoria no puede ser vacía");
+            }
+            return categoria;
+        }
 
         // Validación de Articulo
         public void Validar()
@@ -78,10 +93,6 @@ namespace LogicaNegocio
                 return Nombre == articulo.Nombre;
             }
             return false;
-        }
-        public override int GetHashCode()
-        {
-            return Nombre.GetHashCode();
         }
         #endregion
     }

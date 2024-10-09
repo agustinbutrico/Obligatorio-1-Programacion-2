@@ -31,9 +31,9 @@ namespace LogicaNegocio
         #region Alta
         public void AltaOferta(Usuario? usuario, decimal monto, DateTime fecha)
         {
-            if (Ofertas[Ofertas.Count - 1].Monto < monto)
+            Oferta oferta = new Oferta(usuario, monto, fecha); // Crea una oferta con el costructor de Oferta
+            if (usuario != null && !Ofertas.Contains(oferta)) // Utilizando el Equals de Oferta valida que un usuario no haga más de una oferta
             {
-                Oferta oferta = new Oferta(usuario, monto, fecha); // Llama al costructor de Oferta
                 Ofertas.Add(oferta); // Añade a la lista _ofertas
             }
         }
@@ -56,10 +56,6 @@ namespace LogicaNegocio
                 return Nombre == subasta.Nombre;
             }
             return false;
-        }
-        public override int GetHashCode()
-        {
-            return Nombre.GetHashCode();
         }
         #endregion
     }
