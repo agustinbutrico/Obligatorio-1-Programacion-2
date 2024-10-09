@@ -239,8 +239,8 @@ namespace InterfazUsuario
         static void MenuPublicacion(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta" };
-            string[] opcionesAdministrador = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta", "4. Dar de alta" };
+            string[] opcionesCliente = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar" };
+            string[] opcionesAdministrador = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar", "4. Dar de alta" };
 
             while (!valido)
             {
@@ -849,7 +849,7 @@ namespace InterfazUsuario
                 Console.WriteLine($"ID: {publicaciones[i].Id}");
                 Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
                 Console.WriteLine($"Estado: {publicaciones[i].Estado}");
-                Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
+                Console.WriteLine($"Fecha de publicación: {publicaciones[i].Fecha}");
                 Console.WriteLine($"Articulos: {publicaciones[i].Articulos.Count}");
                 if (publicaciones[i].Articulos.Count > 0) // Si hay articulos imprimimos sus ids
                 {
