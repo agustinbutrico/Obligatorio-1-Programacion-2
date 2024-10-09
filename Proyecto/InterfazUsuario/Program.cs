@@ -314,7 +314,7 @@ namespace InterfazUsuario
         static void MenuUsuario(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "Menu Usuarios", "0. ...", "1. Mostrar todos los usuarios", "2. Buscar" };
+            string[] opcionesCliente = new string[] { "Menu Usuarios", "0. ...", "1. Mostrar todos los clientes", "2. Buscar" };
             string[] opcionesAdministrador = new string[] { "Menu Usuarios", "0. ...", "1. Mostrar", "2. Buscar", "3. Dar de alta" };
 
             while (!valido)
@@ -813,21 +813,22 @@ namespace InterfazUsuario
         #region Articulo
         static void ImprimirArticulo(List<Articulo> articulos, bool margenesGrandes)
         {
-            int margenes = 20;
-
+            int margenes = 35;
+            string menuAnidado = "  ";
             if (margenesGrandes)
             {
-                margenes = 40;
+                margenes = 70;
+                menuAnidado = "";
             }
             
             for (int i = 0; i < articulos.Count; i++)
             {
                 Console.WriteLine(new string('-', margenes));
                 // Mostramos los detalles del Artículo
-                Console.WriteLine($"ID: {articulos[i].Id}");
-                Console.WriteLine($"Nombre: {articulos[i].Nombre}");
-                Console.WriteLine($"Precio: {articulos[i].Precio}");
-                Console.WriteLine($"Categoría: {articulos[i].Categoria}");
+                Console.WriteLine($"{menuAnidado}ID: {articulos[i].Id}");
+                Console.WriteLine($"{menuAnidado}Nombre: {articulos[i].Nombre}");
+                Console.WriteLine($"{menuAnidado}Precio: {articulos[i].Precio}");
+                Console.WriteLine($"{menuAnidado}Categoría: {articulos[i].Categoria}");
             }
             Console.WriteLine(new string('-', margenes));
         }
@@ -837,7 +838,7 @@ namespace InterfazUsuario
         {
             for (int i = 0; i < publicaciones.Count; i++)
             {
-                Console.WriteLine(new string('-', 40));
+                Console.WriteLine(new string('-', 70));
                 // Mostramos los detalles de las publicaciones
                 Console.WriteLine($"ID: {publicaciones[i].Id}");
                 Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
@@ -884,7 +885,7 @@ namespace InterfazUsuario
                     Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
                 }
             }
-            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(new string('-', 70));
         }
         #endregion
         #region Usuario
@@ -892,7 +893,7 @@ namespace InterfazUsuario
         {
             for (int i = 0; i < usuarios.Count; i++)
             {
-                Console.WriteLine(new string('-', 40));
+                Console.WriteLine(new string('-', 70));
                 // Mostramos los detalles del Usuario
                 Console.WriteLine($"ID: {usuarios[i].Id}");
                 Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
@@ -903,27 +904,28 @@ namespace InterfazUsuario
                     Console.WriteLine($"Saldo: {cliente.Saldo}");
                 }
             }
-            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(new string('-', 70));
         }
         #endregion
         #region Oferta
         static void ImprimirOferta(List<Oferta> ofertas)
         {
+            string menuAnidado = "  ";
             for (int i = 0; i < ofertas.Count; i++)
             {
-                Console.WriteLine(new string('-', 20));
+                Console.WriteLine(new string('-', 35));
                 // Mostramos los detalles de las ofertas
-                Console.WriteLine($"ID: {ofertas[i].Id}");
+                Console.WriteLine($"{menuAnidado}ID: {ofertas[i].Id}");
                 if (ofertas[i].Usuario is Usuario usuario)
                 {
-                    Console.WriteLine($"Id usuario: {usuario.Id}");
-                    Console.WriteLine($"Nombre usuario: {usuario.Nombre}");
-                    Console.WriteLine($"Apellido usuario: {usuario.Apellido}");
+                    Console.WriteLine($"{menuAnidado}Id usuario: {usuario.Id}");
+                    Console.WriteLine($"{menuAnidado}Nombre usuario: {usuario.Nombre}");
+                    Console.WriteLine($"{menuAnidado}Apellido usuario: {usuario.Apellido}");
                 }
-                Console.WriteLine($"Monto: {ofertas[i].Monto}");
-                Console.WriteLine($"Fecha: {ofertas[i].Fecha}");
+                Console.WriteLine($"{menuAnidado}Monto: {ofertas[i].Monto}");
+                Console.WriteLine($"{menuAnidado}Fecha: {ofertas[i].Fecha}");
             }
-            Console.WriteLine(new string('-', 20));
+            Console.WriteLine(new string('-', 35));
         }
         #endregion
         #endregion
