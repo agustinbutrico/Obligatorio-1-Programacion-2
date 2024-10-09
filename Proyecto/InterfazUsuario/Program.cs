@@ -26,7 +26,6 @@ namespace InterfazUsuario
         {
             Console.WriteLine("-------------------------------------");
             Console.WriteLine(opciones[0]);
-            Console.WriteLine("0. ...");
             for (int i = 1; i < opciones.Length; i++)
             {
                 Console.WriteLine(opciones[i]);
@@ -134,32 +133,34 @@ namespace InterfazUsuario
         static void MenuTipoUsuario()
         {
             bool valido = false;
+            string[] opciones = new string[] { "Menu selección tipo de usuario", "S. Salir del sistema", "1. Usuario", "2. Administrador", "3. Tester" };
             string tipoUsuario;
 
             while (!valido)
             {
                 Console.Clear();
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine("Menu selección tipo de usuario");
-                Console.WriteLine("1. Usuario");
-                Console.WriteLine("2. Administrador");
-                Console.WriteLine("3. Tester");
-                Console.WriteLine("-------------------------------------");
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                MostrarOpcionesMenu(opciones); // Imprime las opciones del array opciones
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
                 switch (opcionSeleccionada)
                 {
-                    case 1:
+                    case 'S':
+                        valido = true;
+                        break;
+                    case 's':
+                        valido = true;
+                        break;
+                    case '1':
                         valido = true;
                         tipoUsuario = "CLIENTE";
                         Menu(tipoUsuario);
                         break;
-                    case 2:
+                    case '2':
                         valido = true;
                         tipoUsuario = "ADMINISTRADOR";
                         Menu(tipoUsuario);
                         break;
-                    case 3:
+                    case '3':
                         valido = true;
                         tipoUsuario = "TESTER";
                         Menu(tipoUsuario);
@@ -170,7 +171,7 @@ namespace InterfazUsuario
         static void Menu(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu", "1. Artículos", "2. Publicaciones", "3. Usuarios" };
+            string[] opciones = new string[] { "Menu", "0. ...", "1. Artículos", "2. Publicaciones", "3. Usuarios" };
 
             while (!valido)
             {
@@ -178,20 +179,24 @@ namespace InterfazUsuario
                 {
                     Console.Clear();
                     MostrarOpcionesMenu(opciones); // Imprime las opciones del array opciones
-                    int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                    char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
                     switch (opcionSeleccionada)
                     {
-                        case 0:
+                        case '0':
+                            valido = true;
                             MenuTipoUsuario();
                             break;
-                        case 1:
+                        case '1':
+                            valido = true;
                             ValidacionMenu(0, tipoUsuario);
                             break;
-                        case 2:
+                        case '2':
+                            valido = true;
                             ValidacionMenu(2, tipoUsuario);
                             break;
-                        case 3:
+                        case '3':
+                            valido = true;
                             ValidacionMenu(7, tipoUsuario);
                             break;
                     }
@@ -203,30 +208,30 @@ namespace InterfazUsuario
         static void MenuArticulo(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "Menu Articulo", "1. Mostrar catálogo", "2. Buscar" };
-            string[] opcionesAdministrador = new string[] { "Menu Articulo", "1. Mostrar catálogo", "2. Buscar", "3. Dar de alta articulo" };
+            string[] opcionesCliente = new string[] { "Menu Articulo", "0. ...", "1. Mostrar catálogo", "2. Buscar" };
+            string[] opcionesAdministrador = new string[] { "Menu Articulo", "0. ...", "1. Mostrar catálogo", "2. Buscar", "3. Dar de alta articulo" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador); // Imprime las opciones del menu por tipo de usuario
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                ProcesamientoOpcionArticulo(tipoUsuario, opcionSeleccionada);
+                valido = ProcesamientoOpcionArticulo(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         static void MenuBuscarArticulo(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu Buscar", "1. Buscar artículo por ID", "2. Buscar artículo por Nombre", "3. Buscar artículo por categoría" };
+            string[] opciones = new string[] { "Menu Buscar", "0. ...", "1. Buscar artículo por ID", "2. Buscar artículo por Nombre", "3. Buscar artículo por categoría" };
 
             while (!valido)
             {
                 Console.Clear();                
                 MostrarOpcionesMenu(opciones); // Imprime las opciones del menu
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                OpcionBuscarArticulo(tipoUsuario, opcionSeleccionada);
+                valido = OpcionBuscarArticulo(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         #endregion
@@ -234,74 +239,74 @@ namespace InterfazUsuario
         static void MenuPublicacion(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "Menu Publicacion", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta" };
-            string[] opcionesAdministrador = new string[] { "Menu Publicacion", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta", "4. Dar de alta" };
+            string[] opcionesCliente = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta" };
+            string[] opcionesAdministrador = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta", "4. Dar de alta" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador); // Imprime las opciones del menu por tipo de usuario
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                ProcesamientoOpcionPublicacion(tipoUsuario, opcionSeleccionada);
+                valido = ProcesamientoOpcionPublicacion(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         static void MenuMostrarPublicacion(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu Mostrar", "1. Mostrar todas las publicaciones", "2. Mostrar todas las ventas", "3. Mostrar todas las subastas" };
+            string[] opciones = new string[] { "Menu Mostrar", "0. ...", "1. Mostrar todas las publicaciones", "2. Mostrar todas las ventas", "3. Mostrar todas las subastas" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenu(opciones); // Imprime las opciones del menu
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                OpcionMostrarPublicacion(tipoUsuario, opcionSeleccionada);
+                valido = OpcionMostrarPublicacion(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         static void MenuBuscarPublicacion(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu Busqueda", "1. Buscar publicaciones por ID", "2. Buscar publicaciones por Nombre", "3. Buscar publicación por fecha" };
+            string[] opciones = new string[] { "Menu Busqueda", "0. ...", "1. Buscar publicaciones por ID", "2. Buscar publicaciones por Nombre", "3. Buscar publicación por fecha" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenu(opciones); // Imprime las opciones del menu
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                OpcionBuscarPublicacion(tipoUsuario, opcionSeleccionada);
+                valido = OpcionBuscarPublicacion(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         static void MenuOfetaSubasta(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu Ofertar", "1. Ofertar con tú ID", "2. Ofertar con tú Nombre" };
+            string[] opciones = new string[] { "Menu Ofertar", "0. ...", "1. Ofertar con tú ID", "2. Ofertar con tú Nombre" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenu(opciones); // Imprime las opciones del menu
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                OpcionOfertaSubasta(tipoUsuario, opcionSeleccionada);
+                valido = OpcionOfertaSubasta(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         static void MenuAltaPublicacion(string tipoUsuario)
         {
             bool valido = false;
             string[] opcionesCliente = new string[] { "" };
-            string[] opcionesAdministrador = new string[] { "Menu Alta", "1. Dar de alta venta", "2. Dar de alta subasta" };
-            string[] opcionesTester = new string[] { "Menu Alta", "1. Dar de alta publicacion", "2. Dar de alta venta", "3. Dar de alta subasta" };
+            string[] opcionesAdministrador = new string[] { "Menu Alta", "0. ...", "1. Dar de alta venta", "2. Dar de alta subasta" };
+            string[] opcionesTester = new string[] { "Menu Alta", "0. ...", "1. Dar de alta publicacion", "2. Dar de alta venta", "3. Dar de alta subasta" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesTester); // Imprime las opciones del menu por tipo de usuario
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                OpcionAltaPublicacion(tipoUsuario, opcionSeleccionada);
+                valido = ProcesamientoOpcionAltaPublicacion(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         #endregion
@@ -309,60 +314,60 @@ namespace InterfazUsuario
         static void MenuUsuario(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "Menu Usuarios", "1. Mostrar todos los usuarios", "2. Buscar" };
-            string[] opcionesAdministrador = new string[] { "Menu Usuarios", "1. Mostrar", "2. Buscar", "3. Dar de alta" };
+            string[] opcionesCliente = new string[] { "Menu Usuarios", "0. ...", "1. Mostrar todos los usuarios", "2. Buscar" };
+            string[] opcionesAdministrador = new string[] { "Menu Usuarios", "0. ...", "1. Mostrar", "2. Buscar", "3. Dar de alta" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesAdministrador); // Imprime las opciones del menu por tipo de usuario
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                ProcesamientoOpcionUsuario(tipoUsuario, opcionSeleccionada);
+                valido = ProcesamientoOpcionUsuario(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         static void MenuMostrarUsuario(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu Mostrar", "1. Mostrar todos los usuarios", "2. Mostrar todos los clientes", "3. Mostrar todos los administradores" };
+            string[] opciones = new string[] { "Menu Mostrar", "0. ...", "1. Mostrar todos los usuarios", "2. Mostrar todos los clientes", "3. Mostrar todos los administradores" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenu(opciones); // Imprime las opciones del menu
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                OpcionMostrarUsuario(tipoUsuario, opcionSeleccionada);
+                valido = OpcionMostrarUsuario(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         static void MenuBuscarUsuario(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu Busqueda", "1. Buscar usuario por ID", "2. Buscar usuario por Nombre" };
+            string[] opciones = new string[] { "Menu Busqueda", "0. ...", "1. Buscar usuario por ID", "2. Buscar usuario por Nombre" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenu(opciones); // Imprime las opciones del menu
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                OpcionBuscarUsuario(tipoUsuario, opcionSeleccionada);
+                valido = OpcionBuscarUsuario(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         static void MenuAltaUsuario(string tipoUsuario)
         {
             bool valido = false;
             string[] opcionesCliente = new string[] { "" };
-            string[] opcionesAdministrador = new string[] { "Menu Alta", "1. Dar de alta cliente", "2. Dar de alta administrador" };
-            string[] opcionesTester = new string[] { "Menu Alta", "1. Dar de alta usuario", "2. Dar de alta cliente", "3. Dar de alta administrador" };
+            string[] opcionesAdministrador = new string[] { "Menu Alta", "0. ...", "1. Dar de alta cliente", "2. Dar de alta administrador" };
+            string[] opcionesTester = new string[] { "Menu Alta", "0. ...", "1. Dar de alta usuario", "2. Dar de alta cliente", "3. Dar de alta administrador" };
 
             while (!valido)
             {
                 Console.Clear();
                 MostrarOpcionesMenuPorTipoUsuario(tipoUsuario, opcionesCliente, opcionesAdministrador, opcionesTester); // Imprime las opciones del menu por tipo de usuario
-                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+                char.TryParse(Console.ReadLine(), out char opcionSeleccionada);
 
-                OpcionAltaUsuario(tipoUsuario, opcionSeleccionada);
+                valido = ProcesamientoOpcionAltaUsuario(tipoUsuario, opcionSeleccionada, valido);
             }
         }
         #endregion
@@ -379,124 +384,144 @@ namespace InterfazUsuario
         /// </summary>
         #region Opciones del menu
         #region Articulo
-        static void ProcesamientoOpcionArticulo(string tipoUsuario, int opcionSelecionada)
+        static bool ProcesamientoOpcionArticulo(string tipoUsuario, int opcionSelecionada, bool valido)
         {
             if (tipoUsuario == "CLIENTE")
             {
-                if (opcionSelecionada > 2)
+                if (opcionSelecionada == '3')
                 {
-                    opcionSelecionada = 99;
+                    opcionSelecionada = 'F';
                 }
             }
 
-            OpcionArticulo(tipoUsuario, opcionSelecionada);
+            return OpcionArticulo(tipoUsuario, opcionSelecionada, valido);
         }
-        static void OpcionArticulo(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionArticulo(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
 
             switch (opcionSeleccionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     Menu(tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     Console.Clear();
                     ImprimirArticulo(miSistema.ObtenerArticulos(), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(0, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     ValidacionMenu(1, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     AltaArticulo();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(0, tipoUsuario);
                     break;
             }
+            return valido;
         }
-        static void OpcionBuscarArticulo(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionBuscarArticulo(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
             switch (opcionSeleccionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     ValidacionMenu(0, tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     ObtenerArticuloPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(1, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     ObtenerArticuloPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(1, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     ObtenerArticuloPorCategoria();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(1, tipoUsuario);
                     break;
             }
+            return valido;
         }
         #endregion
         #region Publicacion
-        static void ProcesamientoOpcionPublicacion(string tipoUsuario, int opcionSelecionada)
+        static bool ProcesamientoOpcionPublicacion(string tipoUsuario, int opcionSelecionada, bool valido)
         {
             if (tipoUsuario == "CLIENTE")
             {
-                if (opcionSelecionada > 3)
+                if (opcionSelecionada == '3')
                 {
-                    opcionSelecionada = 99;
+                    opcionSelecionada = 'F';
                 }
             }
 
-            OpcionPublicacion(tipoUsuario, opcionSelecionada);
+            return OpcionPublicacion(tipoUsuario, opcionSelecionada, valido);
         }
-        static void OpcionPublicacion(string tipoUsuario, int opcionSelecionada)
+        static bool OpcionPublicacion(string tipoUsuario, int opcionSelecionada, bool valido)
         {
             // Ejecución de las opciones del menu por tipo de usuario
             switch (opcionSelecionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     Menu(tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     ValidacionMenu(3, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     ValidacionMenu(4, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     ValidacionMenu(5, tipoUsuario);
                     break;
-                case 4:
+                case '4':
+                    valido = true;
                     ValidacionMenu(6, tipoUsuario);
                     break;
             }
+            return valido;
         }
-        static void OpcionMostrarPublicacion(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionMostrarPublicacion(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
             switch (opcionSeleccionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     ValidacionMenu(2, tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true, true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true, true);
@@ -504,132 +529,160 @@ namespace InterfazUsuario
                     ValidacionMenu(3, tipoUsuario);
                     break;
             }
+            return valido;
         }
-        static void OpcionBuscarPublicacion(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionBuscarPublicacion(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
             switch (opcionSeleccionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     ValidacionMenu(2, tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     ObtenerPublicacionPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(4, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     ObtenerPublicacionPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(4, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     ObtenerPublicacionPorFecha();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(4, tipoUsuario);
                     break;
             }
+            return valido;
         }
-        static void OpcionOfertaSubasta(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionOfertaSubasta(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
             switch (opcionSeleccionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     ValidacionMenu(2, tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     AltaOfertaPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(5, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     AltaOfertaPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(5, tipoUsuario);
                     break;
             }
+            return valido;
         }
-        static void ProcesamientoOpcionAltaPublicacion(string tipoUsuario, int opcionSelecionada)
+        static bool ProcesamientoOpcionAltaPublicacion(string tipoUsuario, int opcionSelecionada, bool valido)
         {
             if (tipoUsuario == "ADMINISTRADOR")
             {
-                if (opcionSelecionada > 2)
+                if (opcionSelecionada == '3')
                 {
-                    opcionSelecionada = 99;
+                    opcionSelecionada = 'F';
                 }
-                else if (opcionSelecionada <= 2)
+                if (opcionSelecionada == '2')
                 {
-                    opcionSelecionada++;
+                    opcionSelecionada = '3';
+                }
+                if (opcionSelecionada == '1')
+                {
+                    opcionSelecionada = '2';
                 }
             }
 
-            OpcionAltaPublicacion(tipoUsuario, opcionSelecionada);
+            return OpcionAltaPublicacion(tipoUsuario, opcionSelecionada, valido);
         }
-        static void OpcionAltaPublicacion(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionAltaPublicacion(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
             switch (opcionSeleccionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     ValidacionMenu(2, tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     AltaPublicacion();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(6, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     AltaVenta();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(6, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     AltaSubasta();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(6, tipoUsuario);
                     break;
             }
+            return valido;
         }
         #endregion
         #region Usuario
-        static void ProcesamientoOpcionUsuario(string tipoUsuario, int opcionSelecionada)
+        static bool ProcesamientoOpcionUsuario(string tipoUsuario, int opcionSelecionada, bool valido)
         {
             if (tipoUsuario == "CLIENTE")
             {
-                if (opcionSelecionada > 2)
+                if (opcionSelecionada == '3')
                 {
-                    opcionSelecionada = 99;
+                    opcionSelecionada = 'F';
                 }
-                if (opcionSelecionada == 1)
+                if (opcionSelecionada == '4')
                 {
-                    opcionSelecionada = 4;
+                    opcionSelecionada = 'F';
+                }
+                if (opcionSelecionada == '1')
+                {
+                    opcionSelecionada = '4';
                 }
             }
             else 
             {
-                if (opcionSelecionada == 4)
+                if (opcionSelecionada == '4')
                 {
-                    opcionSelecionada = 99;
+                    opcionSelecionada = 'F';
                 }
             }
 
-            OpcionUsuario(tipoUsuario, opcionSelecionada);
+            return OpcionUsuario(tipoUsuario, opcionSelecionada, valido);
         }
-        static void OpcionUsuario(string tipoUsuario, int opcionSelecionada)
+        static bool OpcionUsuario(string tipoUsuario, int opcionSelecionada, bool valido)
         {
             switch (opcionSelecionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     Menu(tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     ValidacionMenu(8, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     ValidacionMenu(9, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     ValidacionMenu(10, tipoUsuario);
                     break;
-                case 4:
+                case '4':
+                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
@@ -637,29 +690,35 @@ namespace InterfazUsuario
                     ValidacionMenu(7, tipoUsuario);
                     break;
             }
+            return valido;
         }
-        static void OpcionMostrarUsuario(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionMostrarUsuario(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
             switch (opcionSeleccionada)
             {
-                case 0:
+                case '0':
+                    valido = true;
                     ValidacionMenu(7, tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
+                    valido = true;
                     ImprimirUsuario(miSistema.ObtenerUsuarios(false, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(8, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(8, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(false, true), false);
@@ -667,65 +726,79 @@ namespace InterfazUsuario
                     ValidacionMenu(8, tipoUsuario);
                     break;
             }
+            return valido;
         }
-        static void OpcionBuscarUsuario(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionBuscarUsuario(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
             switch (opcionSeleccionada)
             {
-                case 0:
-                    MenuUsuario(tipoUsuario);
+                case '0':
+                    valido = true;
+                    ValidacionMenu(7, tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     ObtenerUsuarioPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(9, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     ObtenerUsuarioPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(9, tipoUsuario);
                     break;
             }
+            return valido;
         }
-        static void ProcesamientoOpcionAltaUsuario(string tipoUsuario, int opcionSelecionada)
+        static bool ProcesamientoOpcionAltaUsuario(string tipoUsuario, int opcionSelecionada, bool valido)
         {
             if (tipoUsuario == "ADMINISTRADOR")
             {
-                if (opcionSelecionada > 2)
+                if (opcionSelecionada == '3')
                 {
-                    opcionSelecionada = 99;
+                    opcionSelecionada = 'F';
                 }
-                else if (opcionSelecionada <= 2)
+                if (opcionSelecionada == '2')
                 {
-                    opcionSelecionada++;
+                    opcionSelecionada = '3';
+                }
+                if (opcionSelecionada == '1')
+                {
+                    opcionSelecionada = '2';
                 }
             }
 
-            OpcionAltaUsuario(tipoUsuario, opcionSelecionada);
+            return OpcionAltaUsuario(tipoUsuario, opcionSelecionada, valido);
         }
-        static void OpcionAltaUsuario(string tipoUsuario, int opcionSeleccionada)
+        static bool OpcionAltaUsuario(string tipoUsuario, int opcionSeleccionada, bool valido)
         {
             switch (opcionSeleccionada)
             {
-                case 0:
-                    MenuUsuario(tipoUsuario);
+                case '0':
+                    valido = true;
+                    ValidacionMenu(7, tipoUsuario);
                     break;
-                case 1:
+                case '1':
+                    valido = true;
                     AltaUsuario();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(10, tipoUsuario);
                     break;
-                case 2:
+                case '2':
+                    valido = true;
                     AltaCliente();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(10, tipoUsuario);
                     break;
-                case 3:
+                case '3':
+                    valido = true;
                     AltaAdministrador();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(10, tipoUsuario);
                     break;
             }
+            return valido;
         }
         #endregion
         #endregion
