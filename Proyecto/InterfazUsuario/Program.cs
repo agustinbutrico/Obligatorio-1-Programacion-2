@@ -508,7 +508,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true, true);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
@@ -516,7 +516,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true, true);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
@@ -524,7 +524,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true, true);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
@@ -685,7 +685,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(7, tipoUsuario);
                     break;
@@ -705,7 +705,7 @@ namespace InterfazUsuario
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     valido = true;
-                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, false), false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(8, tipoUsuario);
                     break;
@@ -713,7 +713,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(8, tipoUsuario);
                     break;
@@ -721,7 +721,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, true), false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, true));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(8, tipoUsuario);
                     break;
@@ -833,18 +833,11 @@ namespace InterfazUsuario
         }
         #endregion
         #region Publicacion
-        static void ImprimirPublicacion(List<Publicacion> publicaciones, bool margenesGrandes, bool vistaResumida)
+        static void ImprimirPublicacion(List<Publicacion> publicaciones, bool vistaResumida)
         {
-            int margenes = 20;
-
-            if (margenesGrandes)
-            {
-                margenes = 40;
-            }
-
             for (int i = 0; i < publicaciones.Count; i++)
             {
-                Console.WriteLine(new string('-', margenes));
+                Console.WriteLine(new string('-', 40));
                 // Mostramos los detalles de las publicaciones
                 Console.WriteLine($"ID: {publicaciones[i].Id}");
                 Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
@@ -880,7 +873,7 @@ namespace InterfazUsuario
                         Console.WriteLine($"Id de las ofertas asociadas: {miSistema.ParseoOferta(subasta.Ofertas)}");
                         if (!vistaResumida) // Si no es vista resumida mostramos los datos de las ofertas
                         {
-                            ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
+                            ImprimirOferta(subasta.Ofertas); // Imprime los datos de las ofertas asociadas
                         }
                     }
                 }
@@ -891,23 +884,15 @@ namespace InterfazUsuario
                     Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
                 }
             }
-            Console.WriteLine(new string('-', margenes));
+            Console.WriteLine(new string('-', 40));
         }
         #endregion
         #region Usuario
-        static void ImprimirUsuario(List<Usuario> usuarios, bool margenesGrandes)
+        static void ImprimirUsuario(List<Usuario> usuarios)
         {
-            int margenes = 20;
-
-            if (margenesGrandes)
-            {
-                margenes = 40;
-            }
-
             for (int i = 0; i < usuarios.Count; i++)
             {
-                if (margenesGrandes)
-                Console.WriteLine(new string('-', margenes));
+                Console.WriteLine(new string('-', 40));
                 // Mostramos los detalles del Usuario
                 Console.WriteLine($"ID: {usuarios[i].Id}");
                 Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
@@ -918,22 +903,15 @@ namespace InterfazUsuario
                     Console.WriteLine($"Saldo: {cliente.Saldo}");
                 }
             }
-            Console.WriteLine(new string('-', margenes));
+            Console.WriteLine(new string('-', 40));
         }
         #endregion
         #region Oferta
-        static void ImprimirOferta(List<Oferta> ofertas, bool margenesGrandes)
+        static void ImprimirOferta(List<Oferta> ofertas)
         {
-            int margenes = 20;
-
-            if (margenesGrandes)
-            {
-                margenes = 40;
-            }
-
             for (int i = 0; i < ofertas.Count; i++)
             {
-                Console.WriteLine(new string('-', margenes));
+                Console.WriteLine(new string('-', 20));
                 // Mostramos los detalles de las ofertas
                 Console.WriteLine($"ID: {ofertas[i].Id}");
                 if (ofertas[i].Usuario is Usuario usuario)
@@ -945,7 +923,7 @@ namespace InterfazUsuario
                 Console.WriteLine($"Monto: {ofertas[i].Monto}");
                 Console.WriteLine($"Fecha: {ofertas[i].Fecha}");
             }
-            Console.WriteLine(new string('-', margenes));
+            Console.WriteLine(new string('-', 20));
         }
         #endregion
         #endregion
@@ -1070,7 +1048,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirPublicacion(publicaciones, true, false);
+            ImprimirPublicacion(publicaciones, false);
         }
         static void ObtenerPublicacionPorNombre()
         {
@@ -1098,7 +1076,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirPublicacion(publicaciones, true, false);
+            ImprimirPublicacion(publicaciones, false);
         }
         static void ObtenerPublicacionPorFecha()
         {
@@ -1137,7 +1115,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirPublicacion(publicaciones, true, false);
+            ImprimirPublicacion(publicaciones, false);
         }
         #endregion
         #region Usuario
@@ -1167,7 +1145,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirUsuario(usuarios, true);
+            ImprimirUsuario(usuarios);
         }
         static void ObtenerUsuarioPorNombre()
         {
@@ -1195,7 +1173,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirUsuario(usuarios, true);
+            ImprimirUsuario(usuarios);
         }
         #endregion
         #endregion
