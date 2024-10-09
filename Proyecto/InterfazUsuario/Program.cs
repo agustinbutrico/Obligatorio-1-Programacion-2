@@ -785,6 +785,8 @@ namespace InterfazUsuario
                     {
                         Console.WriteLine($"Oferta relampago: No");
                     }
+                    Console.WriteLine($"Precio venta {miSistema.ConsultarPrecioVenta(publicaciones[i], publicaciones[i].Articulos)}");
+
                 }
                 if (publicaciones[i] is Subasta subasta)
                 {

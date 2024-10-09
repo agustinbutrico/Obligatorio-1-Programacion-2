@@ -512,25 +512,19 @@ namespace LogicaNegocio
         /// Este es un dato calculado ya que es necesario acceder a la venta y sumar el precio de todos sus articulos.
         /// </summary>
         #region Consultas
-        public List<decimal> ConsultarPrecioVentaDeListaVenta(List<Publicacion> ventas)
+        public decimal ConsultarPrecioVenta(Publicacion? publicacion, List<Articulo> articulos)
         {
-            List<decimal> precio = new List<decimal>();
-            for (int i = 0; i < ventas.Count; i++)
+            decimal precio = 0;
+            for (int i = 0; i < articulos.Count; i++)
             {
-                // Accede a la venta en especifico
-                if (ventas[i] is Venta venta)
+                precio += articulos[i].Precio;
+            }
+            if (publicacion is Venta venta)
+            {
+                if (venta.OfertaRelampago)
                 {
-                    // Recorre la lista de articulos de la venta en especifico y suma su precio al total
-                    for (int j = 0; j < venta.Articulos.Count; j++)
-                    {
-                        precio[i] += venta.Articulos[j].Precio;
-                    }
-                    // Una vez sumado los precios de todos los articulos
                     // se aplica descuento si corresponde a la venta en especifico
-                    if (venta.OfertaRelampago)
-                    {
-                        precio[i] = precio[i] * 80 / 100;
-                    }
+                    precio = precio * 80 / 100;
                 }
             }
             return precio;
