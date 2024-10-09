@@ -1,4 +1,5 @@
 using LogicaNegocio;
+using System;
 
 namespace InterfazUsuario
 {
@@ -857,8 +858,23 @@ namespace InterfazUsuario
             // Solicitud datos
             Console.WriteLine("Id de los articulos separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(ids_crudos))
+            {
+                Console.WriteLine("El id no puede ser vacío");
+                return;
+            }
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            if (ids == null || ids.Count == 0)
+            {
+                Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
+                return;
+            }
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids);
+            if (articulos == null || articulos.Count == 0)
+            {
+                Console.WriteLine("No se encontraron usuarios correspondientes a los ids proporcionados");
+                return;
+            }
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
@@ -870,8 +886,23 @@ namespace InterfazUsuario
             // Solicitud datos
             Console.WriteLine("Nombre de los articulos separados por ,:");
             string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombres_crudos))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            if (nombres == null || nombres.Count == 0)
+            {
+                Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
+                return;
+            }
             List<Articulo> articulos = miSistema.ObtenerArticuloPorNombre(nombres);
+            if (articulos == null || articulos.Count == 0)
+            {
+                Console.WriteLine("No se encontraron publicaciones correspondientes a los nombres proporcionados");
+                return;
+            }
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
@@ -885,8 +916,23 @@ namespace InterfazUsuario
             // Solicitud datos
             Console.WriteLine("Id de las publicaciones separadas por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(ids_crudos))
+            {
+                Console.WriteLine("El id no puede ser vacío");
+                return;
+            }
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            if (ids == null || ids.Count == 0)
+            {
+                Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
+                return;
+            }
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorId(ids, false, false);
+            if (publicaciones == null || publicaciones.Count == 0)
+            {
+                Console.WriteLine("No se encontraron usuarios correspondientes a los ids proporcionados");
+                return;
+            }
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
@@ -898,8 +944,23 @@ namespace InterfazUsuario
             // Solicitud datos
             Console.WriteLine("Nombre de las publicaciones separadas por ,:");
             string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombres_crudos))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            if (nombres == null || nombres.Count == 0)
+            {
+                Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
+                return;
+            }
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorNombre(nombres, false, false);
+            if (publicaciones == null || publicaciones.Count == 0)
+            {
+                Console.WriteLine("No se encontraron publicaciones correspondientes a los nombres proporcionados");
+                return;
+            }
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
@@ -913,8 +974,23 @@ namespace InterfazUsuario
             // Solicitud datos
             Console.WriteLine("Id de los usuarios separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(ids_crudos))
+            {
+                Console.WriteLine("El id no puede ser vacío");
+                return;
+            }
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            if (ids == null || ids.Count == 0)
+            {
+                Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
+                return;
+            }
             List<Usuario> usuarios = miSistema.ObtenerUsuarioPorId(ids, false, false);
+            if (usuarios == null || usuarios.Count == 0)
+            {
+                Console.WriteLine("No se encontraron usuarios correspondientes a los ids proporcionados");
+                return;
+            }
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
@@ -926,8 +1002,23 @@ namespace InterfazUsuario
             // Solicitud datos
             Console.WriteLine("Nombre de los usuarios separados por ,:");
             string nombres_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombres_crudos))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            if (nombres == null || nombres.Count == 0)
+            {
+                Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
+                return;
+            }
             List<Usuario> usuarios = miSistema.ObtenerUsuarioPorNombre(nombres, false, false);
+            if (usuarios == null || usuarios.Count == 0)
+            {
+                Console.WriteLine("No se encontraron usuarios correspondientes a los nombres proporcionados");
+                return;
+            }
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
@@ -952,8 +1043,18 @@ namespace InterfazUsuario
             // Si es null devuelve el valor de la derecha
             // Si no es null devuelve el valor de la izquierda
             string nombre = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Precio:");
-            decimal.TryParse(Console.ReadLine(), out decimal precio);
+            decimal precio;
+            if (!decimal.TryParse(Console.ReadLine(), out precio) || precio < 0)
+            {
+                Console.WriteLine("El peecio debe ser un número entero positivo");
+                return;
+            }
 
             miSistema.AltaArticulo(nombre, precio);
         }
@@ -973,12 +1074,33 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese los datos que desea asociar a la publicacion");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Id de los articulos separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(ids_crudos))
+            {
+                Console.WriteLine("El id no puede ser vacío");
+                return;
+            }
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            if (ids == null || ids.Count == 0)
+            {
+                Console.WriteLine("No se proporcionaron IDs válidos");
+                return;
+            }
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
-        
+            if (articulos == null || articulos.Count == 0)
+            {
+                Console.WriteLine("No se encontraron artículos correspondientes a los IDs proporcionados");
+                return;
+            }
+
             miSistema.AltaPublicacion(nombre, estado, fecha, articulos, cliente, administrador, fechaFin);
+            Console.WriteLine("La publicación se ha creado exitosamente");
         }
         static void AltaVenta()
         {
@@ -994,12 +1116,37 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese los datos que desea asociar a la venta");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Id de los articulos separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(ids_crudos))
+            {
+                Console.WriteLine("El id no puede ser vacío");
+                return;
+            }
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            if (ids == null || ids.Count == 0)
+            {
+                Console.WriteLine("No se proporcionaron IDs válidos");
+                return;
+            }
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
+            if (articulos == null || articulos.Count == 0)
+            {
+                Console.WriteLine("No se encontraron artículos correspondientes a los IDs proporcionados");
+                return;
+            }
             Console.WriteLine("Es oferta relampago?\n1. Si\n2. No");
-            int.TryParse(Console.ReadLine(), out int esOferta);
+            int esOferta;
+            if (!int.TryParse(Console.ReadLine(), out esOferta) || esOferta != 1 || esOferta != 2)
+            {
+                Console.WriteLine("Su respuesta debe ser 1 o 2");
+                return;
+            }
             bool ofertaRelampago = false;
 
             if ( esOferta == 1 )
@@ -1008,6 +1155,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaVenta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertaRelampago);
+            Console.WriteLine("La venta se ha creado exitosamente");
         }
         static void AltaSubasta()
         {
@@ -1024,12 +1172,33 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese los datos que desea asociar a la subasta");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Id de los articulos separados por ,:");
             string ids_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(ids_crudos))
+            {
+                Console.WriteLine("El id no puede ser vacío");
+                return;
+            }
             List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            if (ids == null || ids.Count == 0)
+            {
+                Console.WriteLine("No se proporcionaron IDs válidos");
+                return;
+            }
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids); // Obtiene la lista de publicaciones con los ids
+            if (articulos == null || articulos.Count == 0)
+            {
+                Console.WriteLine("No se encontraron artículos correspondientes a los IDs proporcionados");
+                return;
+            }
 
             miSistema.AltaSubasta(nombre, estado, fecha, articulos, cliente, administrador, fechaFin, ofertas);
+            Console.WriteLine("La subasta se ha creado exitosamente");
         }
         #endregion
         #region Usuario
@@ -1040,12 +1209,32 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese los datos que desea asociar al usuario");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Apellido:");
             string apellido = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(apellido))
+            {
+                Console.WriteLine("El apellido no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Email:");
             string email = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                Console.WriteLine("El email no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(contrasenia))
+            {
+                Console.WriteLine("La contraseña no puede ser vacía");
+                return;
+            }
 
             miSistema.AltaUsuario(nombre, apellido, email, contrasenia);
         }
@@ -1059,12 +1248,32 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese los datos que desea asociar al cliente");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Apellido:");
             string apellido = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(apellido))
+            {
+                Console.WriteLine("El apellido no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Email:");
             string email = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                Console.WriteLine("El email no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(contrasenia))
+            {
+                Console.WriteLine("La contraseña no puede ser vacía");
+                return;
+            }
 
             miSistema.AltaCliente(nombre, apellido, email, contrasenia, saldo);
         }
@@ -1075,12 +1284,32 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese los datos que desea asociar al administrador");
             Console.WriteLine("Nombre:");
             string nombre = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Apellido:");
             string apellido = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(apellido))
+            {
+                Console.WriteLine("El apellido no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Email:");
             string email = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                Console.WriteLine("El email no puede ser vacío");
+                return;
+            }
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(contrasenia))
+            {
+                Console.WriteLine("La contraseña no puede ser vacía");
+                return;
+            }
 
             miSistema.AltaAdministrador(nombre, apellido, email, contrasenia);
         }
@@ -1095,15 +1324,41 @@ namespace InterfazUsuario
             // Solicitud datos
             Console.WriteLine("Ingrese los datos que desea asociar a la oferta");
             Console.WriteLine("Id del comprador:");
-            int.TryParse(Console.ReadLine(), out int idUsuario);
+            int idUsuario;
+            if (!int.TryParse(Console.ReadLine(), out idUsuario) || idUsuario < 0)
+            {
+                Console.WriteLine("El ID del usuario debe ser un número entero positivo");
+                return;
+            }
             Usuario? usuario = miSistema.ObtenerUsuarioPorId(idUsuario, true, false);
+            if (usuario == null)
+            {
+                Console.WriteLine("No se encontró un usuario con ese nombre");
+                return;
+            }
             Console.WriteLine("Id de la subasta:");
-            int.TryParse(Console.ReadLine(), out int idPublicacion);
+            int idPublicacion;
+            if (!int.TryParse(Console.ReadLine(), out idPublicacion) || idPublicacion < 0)
+            {
+                Console.WriteLine("El ID de la subasta debe ser un número entero positivo");
+                return;
+            }
             Publicacion? publicacion = miSistema.ObtenerPublicacionPorId(idPublicacion, false, true);
+            if (publicacion == null)
+            {
+                Console.WriteLine("No se encontró una subasta con ese ID");
+                return;
+            }
             Console.WriteLine("Monto a ofertar:");
-            decimal.TryParse(Console.ReadLine(), out decimal monto);
+            decimal monto;
+            if (!decimal.TryParse(Console.ReadLine(), out monto) || monto <= 0)
+            {
+                Console.WriteLine("El monto debe ser un número decimal positivo");
+                return;
+            }
 
             miSistema.AltaOferta(usuario, publicacion, monto, fecha);
+            Console.WriteLine("La oferta se ha realizado con éxito");
         }
         static void AltaOfertaPorNombre()
         {
@@ -1115,14 +1370,40 @@ namespace InterfazUsuario
             Console.WriteLine("Ingrese los datos que desea asociar a la oferta");
             Console.WriteLine("Nombre del comprador:");
             string nombre = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombre)) 
+            {
+                Console.WriteLine("El nombre no puede ser vacío");
+                return;
+            }
             Usuario? usuario = miSistema.ObtenerUsuarioPorNombre(nombre, true, false);
+            if (usuario == null)
+            {
+                Console.WriteLine("No se encontró un usuario con ese nombre");
+                return;
+            }
             Console.WriteLine("Id de la subasta:");
-            int.TryParse(Console.ReadLine(), out int idPublicacion);
+            int idPublicacion;
+            if (!int.TryParse(Console.ReadLine(), out idPublicacion) || idPublicacion < 0) 
+            {
+                Console.WriteLine("El ID de la subasta debe ser un número entero positivo");
+                return;
+            }
             Publicacion? publicacion = miSistema.ObtenerPublicacionPorId(idPublicacion, false, true);
+            if (publicacion == null)
+            {
+                Console.WriteLine("No se encontró una subasta con ese ID");
+                return;
+            }
             Console.WriteLine("Monto a ofertar:");
-            decimal.TryParse(Console.ReadLine(), out decimal monto);
+            decimal monto;
+            if (!decimal.TryParse(Console.ReadLine(), out monto) || monto <= 0)
+            {
+                Console.WriteLine("El monto debe ser un número decimal positivo");
+                return;
+            }
 
             miSistema.AltaOferta(usuario, publicacion, monto, fecha);
+            Console.WriteLine("La oferta se ha realizado con éxito");
         }
         #endregion
         #endregion
