@@ -218,7 +218,7 @@ namespace InterfazUsuario
         static void MenuBuscarArticulo(string tipoUsuario)
         {
             bool valido = false;
-            string[] opciones = new string[] { "Menu Buscar", "1. Buscar artículo por ID", "2. Buscar artículo por Nombre" };
+            string[] opciones = new string[] { "Menu Buscar", "1. Buscar artículo por ID", "2. Buscar artículo por Nombre", "3. Buscar artículo por categoría" };
 
             while (!valido)
             {
@@ -429,6 +429,11 @@ namespace InterfazUsuario
                     break;
                 case 2:
                     ObtenerArticuloPorNombre();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    ValidacionMenu(1, tipoUsuario);
+                    break;
+                case 3:
+                    ObtenerArticuloPorCategoria();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(1, tipoUsuario);
                     break;
@@ -881,7 +886,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
@@ -890,7 +895,7 @@ namespace InterfazUsuario
             List<Articulo> articulos = miSistema.ObtenerArticuloPorId(ids);
             if (articulos == null || articulos.Count == 0)
             {
-                Console.WriteLine("No se encontraron usuarios correspondientes a los ids proporcionados");
+                Console.WriteLine("No se encontraron articulos correspondientes a los ids proporcionados");
                 return;
             }
 
@@ -909,7 +914,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El nombre no puede ser vacío");
                 return;
             }
-            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<string> nombres = miSistema.ParseoString(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             if (nombres == null || nombres.Count == 0)
             {
                 Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
@@ -918,7 +923,35 @@ namespace InterfazUsuario
             List<Articulo> articulos = miSistema.ObtenerArticuloPorNombre(nombres);
             if (articulos == null || articulos.Count == 0)
             {
-                Console.WriteLine("No se encontraron publicaciones correspondientes a los nombres proporcionados");
+                Console.WriteLine("No se encontraron articulos correspondientes a los nombres proporcionados");
+                return;
+            }
+
+            Console.WriteLine(new string('\n', 40));
+            Console.Clear();
+            ImprimirArticulo(articulos, true);
+        }
+        static void ObtenerArticuloPorCategoria()
+        {
+            Console.Clear();
+            // Solicitud datos
+            Console.WriteLine("Categoria de los articulos separados por ,:");
+            string categorias_crudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(categorias_crudos))
+            {
+                Console.WriteLine("La categoria no puede ser vacía");
+                return;
+            }
+            List<string> categorias = miSistema.ParseoString(categorias_crudos); // Convierte el input del usuario en una lista de nombres
+            if (categorias == null || categorias.Count == 0)
+            {
+                Console.WriteLine("No se encontraron categorias correspondientes a las castegorias proporcionados");
+                return;
+            }
+            List<Articulo> articulos = miSistema.ObtenerArticuloPorCategoria(categorias);
+            if (articulos == null || articulos.Count == 0)
+            {
+                Console.WriteLine("No se encontraron articulos correspondientes a las categorias proporcionadas");
                 return;
             }
 
@@ -939,7 +972,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
@@ -948,7 +981,7 @@ namespace InterfazUsuario
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorId(ids, false, false);
             if (publicaciones == null || publicaciones.Count == 0)
             {
-                Console.WriteLine("No se encontraron usuarios correspondientes a los ids proporcionados");
+                Console.WriteLine("No se encontraron publicaciones correspondientes a los ids proporcionados");
                 return;
             }
 
@@ -967,7 +1000,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El nombre no puede ser vacío");
                 return;
             }
-            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<string> nombres = miSistema.ParseoString(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             if (nombres == null || nombres.Count == 0)
             {
                 Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
@@ -997,7 +1030,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
@@ -1025,7 +1058,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El nombre no puede ser vacío");
                 return;
             }
-            List<string> nombres = miSistema.ParseoNombre(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<string> nombres = miSistema.ParseoString(nombres_crudos); // Convierte el input del usuario en una lista de nombres
             if (nombres == null || nombres.Count == 0)
             {
                 Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
@@ -1110,7 +1143,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se proporcionaron IDs válidos");
@@ -1152,7 +1185,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se proporcionaron IDs válidos");
@@ -1208,7 +1241,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoId(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se proporcionaron IDs válidos");

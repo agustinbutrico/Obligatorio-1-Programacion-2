@@ -39,7 +39,7 @@ namespace LogicaNegocio
         #region Utilidades
         #region Universal
         // Convierte en una lista de ids el string pasado por parametros
-        public List<int> ParseoId(string ids_crudos)
+        public List<int> ParseoInt(string ids_crudos)
         {
             List<int> lista_ids = new List<int>(); // Crea una lista de los ids ingresados
             string[] ids = ids_crudos.Split(','); // Crea un array de los ids
@@ -51,7 +51,7 @@ namespace LogicaNegocio
             return lista_ids;
         }
         // Convierte en una lista de nombres el string pasado por parametros
-        public List<string> ParseoNombre(string nombres_crudos)
+        public List<string> ParseoString(string nombres_crudos)
         {
             List<string> lista_nombres = new List<string>(); // Crea una lista de los nombres ingresados
             string[] nombres = nombres_crudos.Split(','); // Crea un array de los nombres
@@ -140,6 +140,18 @@ namespace LogicaNegocio
             for (int i = 0; i < _articulos.Count; i++)
             {
                 if (nombres.Contains(_articulos[i].Nombre)) // Si la lista de nombres contiene algún artículo
+                {
+                    articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
+                }
+            }
+            return articulos;
+        }
+        public List<Articulo> ObtenerArticuloPorCategoria(List<string> categoria)
+        {
+            List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
+            for (int i = 0; i < _articulos.Count; i++)
+            {
+                if (categoria.Contains(_articulos[i].Categoria)) // Si la lista de nombres contiene algún artículo
                 {
                     articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                 }
@@ -550,7 +562,7 @@ namespace LogicaNegocio
             AltaArticulo("Bolsa de gimnasio", 950, "Boxeo");
             AltaArticulo("Bicicleta de montaña", 15000, "Ciclismo");
             AltaArticulo("Mochila de trekking", 2100, "Treking");
-            AltaArticulo("Protector solar", 320, "Salud");
+            AltaArticulo("Protector solar", 320, "Playa");
             AltaArticulo("Botella térmica", 750, "Camping");
             AltaArticulo("Palo de hockey", 1700, "Hokey");
             AltaArticulo("Pesas ajustables", 3000, "Gimnasio");
@@ -563,7 +575,7 @@ namespace LogicaNegocio
             AltaArticulo("Bola de bowling", 3500, "Bowling");
             AltaArticulo("Skateboard", 2400, "Skating");
             AltaArticulo("Patines en línea", 2900, "Patinaaje");
-            AltaArticulo("Salvavidas", 1200, "Salud");
+            AltaArticulo("Salvavidas", 1200, "Playa");
             AltaArticulo("Set de pesas", 4200, "Gimnasio");
             AltaArticulo("Cuerda para saltar", 300, "Gimnasio");
             AltaArticulo("Bicicleta de carrera", 18500, "Ciclismo");
@@ -578,7 +590,7 @@ namespace LogicaNegocio
             AltaArticulo("Tienda de campaña", 8700, "Camping");
             AltaArticulo("Colchoneta de yoga", 1200, "Deporte");
             AltaArticulo("Barra de dominadas", 1900, "Gimnasio");
-            AltaArticulo("Malla", 600, "Deporte");
+            AltaArticulo("Malla", 600, "Ciclismo");
             AltaArticulo("Reloj deportivo", 6500, "Deporte");
             AltaArticulo("Monopatín eléctrico", 18000, "Ciclismo");
             AltaArticulo("Kit de pesca", 3200, "Pesca");
@@ -593,7 +605,7 @@ namespace LogicaNegocio
             AltaArticulo("Kit de arquería", 9800, "Arquería");
             AltaArticulo("Soga de escalada", 5600, "Escalada");
             AltaArticulo("Casco de ski", 3700, "Ski");
-            AltaArticulo("Balde", 1050, "Ferretería");
+            AltaArticulo("Balde", 1050, "Playa");
             AltaArticulo("Gafas de ciclismo", 900, "Ciclismo");
         }
         #endregion
@@ -602,8 +614,8 @@ namespace LogicaNegocio
         {
             AltaVenta("Verano en la playa", "ABIERTA", DateTime.ParseExact("05/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 11, 24, 35, 54 }), null, null, DateTime.MinValue, false);
             AltaSubasta("Vuelta ciclista", "ABIERTA", DateTime.ParseExact("06/01/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 27, 33, 39 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaSubasta("Set natación", "ABIERTA", DateTime.ParseExact("21/07/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 12, 15, 25 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaVenta("Set de playa", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 1, 3, 4 }), null, null, DateTime.MinValue, false);
+            AltaSubasta("Set camping", "ABIERTA", DateTime.ParseExact("21/07/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 7, 34 ,36 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaVenta("Juego gimnasio", "ABIERTA", DateTime.ParseExact("13/12/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 14, 15, 25, 26, 28, 38 }), null, null, DateTime.MinValue, false);
         }
         #endregion
         #region Usuario
@@ -628,6 +640,5 @@ namespace LogicaNegocio
         }
         #endregion
         #endregion
-
     }
 }
