@@ -744,6 +744,7 @@ namespace InterfazUsuario
                 Console.WriteLine($"ID: {articulos[i].Id}");
                 Console.WriteLine($"Nombre: {articulos[i].Nombre}");
                 Console.WriteLine($"Precio: {articulos[i].Precio}");
+                Console.WriteLine($"Categoría: {articulos[i].Categoria}");
             }
             Console.WriteLine(new string('-', margenes));
         }
@@ -1072,8 +1073,14 @@ namespace InterfazUsuario
                 Console.WriteLine("El peecio debe ser un número entero positivo");
                 return;
             }
+            string categoria = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(categoria))
+            {
+                Console.WriteLine("La categoria no puede ser vacía");
+                return;
+            }
 
-            miSistema.AltaArticulo(nombre, precio);
+            miSistema.AltaArticulo(nombre, precio, categoria);
         }
         #endregion
         #region Publicacion
