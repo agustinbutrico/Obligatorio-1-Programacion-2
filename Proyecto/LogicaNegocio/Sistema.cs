@@ -199,7 +199,7 @@ namespace LogicaNegocio
             }
             return publicaciones;
         }
-        public Publicacion? ObtenerPublicacionPorId(int id)
+        public Publicacion? ObtenerPublicacionPorId(int id, bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
             Publicacion? publicacion = null;
             int indice = 0;
@@ -207,7 +207,18 @@ namespace LogicaNegocio
             {
                 if (id == _publicaciones[indice].Id) // Si la lista de ids contiene algúna publicación
                 {
-                    publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                    else if (_publicaciones[indice] is Venta venta && esUnicamenteVenta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                    else if (_publicaciones[indice] is Subasta subasta && esUnicamenteSubasta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
                 }
                 indice++;
             }
@@ -235,6 +246,30 @@ namespace LogicaNegocio
                 }
             }
             return publicaciones;
+        }
+        public Publicacion? ObtenerPublicacionPorNombre(string nombres, bool esUnicamenteVenta, bool esUnicamenteSubasta)
+        {
+            Publicacion? publicacion = null;
+            int indice = 0;
+            while (indice < _publicaciones.Count && publicacion == null)
+            {
+                if (nombres.Contains(_publicaciones[indice].Nombre)) // Si la lista de nombres contiene algúna publicación
+                {
+                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                    else if (_publicaciones[indice] is Venta venta && esUnicamenteVenta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                    else if (_publicaciones[indice] is Subasta subasta && esUnicamenteSubasta)
+                    {
+                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                    }
+                }
+            }
+            return publicacion;
         }
         #endregion
         #region Usuario
@@ -281,7 +316,7 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
-        public Usuario? ObtenerUsuarioPorId(int id)
+        public Usuario? ObtenerUsuarioPorId(int id, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
             Usuario? usuario = null;
             int indice = 0;
@@ -289,7 +324,18 @@ namespace LogicaNegocio
             {
                 if (id == _usuarios[indice].Id) // Si la lista de ids contiene algúna usuario
                 {
-                    usuario = _usuarios[indice]; // Se asigna el usuario
+                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                    else if (_usuarios[indice] is Cliente cliente && esUnicamenteCliente)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                    else if (_usuarios[indice] is Administrador administrador && esUnicamenteAdministrador)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
                 }
                 indice++;
             }
@@ -318,9 +364,33 @@ namespace LogicaNegocio
             }
             return usuarios;
         }
+        public Usuario? ObtenerUsuarioPorNombre(string nombres, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
+        {
+            Usuario? usuario = null;
+            int indice = 0;
+            while (indice < _usuarios.Count && usuario == null)
+            {
+                if (nombres.Contains(_usuarios[indice].Nombre)) // Si la lista de nombres contiene algún usuario
+                {
+                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                    else if (_usuarios[indice] is Cliente cliente && esUnicamenteCliente)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                    else if (_usuarios[indice] is Administrador administrador && esUnicamenteAdministrador)
+                    {
+                        usuario = _usuarios[indice]; // Se asigna el usuario
+                    }
+                }
+            }
+            return usuario;
+        }
         #endregion
         #endregion
-        
+
         /// <summary>
         /// Las funciones de alta se encargan de llamar a los constructores de las
         /// diferentes clases y pasar los parametros obtenidos en Program.
@@ -411,11 +481,8 @@ namespace LogicaNegocio
         }
         #endregion
         #region Ofertas
-        public void AltaOferta(int id, int idUsuario, decimal monto, DateTime fecha)
+        public void AltaOferta(Usuario? usuario, Publicacion? publicacion, decimal monto, DateTime fecha)
         {
-            Publicacion? publicacion = ObtenerPublicacionPorId(id);
-            Usuario? usuario = ObtenerUsuarioPorId(idUsuario);
-
             if (publicacion != null && publicacion is Subasta subasta) 
             {
                 subasta.AltaOferta(usuario, monto, fecha);

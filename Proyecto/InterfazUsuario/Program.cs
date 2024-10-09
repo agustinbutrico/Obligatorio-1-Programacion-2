@@ -62,11 +62,12 @@ namespace InterfazUsuario
         /// idMenu = 2 == MenuPublicacion
         /// idMenu = 3 == MenuMostrarPublicacion
         /// idMenu = 4 == MenuBuscarPublicacion
-        /// idMenu = 5 == MenuAltaPublicacion
-        /// idMenu = 6 == MenuUsuario
-        /// idMenu = 7 == MenuMostrarUsuario
-        /// idMenu = 8 == MenuBuscarUsuario
-        /// idMenu = 9 == MenuAltaUsuario
+        /// idMenu = 5 == MenuOfetaSubasta
+        /// idMenu = 6 == MenuAltaPublicacion
+        /// idMenu = 7 == MenuUsuario
+        /// idMenu = 8 == MenuMostrarUsuario
+        /// idMenu = 9 == MenuBuscarUsuario
+        /// idMenu = 10 == MenuAltaUsuario
         /// </summary>
         static void ValidacionMenu(int idMenu, string tipoUsuario)
         {
@@ -90,18 +91,21 @@ namespace InterfazUsuario
                         MenuBuscarPublicacion(tipoUsuario);
                         break;
                     case 5:
-                        MenuAltaPublicacion(tipoUsuario);
+                        MenuOfetaSubasta(tipoUsuario);
                         break;
                     case 6:
-                        MenuUsuario(tipoUsuario);
+                        MenuAltaPublicacion(tipoUsuario);
                         break;
                     case 7:
-                        MenuMostrarUsuario(tipoUsuario);
+                        MenuUsuario(tipoUsuario);
                         break;
                     case 8:
-                        MenuBuscarUsuario(tipoUsuario);
+                        MenuMostrarUsuario(tipoUsuario);
                         break;
                     case 9:
+                        MenuBuscarUsuario(tipoUsuario);
+                        break;
+                    case 10:
                         MenuAltaUsuario(tipoUsuario);
                         break;
                 }
@@ -190,7 +194,7 @@ namespace InterfazUsuario
                             ValidacionMenu(2, tipoUsuario);
                             break;
                         case 3:
-                            ValidacionMenu(6, tipoUsuario);
+                            ValidacionMenu(7, tipoUsuario);
                             break;
                     }
                 }
@@ -232,8 +236,8 @@ namespace InterfazUsuario
         static void MenuPublicacion(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "Menu Publicacion", "1. Mostrar", "2. Buscar" };
-            string[] opcionesAdministrador = new string[] { "Menu Publicacion", "1. Mostrar", "2. Buscar", "3. Dar de alta" };
+            string[] opcionesCliente = new string[] { "Menu Publicacion", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta" };
+            string[] opcionesAdministrador = new string[] { "Menu Publicacion", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta", "4. Dar de alta" };
 
             while (!valido)
             {
@@ -270,6 +274,20 @@ namespace InterfazUsuario
                 int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
 
                 OpcionBuscarPublicacion(tipoUsuario, opcionSeleccionada);
+            }
+        }
+        static void MenuOfetaSubasta(string tipoUsuario)
+        {
+            bool valido = false;
+            string[] opciones = new string[] { "Menu Ofertar", "1. Ofertar con tú ID", "2. Ofertar con tú Nombre" };
+
+            while (!valido)
+            {
+                Console.Clear();
+                MostrarOpcionesMenu(opciones); // Imprime las opciones del menu
+                int.TryParse(Console.ReadLine(), out int opcionSeleccionada);
+
+                OpcionOfertaSubasta(tipoUsuario, opcionSeleccionada);
             }
         }
         static void MenuAltaPublicacion(string tipoUsuario)
@@ -424,7 +442,7 @@ namespace InterfazUsuario
         {
             if (tipoUsuario == "CLIENTE")
             {
-                if (opcionSelecionada > 2)
+                if (opcionSelecionada > 3)
                 {
                     opcionSelecionada = 99;
                 }
@@ -448,6 +466,9 @@ namespace InterfazUsuario
                     break;
                 case 3:
                     ValidacionMenu(5, tipoUsuario);
+                    break;
+                case 4:
+                    ValidacionMenu(6, tipoUsuario);
                     break;
             }
         }
@@ -500,6 +521,25 @@ namespace InterfazUsuario
                     break;
             }
         }
+        static void OpcionOfertaSubasta(string tipoUsuario, int opcionSeleccionada)
+        {
+            switch (opcionSeleccionada)
+            {
+                case 0:
+                    ValidacionMenu(2, tipoUsuario);
+                    break;
+                case 1:
+                    AltaOfertaPorId();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    ValidacionMenu(5, tipoUsuario);
+                    break;
+                case 2:
+                    AltaOfertaPorNombre();
+                    VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
+                    ValidacionMenu(5, tipoUsuario);
+                    break;
+            }
+        }
         static void ProcesamientoOpcionAltaPublicacion(string tipoUsuario, int opcionSelecionada)
         {
             if (tipoUsuario == "ADMINISTRADOR")
@@ -526,17 +566,17 @@ namespace InterfazUsuario
                 case 1:
                     AltaPublicacion();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(5, tipoUsuario);
+                    ValidacionMenu(6, tipoUsuario);
                     break;
                 case 2:
                     AltaVenta();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(5, tipoUsuario);
+                    ValidacionMenu(6, tipoUsuario);
                     break;
                 case 3:
                     AltaSubasta();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(5, tipoUsuario);
+                    ValidacionMenu(6, tipoUsuario);
                     break;
             }
         }
@@ -573,20 +613,20 @@ namespace InterfazUsuario
                     Menu(tipoUsuario);
                     break;
                 case 1:
-                    ValidacionMenu(7, tipoUsuario);
-                    break;
-                case 2:
                     ValidacionMenu(8, tipoUsuario);
                     break;
-                case 3:
+                case 2:
                     ValidacionMenu(9, tipoUsuario);
+                    break;
+                case 3:
+                    ValidacionMenu(10, tipoUsuario);
                     break;
                 case 4:
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(6, tipoUsuario);
+                    ValidacionMenu(7, tipoUsuario);
                     break;
             }
         }
@@ -595,28 +635,28 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case 0:
-                    ValidacionMenu(6, tipoUsuario);
+                    ValidacionMenu(7, tipoUsuario);
                     break;
                 case 1:
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(false, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(7, tipoUsuario);
+                    ValidacionMenu(8, tipoUsuario);
                     break;
                 case 2:
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(7, tipoUsuario);
+                    ValidacionMenu(8, tipoUsuario);
                     break;
                 case 3:
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(false, true), false);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(7, tipoUsuario);
+                    ValidacionMenu(8, tipoUsuario);
                     break;
             }
         }
@@ -630,12 +670,12 @@ namespace InterfazUsuario
                 case 1:
                     ObtenerUsuarioPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(8, tipoUsuario);
+                    ValidacionMenu(9, tipoUsuario);
                     break;
                 case 2:
                     ObtenerUsuarioPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(8, tipoUsuario);
+                    ValidacionMenu(9, tipoUsuario);
                     break;
             }
         }
@@ -665,17 +705,17 @@ namespace InterfazUsuario
                 case 1:
                     AltaUsuario();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(9, tipoUsuario);
+                    ValidacionMenu(10, tipoUsuario);
                     break;
                 case 2:
                     AltaCliente();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(9, tipoUsuario);
+                    ValidacionMenu(10, tipoUsuario);
                     break;
                 case 3:
                     AltaAdministrador();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(9, tipoUsuario);
+                    ValidacionMenu(10, tipoUsuario);
                     break;
             }
         }
@@ -1043,6 +1083,46 @@ namespace InterfazUsuario
             string contrasenia = Console.ReadLine() ?? string.Empty;
 
             miSistema.AltaAdministrador(nombre, apellido, email, contrasenia);
+        }
+        #endregion
+        #region Oferta
+        static void AltaOfertaPorId()
+        {
+            // Valores por defecto
+            DateTime fecha = DateTime.Now;
+
+            Console.Clear();
+            // Solicitud datos
+            Console.WriteLine("Ingrese los datos que desea asociar a la oferta");
+            Console.WriteLine("Id del comprador:");
+            int.TryParse(Console.ReadLine(), out int idUsuario);
+            Usuario? usuario = miSistema.ObtenerUsuarioPorId(idUsuario, true, false);
+            Console.WriteLine("Id de la subasta:");
+            int.TryParse(Console.ReadLine(), out int idPublicacion);
+            Publicacion? publicacion = miSistema.ObtenerPublicacionPorId(idPublicacion, false, true);
+            Console.WriteLine("Monto a ofertar:");
+            decimal.TryParse(Console.ReadLine(), out decimal monto);
+
+            miSistema.AltaOferta(usuario, publicacion, monto, fecha);
+        }
+        static void AltaOfertaPorNombre()
+        {
+            // Valores por defecto
+            DateTime fecha = DateTime.Now;
+
+            Console.Clear();
+            // Solicitud datos
+            Console.WriteLine("Ingrese los datos que desea asociar a la oferta");
+            Console.WriteLine("Nombre del comprador:");
+            string nombre = Console.ReadLine() ?? string.Empty;
+            Usuario? usuario = miSistema.ObtenerUsuarioPorNombre(nombre, true, false);
+            Console.WriteLine("Id de la subasta:");
+            int.TryParse(Console.ReadLine(), out int idPublicacion);
+            Publicacion? publicacion = miSistema.ObtenerPublicacionPorId(idPublicacion, false, true);
+            Console.WriteLine("Monto a ofertar:");
+            decimal.TryParse(Console.ReadLine(), out decimal monto);
+
+            miSistema.AltaOferta(usuario, publicacion, monto, fecha);
         }
         #endregion
         #endregion
