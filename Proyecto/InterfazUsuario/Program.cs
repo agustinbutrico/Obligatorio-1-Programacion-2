@@ -456,7 +456,7 @@ namespace InterfazUsuario
         {
             if (tipoUsuario == "CLIENTE")
             {
-                if (opcionSelecionada == '3')
+                if (opcionSelecionada == '4')
                 {
                     opcionSelecionada = 'F';
                 }
@@ -1279,7 +1279,7 @@ namespace InterfazUsuario
             }
             Console.WriteLine("Es oferta relampago?\n1. Si\n2. No");
             int esOferta;
-            if (!int.TryParse(Console.ReadLine(), out esOferta) || esOferta != 1 || esOferta != 2)
+            if (!int.TryParse(Console.ReadLine(), out esOferta))
             {
                 Console.WriteLine("Su respuesta debe ser 1 o 2");
                 return;

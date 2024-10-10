@@ -25,8 +25,8 @@ namespace LogicaNegocio
             _publicaciones = new List<Publicacion>();
             _articulos = new List<Articulo>();
             PrecargaArticulo();
-            PrecargarPublicacion();
             PrecargaUsuario();
+            PrecargarPublicacion();
             PrecargaOferta();
         }
         #endregion
@@ -115,46 +115,70 @@ namespace LogicaNegocio
         #region Articulo
         public List<Articulo> ObtenerArticulos()
         {
+            bool hayArticulo = false;
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             for (int i = 0; i < _articulos.Count; i++)
             {
+                hayArticulo = true;
                 articulos.Add(_articulos[i]); // Se añade cualquier artículo a la lista artículos
+            }
+            if (!hayArticulo)
+            {
+                throw new ArgumentException("No hay ningún artículo en el sistema");
             }
             return articulos;
         }
         public List<Articulo> ObtenerArticuloPorId(List<int> ids)
         {
+            bool hayArticulo = false;
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             for (int i = 0; i < _articulos.Count; i++)
             {
                 if (ids.Contains(_articulos[i].Id)) // Si la lista de ids contiene algún artículo
                 {
+                    hayArticulo = true;
                     articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                 }
+            }
+            if (!hayArticulo)
+            {
+                throw new ArgumentException("No hay ningún artículo con los ids proporcionados");
             }
             return articulos;
         }
         public List<Articulo> ObtenerArticuloPorNombre(List<string> nombres)
         {
+            bool hayArticulo = false;
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             for (int i = 0; i < _articulos.Count; i++)
             {
                 if (nombres.Contains(_articulos[i].Nombre)) // Si la lista de nombres contiene algún artículo
                 {
+                    hayArticulo = true;
                     articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                 }
+            }
+            if (!hayArticulo)
+            {
+                throw new ArgumentException("No hay ningún artículo con los nombres proporcionados");
             }
             return articulos;
         }
         public List<Articulo> ObtenerArticuloPorCategoria(List<string> categorias)
         {
+            bool hayArticulo = false;
             List<Articulo> articulos = new List<Articulo>();  // Inicializamos la lista que contendrá los artículos
             for (int i = 0; i < _articulos.Count; i++)
             {
                 if (categorias.Contains(_articulos[i].Categoria)) // Si la lista de nombres contiene algún artículo
                 {
+                    hayArticulo = true;
                     articulos.Add(_articulos[i]); // Se añade el artículo a la lista artículos
                 }
+            }
+            if (!hayArticulo)
+            {
+                throw new ArgumentException("No hay ningún artículo con las catergoría proporcionada");
             }
             return articulos;
         }
@@ -162,151 +186,248 @@ namespace LogicaNegocio
         #region Publicacion
         public List<Publicacion> ObtenerPublicaciones(bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
+            bool hayVenta = false;
+            bool haySubasta = false;
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             for (int i = 0; i < _publicaciones.Count; i++)
             {
-                if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                if ((esUnicamenteVenta && !esUnicamenteSubasta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                 {
-                    publicaciones.Add(_publicaciones[i]); // Se añade cualquier publicacion a la lista publicaciones
+                    if (_publicaciones[i] is Venta venta)
+                    {
+                        hayVenta = true;
+                        publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
+                    }
                 }
-                else if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                 {
-                    publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
-                }
-                else if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
-                {
-                    publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
+                    if (_publicaciones[i] is Subasta subasta)
+                    {
+                        haySubasta = true;
+                        publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
+                    }
                 }
             }
-
-            if (publicaciones.Count == 0)
+            if (!hayVenta && !haySubasta)
             {
-                // Mensaje si no encontramos ninguna publicación
-                Console.WriteLine("Publicación no encontrada");
+                throw new ArgumentException("No hay ningúna pubicación en el sistema");
+            }
+            if (!hayVenta && esUnicamenteVenta)
+            {
+                throw new ArgumentException("No hay ningúna venta en el sistema");
+            } 
+            if (!haySubasta && esUnicamenteSubasta)
+            {
+                throw new ArgumentException("No hay ningúna subasta en el sistema");
             }
             return publicaciones;
         }
         public List<Publicacion> ObtenerPublicacionPorId(List<int> ids, bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
+            bool hayVenta = false;
+            bool haySubasta = false;
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             for (int i = 0; i < _publicaciones.Count; i++)
             {
                 if (ids.Contains(_publicaciones[i].Id)) // Si la lista de ids contiene algúna publicacion
                 {
-                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    if ((esUnicamenteVenta && !esUnicamenteSubasta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                        if (_publicaciones[i] is Venta venta)
+                        {
+                            hayVenta = true;
+                            publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
+                        }
                     }
-                    else if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                    if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
-                    }
-                    else if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
-                    {
-                        publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
+                        if (_publicaciones[i] is Subasta subasta)
+                        {
+                            haySubasta = true;
+                            publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
+                        }
                     }
                 }
             }
-
-            if (publicaciones.Count == 0)
+            if (!hayVenta && !haySubasta)
             {
-                // Mensaje si no encontramos ninguna publicación
-                Console.WriteLine("Publicación no encontrada");
+                throw new ArgumentException("No hay publicaciones con los ids proporcionados");
+            }
+            if (!hayVenta && esUnicamenteVenta)
+            {
+                throw new ArgumentException("No hay ventas con los ids proporcionados");
+            }
+            if (!haySubasta && esUnicamenteSubasta)
+            {
+                throw new ArgumentException("No hay subastas con los ids proporcionados");
             }
             return publicaciones;
         }
         public Publicacion? ObtenerPublicacionPorId(int id, bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
+            bool hayVenta = false;
+            bool haySubasta = false;
             Publicacion? publicacion = null;
             int indice = 0;
-            while (indice < _publicaciones.Count && publicacion == null)
+            while (indice < _publicaciones.Count && !hayVenta && !haySubasta)
             {
                 if (id == _publicaciones[indice].Id) // Si la lista de ids contiene algúna publicación
                 {
-                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    if ((esUnicamenteVenta && !esUnicamenteSubasta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                        if (_publicaciones[indice] is Venta venta)
+                        {
+                            hayVenta = true;
+                            publicacion = _publicaciones[indice]; // Se asigna la publicación
+                        }
                     }
-                    else if (_publicaciones[indice] is Venta venta && esUnicamenteVenta)
+                    if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicacion = _publicaciones[indice]; // Se asigna la publicación
-                    }
-                    else if (_publicaciones[indice] is Subasta subasta && esUnicamenteSubasta)
-                    {
-                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                        if (_publicaciones[indice] is Subasta subasta)
+                        {
+                            haySubasta = true;
+                            publicacion = _publicaciones[indice]; // Se asigna la publicación
+                        }
                     }
                 }
                 indice++;
+            }
+            if (!hayVenta && !haySubasta)
+            {
+                throw new ArgumentException("No hay ningúna publicación con el id proporcionado");
+            }
+            if (!hayVenta && esUnicamenteVenta)
+            {
+                throw new ArgumentException("No hay ningúna venta con el id proporcionado");
+            }
+            if (!haySubasta && esUnicamenteSubasta)
+            {
+                throw new ArgumentException("No hay ningúna subasta con el id proporcionado");
             }
             return publicacion;
         }
         public List<Publicacion> ObtenerPublicacionPorNombre(List<string> nombres, bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
+            bool hayVenta = false;
+            bool haySubasta = false;
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             for (int i = 0; i < _publicaciones.Count; i++)
             {
                 if (nombres.Contains(_publicaciones[i].Nombre)) // Si la lista de nombres contiene algúna publicación
                 {
-                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    if ((esUnicamenteVenta && !esUnicamenteSubasta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicaciones.Add(_publicaciones[i]); // Se añade la publicacion a la lista publicaciones
+                        if (_publicaciones[i] is Venta venta)
+                        {
+                            hayVenta = true;
+                            publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
+                        }
                     }
-                    else if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                    if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicaciones.Add(venta); // Se añade la venta a la lista publicaciones
-                    }
-                    else if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
-                    {
-                        publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
+                        if (_publicaciones[i] is Subasta subasta)
+                        {
+                            haySubasta = true;
+                            publicaciones.Add(subasta); // Se añade la subasta a la lista publicaciones
+                        }
                     }
                 }
+            }
+            if (!hayVenta && !haySubasta)
+            {
+                throw new ArgumentException("No hay publicaciones con los nombres proporcionados");
+            }
+            if (!hayVenta && esUnicamenteVenta)
+            {
+                throw new ArgumentException("No hay ventas con los nombres proporcionados");
+            }
+            if (!haySubasta && esUnicamenteSubasta)
+            {
+                throw new ArgumentException("No hay subastas con los nombres proporcionados");
             }
             return publicaciones;
         }
         public Publicacion? ObtenerPublicacionPorNombre(string nombre, bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
+            bool hayVenta = false;
+            bool haySubasta = false;
             Publicacion? publicacion = null;
             int indice = 0;
-            while (indice < _publicaciones.Count && publicacion == null)
+            while (indice < _publicaciones.Count && !hayVenta && !haySubasta)
             {
                 if (nombre.Contains(_publicaciones[indice].Nombre)) // Si la lista de nombres contiene algúna publicación
                 {
-                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    if ((esUnicamenteVenta && !esUnicamenteSubasta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                        if (_publicaciones[indice] is Venta venta)
+                        {
+                            hayVenta = true;
+                            publicacion = _publicaciones[indice]; // Se asigna la publicación
+                        }
                     }
-                    else if (_publicaciones[indice] is Venta venta && esUnicamenteVenta)
+                    if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicacion = _publicaciones[indice]; // Se asigna la publicación
-                    }
-                    else if (_publicaciones[indice] is Subasta subasta && esUnicamenteSubasta)
-                    {
-                        publicacion = _publicaciones[indice]; // Se asigna la publicación
+                        if (_publicaciones[indice] is Subasta subasta)
+                        {
+                            haySubasta = true;
+                            publicacion = _publicaciones[indice]; // Se asigna la publicación
+                        }
                     }
                 }
+                indice++;
+            }
+            if (!hayVenta && !haySubasta)
+            {
+                throw new ArgumentException("No hay ningúna publicación con el nombre proporcionado");
+            }
+            if (!hayVenta && esUnicamenteVenta)
+            {
+                throw new ArgumentException("No hay ningúna venta con el nombre proporcionado");
+            }
+            if (!haySubasta && esUnicamenteSubasta)
+            {
+                throw new ArgumentException("No hay ningúna subasta con el nombre proporcionado");
             }
             return publicacion;
         }
         public List<Publicacion> ObtenerPublicacionPorFecha(DateTime fechaInicio, DateTime fechaFin,bool esUnicamenteVenta, bool esUnicamenteSubasta)
         {
+            bool hayVenta = false;
+            bool haySubasta = false;
             List<Publicacion> publicaciones = new List<Publicacion>();  // Inicializamos la lista que contendrá las publicaciones
             for (int i = 0; i < _publicaciones.Count; i++)
             {
                 if (_publicaciones[i].Fecha > fechaInicio && _publicaciones[i].Fecha < fechaFin) // Si la lista de nombres contiene algúna publicación
                 {
-                    if (!esUnicamenteVenta && !esUnicamenteSubasta)
+                    if ((esUnicamenteVenta && !esUnicamenteSubasta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                        if (_publicaciones[i] is Venta venta)
+                        {
+                            hayVenta = true;
+                            publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                        }
                     }
-                    else if (_publicaciones[i] is Venta venta && esUnicamenteVenta)
+                    if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
                     {
-                        publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
-                    }
-                    else if (_publicaciones[i] is Subasta subasta && esUnicamenteSubasta)
-                    {
-                        publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                        if (_publicaciones[i] is Subasta subasta)
+                        {
+                            haySubasta = true;
+                            publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                        }
                     }
                 }
+            }
+            if (!hayVenta && !haySubasta)
+            {
+                throw new ArgumentException("No hay publicaciones entre las fechas proporcionadas");
+            }
+            if (!hayVenta && esUnicamenteVenta)
+            {
+                throw new ArgumentException("No hay ventas entre las fechas proporcionadas");
+            }
+            if (!haySubasta && esUnicamenteSubasta)
+            {
+                throw new ArgumentException("No hay subastas entre las fechas proporcionadas");
             }
             return publicaciones;
         }
@@ -314,116 +435,207 @@ namespace LogicaNegocio
         #region Usuario
         public List<Usuario> ObtenerUsuarios(bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
+            bool hayCliente = false;
+            bool hayAdministrador = false;
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             for (int i = 0; i < _usuarios.Count; i++)
             {
-                if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                if ((esUnicamenteCliente && !esUnicamenteAdministrador) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                 {
-                    usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                    if (_usuarios[i] is Cliente cliente)
+                    {
+                        hayCliente = true;
+                        usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
+                    }
                 }
-                else if (_usuarios[i] is Cliente cliente && esUnicamenteCliente)
+                if ((esUnicamenteAdministrador && !esUnicamenteCliente) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                 {
-                    usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
+                    if (_usuarios[i] is Administrador administrador)
+                    {
+                        hayAdministrador = true;
+                        usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
+                    }
                 }
-                else if (_usuarios[i] is Administrador administrador && esUnicamenteAdministrador)
-                {
-                    usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
-                }
+            }
+            if (!hayCliente && !hayAdministrador)
+            {
+                throw new ArgumentException("No hay ningún usuario en el sistema");
+            }
+            if (!hayCliente && esUnicamenteCliente)
+            {
+                throw new ArgumentException("No hay ningún cliente en el sistema");
+            }
+            if (!hayAdministrador && esUnicamenteAdministrador)
+            {
+                throw new ArgumentException("No hay ningún administrador en el sistema");
             }
             return usuarios;
         }
         public List<Usuario> ObtenerUsuarioPorId(List<int> ids, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
+            bool hayCliente = false;
+            bool hayAdministrador = false;
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             for (int i = 0; i < _usuarios.Count; i++)
             {
                 if (ids.Contains(_usuarios[i].Id)) // Si la lista de ids contiene algún usuario
                 {
-                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    if ((esUnicamenteCliente && !esUnicamenteAdministrador) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                     {
-                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                        if (_usuarios[i] is Cliente cliente)
+                        {
+                            hayCliente = true;
+                            usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
+                        }
                     }
-                    else if (_usuarios[i] is Cliente cliente && esUnicamenteCliente)
+                    if ((esUnicamenteAdministrador && !esUnicamenteCliente) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                     {
-                        usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
-                    }
-                    else if (_usuarios[i] is Administrador administrador && esUnicamenteAdministrador)
-                    {
-                        usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
+                        if (_usuarios[i] is Administrador administrador)
+                        {
+                            hayAdministrador = true;
+                            usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
+                        }
                     }
                 }
+            }
+            if (!hayCliente && !hayAdministrador)
+            {
+                throw new ArgumentException("No hay usuarios con los ids proporcionados");
+            }
+            if (!hayCliente && esUnicamenteCliente)
+            {
+                throw new ArgumentException("No hay clientes con los ids proporcionados");
+            }
+            if (!hayAdministrador && esUnicamenteAdministrador)
+            {
+                throw new ArgumentException("No hay administradores con los ids proporcionados");
             }
             return usuarios;
         }
         public Usuario? ObtenerUsuarioPorId(int id, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
+            bool hayCliente = false;
+            bool hayAdministrador = false;
             Usuario? usuario = null;
             int indice = 0;
-            while (indice < _usuarios.Count && usuario == null)
+            while (indice < _usuarios.Count && !hayCliente && !hayAdministrador)
             {
                 if (id == _usuarios[indice].Id) // Si la lista de ids contiene algúna usuario
                 {
-                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    if ((esUnicamenteCliente && !esUnicamenteAdministrador) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                     {
-                        usuario = _usuarios[indice]; // Se asigna el usuario
+                        if (_usuarios[indice] is Cliente cliente)
+                        {
+                            hayCliente = true;
+                            usuario = cliente; // Se asigna el usuario
+                        }
                     }
-                    else if (_usuarios[indice] is Cliente cliente && esUnicamenteCliente)
+                    if ((esUnicamenteAdministrador && !esUnicamenteCliente) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                     {
-                        usuario = _usuarios[indice]; // Se asigna el usuario
-                    }
-                    else if (_usuarios[indice] is Administrador administrador && esUnicamenteAdministrador)
-                    {
-                        usuario = _usuarios[indice]; // Se asigna el usuario
+                        if (_usuarios[indice] is Administrador administrador)
+                        {
+                            hayAdministrador = true;
+                            usuario = administrador; // Se asigna el usuario
+                        }
                     }
                 }
                 indice++;
+            }
+            if (!hayCliente && !hayAdministrador)
+            {
+                throw new ArgumentException("No hay ningún usuario con el id proporcionado");
+            }
+            if (!hayCliente && esUnicamenteCliente)
+            {
+                throw new ArgumentException("No hay ningún cliente con el id proporcionado");
+            }
+            if (!hayAdministrador && esUnicamenteAdministrador)
+            {
+                throw new ArgumentException("No hay ningún administrador con el id proporcionado");
             }
             return usuario;
         }
         public List<Usuario> ObtenerUsuarioPorNombre(List<string> nombres, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
+            bool hayCliente = false;
+            bool hayAdministrador = false;
             List<Usuario> usuarios = new List<Usuario>();  // Inicializamos la lista que contendrá los usuarios
             for (int i = 0; i < _usuarios.Count; i++)
             {
                 if (nombres.Contains(_usuarios[i].Nombre)) // Si la lista de nombres contiene algún usuario
                 {
-                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    if ((esUnicamenteCliente && !esUnicamenteAdministrador) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                     {
-                        usuarios.Add(_usuarios[i]); // Se añade el usuario a la lista usuarios
+                        if (_usuarios[i] is Cliente cliente)
+                        {
+                            hayCliente = true;
+                            usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
+                        }
                     }
-                    else if (_usuarios[i] is Cliente cliente && esUnicamenteCliente)
+                    if ((esUnicamenteAdministrador && !esUnicamenteCliente) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                     {
-                        usuarios.Add(cliente); // Se añade el cliente a la lista usuarios
-                    }
-                    else if (_usuarios[i] is Administrador administrador && esUnicamenteAdministrador)
-                    {
-                        usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
+                        if (_usuarios[i] is Administrador administrador)
+                        {
+                            hayAdministrador = true;
+                            usuarios.Add(administrador); // Se añade el administrador a la lista usuarios
+                        }
                     }
                 }
+            }
+            if (!hayCliente && !hayAdministrador)
+            {
+                throw new ArgumentException("No hay usuarios con los nombres proporcionados");
+            }
+            if (!hayCliente && esUnicamenteCliente)
+            {
+                throw new ArgumentException("No hay clientes con los nombres proporcionados");
+            }
+            if (!hayAdministrador && esUnicamenteAdministrador)
+            {
+                throw new ArgumentException("No hay administradores con los nombres proporcionados");
             }
             return usuarios;
         }
         public Usuario? ObtenerUsuarioPorNombre(string nombre, bool esUnicamenteCliente, bool esUnicamenteAdministrador)
         {
+            bool hayCliente = false;
+            bool hayAdministrador = false;
             Usuario? usuario = null;
             int indice = 0;
-            while (indice < _usuarios.Count && usuario == null)
+            while (indice < _usuarios.Count && !hayCliente && !hayAdministrador)
             {
                 if (nombre.Contains(_usuarios[indice].Nombre)) // Si la lista de nombres contiene algún usuario
                 {
-                    if (!esUnicamenteCliente && !esUnicamenteAdministrador)
+                    if ((esUnicamenteCliente && !esUnicamenteAdministrador) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                     {
-                        usuario = _usuarios[indice]; // Se asigna el usuario
+                        if (_usuarios[indice] is Cliente cliente)
+                        {
+                            hayCliente = true;
+                            usuario = _usuarios[indice]; // Se asigna el usuario
+                        }
                     }
-                    else if (_usuarios[indice] is Cliente cliente && esUnicamenteCliente)
+                    if ((esUnicamenteAdministrador && !esUnicamenteCliente) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
                     {
-                        usuario = _usuarios[indice]; // Se asigna el usuario
-                    }
-                    else if (_usuarios[indice] is Administrador administrador && esUnicamenteAdministrador)
-                    {
-                        usuario = _usuarios[indice]; // Se asigna el usuario
+                        if (_usuarios[indice] is Administrador administrador)
+                        {
+                            hayAdministrador = true;
+                            usuario = _usuarios[indice]; // Se asigna el usuario
+                        }
                     }
                 }
+                indice++;
+            }
+            if (!hayCliente && !hayAdministrador)
+            {
+                throw new ArgumentException("No hay ningún usuario con el nombre proporcionado");
+            }
+            if (!hayCliente && esUnicamenteCliente)
+            {
+                throw new ArgumentException("No hay ningún cliente con el nombre proporcionado");
+            }
+            if (!hayAdministrador && esUnicamenteAdministrador)
+            {
+                throw new ArgumentException("No hay ningún administrador con el nombre proporcionado");
             }
             return usuario;
         }
@@ -431,10 +643,16 @@ namespace LogicaNegocio
         #region Oferta
         public List<Oferta> ObtenerOfertas(Publicacion? publicacion)
         {
+            bool hayOferta = false;
             List<Oferta> ofertas = new List<Oferta>();  // Inicializamos la lista que contendrá las ofertas
             if (publicacion is Subasta subasta)
             {
+                hayOferta = true;
                 ofertas = subasta.Ofertas; // Se añade cualquier oferta a la lista ofertas
+            }
+            if (!hayOferta)
+            {
+                throw new ArgumentException("La subasta no contiene ofertas");
             }
             return ofertas;
         }
@@ -694,13 +912,13 @@ namespace LogicaNegocio
             AltaVenta("Taller de pintura", "ABIERTA", DateTime.ParseExact("15/10/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 43, 44, 45, 46 }), null, null, DateTime.MinValue, false);
             AltaVenta("Excursión a la montaña", "ABIERTA", DateTime.ParseExact("25/11/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 47, 48, 49 }), null, null, DateTime.MinValue, false);
             AltaSubasta("Torneo de ajedrez", "ABIERTA", DateTime.ParseExact("12/03/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 50, 51, 52 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaSubasta("Subasta de arte", "ABIERTA", DateTime.ParseExact("20/04/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 53, 54, 55 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaSubasta("Rally de coches", "ABIERTA", DateTime.ParseExact("01/06/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 56, 57, 58 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaSubasta("Subasta de antigüedades", "ABIERTA", DateTime.ParseExact("15/07/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 59, 60, 61 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaSubasta("Concurso de cocina", "ABIERTA", DateTime.ParseExact("05/08/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 62, 63, 64 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaSubasta("Maratón de lectura", "ABIERTA", DateTime.ParseExact("12/09/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 65, 66, 67 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaSubasta("Competencia de fotografía", "ABIERTA", DateTime.ParseExact("30/10/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 68, 69, 70 }), null, null, DateTime.MinValue, new List<Oferta>());
-            AltaSubasta("Fiesta de disfraces", "ABIERTA", DateTime.ParseExact("15/11/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 71, 72, 73 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaSubasta("Subasta de arte", "ABIERTA", DateTime.ParseExact("20/04/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 51, 53, 54 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaSubasta("Rally de coches", "ABIERTA", DateTime.ParseExact("01/06/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 36, 37, 38 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaSubasta("Subasta de antigüedades", "ABIERTA", DateTime.ParseExact("15/07/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 29, 20, 21 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaSubasta("Concurso de cocina", "ABIERTA", DateTime.ParseExact("05/08/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 42, 43, 44 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaSubasta("Maratón de lectura", "ABIERTA", DateTime.ParseExact("12/09/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 45, 46, 47 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaSubasta("Competencia de fotografía", "ABIERTA", DateTime.ParseExact("30/10/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 18, 19, 20 }), null, null, DateTime.MinValue, new List<Oferta>());
+            AltaSubasta("Fiesta de disfraces", "ABIERTA", DateTime.ParseExact("15/11/2024", "dd/MM/yyyy", null), ObtenerArticuloPorId(new List<int> { 21, 22, 23 }), null, null, DateTime.MinValue, new List<Oferta>());
         }
         #endregion
         #region Usuario
