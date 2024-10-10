@@ -110,7 +110,7 @@ namespace InterfazUsuario
             catch (InvalidOperationException ex)
             {
                 Console.WriteLine($"Error de operación: {ex.Message}");
-        	    VolverAlMenu();
+                VolverAlMenu();
                 return false;
             }
             catch (ArgumentNullException ex)
