@@ -85,7 +85,7 @@ namespace LogicaNegocio
         {
             if (string.IsNullOrEmpty(nombre))
             {
-                throw new Exception("El nombre no puede ser vacío");
+                throw new ArgumentException("El nombre no puede ser vacío");
             }
             return nombre;
         }
@@ -93,7 +93,7 @@ namespace LogicaNegocio
         {
             if (estado != "ABIERTA" && estado != "CERRADA" && estado != "CANCELADA")
             {
-                throw new Exception("El estado de la publicacion tiene que ser ABIERTA, CERRADA o CANCELADA");
+                throw new ArgumentException("El estado de la publicacion tiene que ser ABIERTA, CERRADA o CANCELADA");
             }
             return estado;
         }
@@ -103,7 +103,7 @@ namespace LogicaNegocio
         {
             if (FechaFin <= Fecha && FechaFin != DateTime.MinValue)
             {
-                throw new Exception("La fecha de fin debe ser posterior a la fecha de inicio.");
+                throw new InvalidOperationException("La fecha de fin debe ser posterior a la fecha de inicio.");
             }
         }
         #endregion

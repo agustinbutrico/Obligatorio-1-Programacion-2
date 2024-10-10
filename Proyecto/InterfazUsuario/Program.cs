@@ -239,8 +239,8 @@ namespace InterfazUsuario
         static void MenuPublicacion(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta" };
-            string[] opcionesAdministrador = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar en una subasta", "4. Dar de alta" };
+            string[] opcionesCliente = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar" };
+            string[] opcionesAdministrador = new string[] { "Menu Publicacion", "0. ...", "1. Mostrar", "2. Buscar", "3. Ofertar", "4. Dar de alta" };
 
             while (!valido)
             {
@@ -314,7 +314,7 @@ namespace InterfazUsuario
         static void MenuUsuario(string tipoUsuario)
         {
             bool valido = false;
-            string[] opcionesCliente = new string[] { "Menu Usuarios", "0. ...", "1. Mostrar todos los usuarios", "2. Buscar" };
+            string[] opcionesCliente = new string[] { "Menu Usuarios", "0. ...", "1. Mostrar todos los clientes", "2. Buscar" };
             string[] opcionesAdministrador = new string[] { "Menu Usuarios", "0. ...", "1. Mostrar", "2. Buscar", "3. Dar de alta" };
 
             while (!valido)
@@ -508,7 +508,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true, true);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
@@ -516,7 +516,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true, true);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
@@ -524,7 +524,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true, true);
+                    ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(3, tipoUsuario);
                     break;
@@ -685,7 +685,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(7, tipoUsuario);
                     break;
@@ -705,7 +705,7 @@ namespace InterfazUsuario
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     valido = true;
-                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, false), false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(8, tipoUsuario);
                     break;
@@ -713,7 +713,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false), false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(true, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(8, tipoUsuario);
                     break;
@@ -721,7 +721,7 @@ namespace InterfazUsuario
                     valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, true), false);
+                    ImprimirUsuario(miSistema.ObtenerUsuarios(false, true));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
                     ValidacionMenu(8, tipoUsuario);
                     break;
@@ -813,43 +813,37 @@ namespace InterfazUsuario
         #region Articulo
         static void ImprimirArticulo(List<Articulo> articulos, bool margenesGrandes)
         {
-            int margenes = 20;
-
+            int margenes = 35;
+            string menuAnidado = "  ";
             if (margenesGrandes)
             {
-                margenes = 40;
+                margenes = 70;
+                menuAnidado = "";
             }
             
             for (int i = 0; i < articulos.Count; i++)
             {
                 Console.WriteLine(new string('-', margenes));
                 // Mostramos los detalles del Artículo
-                Console.WriteLine($"ID: {articulos[i].Id}");
-                Console.WriteLine($"Nombre: {articulos[i].Nombre}");
-                Console.WriteLine($"Precio: {articulos[i].Precio}");
-                Console.WriteLine($"Categoría: {articulos[i].Categoria}");
+                Console.WriteLine($"{menuAnidado}ID: {articulos[i].Id}");
+                Console.WriteLine($"{menuAnidado}Nombre: {articulos[i].Nombre}");
+                Console.WriteLine($"{menuAnidado}Precio: {articulos[i].Precio}");
+                Console.WriteLine($"{menuAnidado}Categoría: {articulos[i].Categoria}");
             }
             Console.WriteLine(new string('-', margenes));
         }
         #endregion
         #region Publicacion
-        static void ImprimirPublicacion(List<Publicacion> publicaciones, bool margenesGrandes, bool vistaResumida)
+        static void ImprimirPublicacion(List<Publicacion> publicaciones, bool vistaResumida)
         {
-            int margenes = 20;
-
-            if (margenesGrandes)
-            {
-                margenes = 40;
-            }
-
             for (int i = 0; i < publicaciones.Count; i++)
             {
-                Console.WriteLine(new string('-', margenes));
+                Console.WriteLine(new string('-', 70));
                 // Mostramos los detalles de las publicaciones
                 Console.WriteLine($"ID: {publicaciones[i].Id}");
                 Console.WriteLine($"Nombre: {publicaciones[i].Nombre}");
                 Console.WriteLine($"Estado: {publicaciones[i].Estado}");
-                Console.WriteLine($"Fecha: {publicaciones[i].Fecha}");
+                Console.WriteLine($"Fecha de publicación: {publicaciones[i].Fecha}");
                 Console.WriteLine($"Articulos: {publicaciones[i].Articulos.Count}");
                 if (publicaciones[i].Articulos.Count > 0) // Si hay articulos imprimimos sus ids
                 {
@@ -880,7 +874,7 @@ namespace InterfazUsuario
                         Console.WriteLine($"Id de las ofertas asociadas: {miSistema.ParseoOferta(subasta.Ofertas)}");
                         if (!vistaResumida) // Si no es vista resumida mostramos los datos de las ofertas
                         {
-                            ImprimirOferta(subasta.Ofertas, false); // Imprime los datos de las ofertas asociadas
+                            ImprimirOferta(subasta.Ofertas); // Imprime los datos de las ofertas asociadas
                         }
                     }
                 }
@@ -891,61 +885,62 @@ namespace InterfazUsuario
                     Console.WriteLine($"Fecha Fin: {publicaciones[i].FechaFin}");
                 }
             }
-            Console.WriteLine(new string('-', margenes));
+            Console.WriteLine(new string('-', 70));
         }
         #endregion
         #region Usuario
-        static void ImprimirUsuario(List<Usuario> usuarios, bool margenesGrandes)
+        static void ImprimirUsuario(List<Usuario> usuarios)
         {
-            int margenes = 20;
-
-            if (margenesGrandes)
+            if (usuarios.Count > 0)
             {
-                margenes = 40;
-            }
-
-            for (int i = 0; i < usuarios.Count; i++)
-            {
-                if (margenesGrandes)
-                Console.WriteLine(new string('-', margenes));
-                // Mostramos los detalles del Usuario
-                Console.WriteLine($"ID: {usuarios[i].Id}");
-                Console.WriteLine($"Nombre: {usuarios[i].Nombre}");
-                Console.WriteLine($"Apellido: {usuarios[i].Apellido}");
-                Console.WriteLine($"Email: {usuarios[i].Email}");
-                if (usuarios[i] is Cliente cliente)
+                for (int i = 0; i < usuarios.Count; i++)
                 {
-                    Console.WriteLine($"Saldo: {cliente.Saldo}");
+                    Console.WriteLine(new string('-', 70));
+                    if (usuarios[i] is Administrador administrador)
+                    {
+                        // Mostramos los detalles del Administrador
+                        Console.WriteLine($"ID: {administrador.Id}");
+                        Console.WriteLine($"Nombre: {administrador.Nombre}");
+                        Console.WriteLine($"Apellido: {administrador.Apellido}");
+                        Console.WriteLine($"Email: {administrador.Email}");
+                    }
+                    if (usuarios[i] is Cliente cliente && miSistema.HayCliente())
+                    {
+                        // Mostramos los detalles del Usuario
+                        Console.WriteLine($"ID: {cliente.Id}");
+                        Console.WriteLine($"Nombre: {cliente.Nombre}");
+                        Console.WriteLine($"Apellido: {cliente.Apellido}");
+                        Console.WriteLine($"Email: {cliente.Email}");
+                        Console.WriteLine($"Saldo: {cliente.Saldo}");
+                    }
                 }
+                Console.WriteLine(new string('-', 70));
             }
-            Console.WriteLine(new string('-', margenes));
+            if (!miSistema.HayCliente())
+            {
+                Console.WriteLine("No existen clientes actualmente");
+            }
         }
         #endregion
         #region Oferta
-        static void ImprimirOferta(List<Oferta> ofertas, bool margenesGrandes)
+        static void ImprimirOferta(List<Oferta> ofertas)
         {
-            int margenes = 20;
-
-            if (margenesGrandes)
-            {
-                margenes = 40;
-            }
-
+            string menuAnidado = "  ";
             for (int i = 0; i < ofertas.Count; i++)
             {
-                Console.WriteLine(new string('-', margenes));
+                Console.WriteLine(new string('-', 35));
                 // Mostramos los detalles de las ofertas
-                Console.WriteLine($"ID: {ofertas[i].Id}");
+                Console.WriteLine($"{menuAnidado}ID: {ofertas[i].Id}");
                 if (ofertas[i].Usuario is Usuario usuario)
                 {
-                    Console.WriteLine($"Id usuario: {usuario.Id}");
-                    Console.WriteLine($"Nombre usuario: {usuario.Nombre}");
-                    Console.WriteLine($"Apellido usuario: {usuario.Apellido}");
+                    Console.WriteLine($"{menuAnidado}Id usuario: {usuario.Id}");
+                    Console.WriteLine($"{menuAnidado}Nombre usuario: {usuario.Nombre}");
+                    Console.WriteLine($"{menuAnidado}Apellido usuario: {usuario.Apellido}");
                 }
-                Console.WriteLine($"Monto: {ofertas[i].Monto}");
-                Console.WriteLine($"Fecha: {ofertas[i].Fecha}");
+                Console.WriteLine($"{menuAnidado}Monto: {ofertas[i].Monto}");
+                Console.WriteLine($"{menuAnidado}Fecha: {ofertas[i].Fecha}");
             }
-            Console.WriteLine(new string('-', margenes));
+            Console.WriteLine(new string('-', 35));
         }
         #endregion
         #endregion
@@ -963,13 +958,13 @@ namespace InterfazUsuario
             Console.Clear();
             // Solicitud datos
             Console.WriteLine("Id de los articulos separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(ids_crudos))
+            string idsCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(idsCrudos))
             {
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(idsCrudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
@@ -991,13 +986,13 @@ namespace InterfazUsuario
             Console.Clear();
             // Solicitud datos
             Console.WriteLine("Nombre de los articulos separados por ,:");
-            string nombres_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(nombres_crudos))
+            string nombresCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombresCrudos))
             {
                 Console.WriteLine("El nombre no puede ser vacío");
                 return;
             }
-            List<string> nombres = miSistema.ParseoString(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<string> nombres = miSistema.ParseoString(nombresCrudos); // Convierte el input del usuario en una lista de nombres
             if (nombres == null || nombres.Count == 0)
             {
                 Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
@@ -1019,13 +1014,13 @@ namespace InterfazUsuario
             Console.Clear();
             // Solicitud datos
             Console.WriteLine("Categoria de los articulos separados por ,:");
-            string categorias_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(categorias_crudos))
+            string categoriasCrudas = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(categoriasCrudas))
             {
                 Console.WriteLine("La categoria no puede ser vacía");
                 return;
             }
-            List<string> categorias = miSistema.ParseoString(categorias_crudos); // Convierte el input del usuario en una lista de nombres
+            List<string> categorias = miSistema.ParseoString(categoriasCrudas); // Convierte el input del usuario en una lista de nombres
             if (categorias == null || categorias.Count == 0)
             {
                 Console.WriteLine("No se encontraron categorias correspondientes a las castegorias proporcionados");
@@ -1049,13 +1044,13 @@ namespace InterfazUsuario
             Console.Clear();
             // Solicitud datos
             Console.WriteLine("Id de las publicaciones separadas por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(ids_crudos))
+            string idsCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(idsCrudos))
             {
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(idsCrudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
@@ -1070,20 +1065,20 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirPublicacion(publicaciones, true, false);
+            ImprimirPublicacion(publicaciones, false);
         }
         static void ObtenerPublicacionPorNombre()
         {
             Console.Clear();
             // Solicitud datos
             Console.WriteLine("Nombre de las publicaciones separadas por ,:");
-            string nombres_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(nombres_crudos))
+            string nombresCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombresCrudos))
             {
                 Console.WriteLine("El nombre no puede ser vacío");
                 return;
             }
-            List<string> nombres = miSistema.ParseoString(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<string> nombres = miSistema.ParseoString(nombresCrudos); // Convierte el input del usuario en una lista de nombres
             if (nombres == null || nombres.Count == 0)
             {
                 Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
@@ -1098,7 +1093,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirPublicacion(publicaciones, true, false);
+            ImprimirPublicacion(publicaciones, false);
         }
         static void ObtenerPublicacionPorFecha()
         {
@@ -1131,13 +1126,13 @@ namespace InterfazUsuario
             List<Publicacion> publicaciones = miSistema.ObtenerPublicacionPorFecha(fechaInicio, fechaFin, false, false);
             if (publicaciones == null || publicaciones.Count == 0)
             {
-                Console.WriteLine("No se encontraron publicaciones correspondientes a los nombres proporcionados");
+                Console.WriteLine("No se encontraron publicaciones correspondientes al intervalo proporcionado");
                 return;
             }
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirPublicacion(publicaciones, true, false);
+            ImprimirPublicacion(publicaciones, false);
         }
         #endregion
         #region Usuario
@@ -1146,13 +1141,13 @@ namespace InterfazUsuario
             Console.Clear();
             // Solicitud datos
             Console.WriteLine("Id de los usuarios separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(ids_crudos))
+            string idsCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(idsCrudos))
             {
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(idsCrudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se encontraron ids correspondientes a los ids proporcionados");
@@ -1167,20 +1162,20 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirUsuario(usuarios, true);
+            ImprimirUsuario(usuarios);
         }
         static void ObtenerUsuarioPorNombre()
         {
             Console.Clear();
             // Solicitud datos
             Console.WriteLine("Nombre de los usuarios separados por ,:");
-            string nombres_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(nombres_crudos))
+            string nombresCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(nombresCrudos))
             {
                 Console.WriteLine("El nombre no puede ser vacío");
                 return;
             }
-            List<string> nombres = miSistema.ParseoString(nombres_crudos); // Convierte el input del usuario en una lista de nombres
+            List<string> nombres = miSistema.ParseoString(nombresCrudos); // Convierte el input del usuario en una lista de nombres
             if (nombres == null || nombres.Count == 0)
             {
                 Console.WriteLine("No se encontraron nombres correspondientes a los nombres proporcionados");
@@ -1195,7 +1190,7 @@ namespace InterfazUsuario
 
             Console.WriteLine(new string('\n', 40));
             Console.Clear();
-            ImprimirUsuario(usuarios, true);
+            ImprimirUsuario(usuarios);
         }
         #endregion
         #endregion
@@ -1228,6 +1223,7 @@ namespace InterfazUsuario
                 Console.WriteLine("El peecio debe ser un número entero positivo");
                 return;
             }
+            Console.WriteLine("Categoría:");
             string categoria = Console.ReadLine() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(categoria))
             {
@@ -1236,6 +1232,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaArticulo(nombre, precio, categoria);
+            Console.WriteLine("El articulo se ha creado exitosamente");
         }
         #endregion
         #region Publicacion
@@ -1259,13 +1256,13 @@ namespace InterfazUsuario
                 return;
             }
             Console.WriteLine("Id de los articulos separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(ids_crudos))
+            string idsCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(idsCrudos))
             {
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(idsCrudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se proporcionaron IDs válidos");
@@ -1301,13 +1298,13 @@ namespace InterfazUsuario
                 return;
             }
             Console.WriteLine("Id de los articulos separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(ids_crudos))
+            string idsCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(idsCrudos))
             {
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(idsCrudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se proporcionaron IDs válidos");
@@ -1357,13 +1354,13 @@ namespace InterfazUsuario
                 return;
             }
             Console.WriteLine("Id de los articulos separados por ,:");
-            string ids_crudos = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(ids_crudos))
+            string idsCrudos = Console.ReadLine() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(idsCrudos))
             {
                 Console.WriteLine("El id no puede ser vacío");
                 return;
             }
-            List<int> ids = miSistema.ParseoInt(ids_crudos); // Convierte el input del usuario en una lista de ids
+            List<int> ids = miSistema.ParseoInt(idsCrudos); // Convierte el input del usuario en una lista de ids
             if (ids == null || ids.Count == 0)
             {
                 Console.WriteLine("No se proporcionaron IDs válidos");
@@ -1407,6 +1404,11 @@ namespace InterfazUsuario
                 Console.WriteLine("El email no puede ser vacío");
                 return;
             }
+            if (email.IndexOf('@') == -1)
+            {
+                Console.WriteLine("El email debe pertenecer a un domino (debe tener @)");
+                return;
+            }
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(contrasenia))
@@ -1416,6 +1418,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaUsuario(nombre, apellido, email, contrasenia);
+            Console.WriteLine("El usuario se ha creado exitosamente");
         }
         static void AltaCliente()
         {
@@ -1446,6 +1449,11 @@ namespace InterfazUsuario
                 Console.WriteLine("El email no puede ser vacío");
                 return;
             }
+            if (email.IndexOf('@') == -1)
+            {
+                Console.WriteLine("El email debe pertenecer a un domino (debe tener @)");
+                return;
+            }
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(contrasenia))
@@ -1455,6 +1463,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaCliente(nombre, apellido, email, contrasenia, saldo);
+            Console.WriteLine("El cliente se ha creado exitosamente");
         }
         static void AltaAdministrador()
         {
@@ -1482,6 +1491,11 @@ namespace InterfazUsuario
                 Console.WriteLine("El email no puede ser vacío");
                 return;
             }
+            if (email.IndexOf('@') == -1)
+            {
+                Console.WriteLine("El email debe pertenecer a un domino (debe tener @)");
+                return;
+            }
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(contrasenia))
@@ -1491,6 +1505,7 @@ namespace InterfazUsuario
             }
 
             miSistema.AltaAdministrador(nombre, apellido, email, contrasenia);
+            Console.WriteLine("El administrador se ha creado exitosamente");
         }
         #endregion
         #region Oferta
