@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio
@@ -456,6 +457,10 @@ namespace LogicaNegocio
             {
                 _articulos.Add(nuevoArticulo);
             }
+            else
+            {
+                throw new ArgumentException("Ya existe un articulo registrado con el nombre proporcionado");
+            }
         }
         #endregion
         #region Publicacion
@@ -469,6 +474,10 @@ namespace LogicaNegocio
             {
                 _publicaciones.Add(nuevaPublicacion);
             }
+            else
+            {
+                throw new ArgumentException("Ya existe una publicacion registrada con el nombre proporcionado");
+            }
         }
         public void AltaVenta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, bool ofertaRelampago)
         {
@@ -480,6 +489,10 @@ namespace LogicaNegocio
             {
                 _publicaciones.Add(nuevaVenta);
             }
+            else
+            {
+                throw new ArgumentException("Ya existe una publicacion registrada con el nombre proporcionado");
+            }
         }
         public void AltaSubasta(string nombre, string estado, DateTime fecha, List<Articulo> articulos, Cliente? cliente, Administrador? administrador, DateTime fechaFin, List<Oferta> ofertas)
         {
@@ -490,7 +503,10 @@ namespace LogicaNegocio
             if (!_publicaciones.Contains(nuevaSubasta))
             {
                 _publicaciones.Add(nuevaSubasta);
-
+            }
+            else
+            {
+                throw new ArgumentException("Ya existe una publicacion registrada con el nombre proporcionado");
             }
         }
         #endregion
@@ -505,6 +521,10 @@ namespace LogicaNegocio
             {
                 _usuarios.Add(nuevoUsuario);
             }
+            else
+            {
+                throw new ArgumentException("Ya existe un usuario registrado con el nombre y apellido proporcionados");
+            }
         }
         public void AltaCliente(string nombre, string apellido, string email, string contrasenia, decimal saldo)
         {
@@ -515,6 +535,10 @@ namespace LogicaNegocio
             if (!_usuarios.Contains(nuevoCliente))
             {
                 _usuarios.Add(nuevoCliente);
+            }
+            else
+            {
+                throw new ArgumentException("Ya existe un usuario registrado con el nombre y apellido proporcionados");
             }
         }
         public void AltaAdministrador(string nombre, string apellido, string email, string contrasenia)
@@ -527,6 +551,10 @@ namespace LogicaNegocio
             {
                 _usuarios.Add(nuevoAdministrador);
             }
+            else
+            {
+                throw new ArgumentException("Ya existe un usuario registrado con el nombre y apellido proporcionados");
+            }
         }
         #endregion
         #region Ofertas
@@ -535,6 +563,14 @@ namespace LogicaNegocio
             if (publicacion != null && publicacion is Subasta subasta) 
             {
                 subasta.AltaOferta(usuario, monto, fecha);
+            }
+            else if (publicacion == null)
+            {
+                throw new ArgumentNullException("No fue posible acceder a la subasta proporcionada");
+            }
+            else 
+            {
+                throw new ArgumentException("No fue posible realizar la oferta debido a que no fue posible identificar la subasta");
             }
         }
         #endregion

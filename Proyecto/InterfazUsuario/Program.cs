@@ -66,7 +66,7 @@ namespace InterfazUsuario
         /// idMenu = 9 == MenuBuscarUsuario
         /// idMenu = 10 == MenuAltaUsuario
         /// </summary>
-        static void ValidacionMenu(int idMenu, string tipoUsuario)
+        static bool ValidacionMenu(int idMenu, string tipoUsuario)
         {
             try
             {
@@ -111,22 +111,27 @@ namespace InterfazUsuario
             {
                 Console.WriteLine($"Error de operación: {ex.Message}");
         	    VolverAlMenu();
+                return false;
             }
             catch (ArgumentNullException ex)
             {
                 Console.WriteLine($"Falta un argumento obligatorio: {ex.Message}");
         	    VolverAlMenu();
+                return false;
             }
             catch (ArgumentException ex)
             {
                 Console.WriteLine($"Argumento inválido: {ex.Message}");
         	    VolverAlMenu();
+                return false;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error inesperado: {ex.Message}");
         	    VolverAlMenu();
+                return false;
             }
+            return true;
         }
         #endregion
         #region Principal
@@ -188,16 +193,13 @@ namespace InterfazUsuario
                             MenuTipoUsuario();
                             break;
                         case '1':
-                            valido = true;
-                            ValidacionMenu(0, tipoUsuario);
+                            valido = ValidacionMenu(0, tipoUsuario);
                             break;
                         case '2':
-                            valido = true;
-                            ValidacionMenu(2, tipoUsuario);
+                            valido = ValidacionMenu(2, tipoUsuario);
                             break;
                         case '3':
-                            valido = true;
-                            ValidacionMenu(7, tipoUsuario);
+                            valido = ValidacionMenu(7, tipoUsuario);
                             break;
                     }
                 }
@@ -406,21 +408,19 @@ namespace InterfazUsuario
                     Menu(tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
+                    Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirArticulo(miSistema.ObtenerArticulos(), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(0, tipoUsuario);
+                    valido = ValidacionMenu(0, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
-                    ValidacionMenu(1, tipoUsuario);
+                    valido = ValidacionMenu(1, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
                     AltaArticulo();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(0, tipoUsuario);
+                    valido = ValidacionMenu(0, tipoUsuario);
                     break;
             }
             return valido;
@@ -430,26 +430,22 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case '0':
-                    valido = true;
-                    ValidacionMenu(0, tipoUsuario);
+                    valido = ValidacionMenu(0, tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
                     ObtenerArticuloPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(1, tipoUsuario);
+                    valido = ValidacionMenu(1, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
                     ObtenerArticuloPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(1, tipoUsuario);
+                    valido = ValidacionMenu(1, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
                     ObtenerArticuloPorCategoria();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(1, tipoUsuario);
+                    valido = ValidacionMenu(1, tipoUsuario);
                     break;
             }
             return valido;
@@ -478,20 +474,16 @@ namespace InterfazUsuario
                     Menu(tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
-                    ValidacionMenu(3, tipoUsuario);
+                    valido = ValidacionMenu(3, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
-                    ValidacionMenu(4, tipoUsuario);
+                    valido = ValidacionMenu(4, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
-                    ValidacionMenu(5, tipoUsuario);
+                    valido = ValidacionMenu(5, tipoUsuario);
                     break;
                 case '4':
-                    valido = true;
-                    ValidacionMenu(6, tipoUsuario);
+                    valido = ValidacionMenu(6, tipoUsuario);
                     break;
             }
             return valido;
@@ -501,32 +493,28 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case '0':
-                    valido = true;
-                    ValidacionMenu(2, tipoUsuario);
+                    valido = ValidacionMenu(2, tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(3, tipoUsuario);
+                    valido = ValidacionMenu(3, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(true, false), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(3, tipoUsuario);
+                    valido = ValidacionMenu(3, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirPublicacion(miSistema.ObtenerPublicaciones(false, true), true);
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(3, tipoUsuario);
+                    valido = ValidacionMenu(3, tipoUsuario);
                     break;
             }
             return valido;
@@ -536,26 +524,22 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case '0':
-                    valido = true;
-                    ValidacionMenu(2, tipoUsuario);
+                    valido = ValidacionMenu(2, tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
                     ObtenerPublicacionPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(4, tipoUsuario);
+                    valido = ValidacionMenu(4, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
                     ObtenerPublicacionPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(4, tipoUsuario);
+                    valido = ValidacionMenu(4, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
                     ObtenerPublicacionPorFecha();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(4, tipoUsuario);
+                    valido = ValidacionMenu(4, tipoUsuario);
                     break;
             }
             return valido;
@@ -565,20 +549,17 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case '0':
-                    valido = true;
-                    ValidacionMenu(2, tipoUsuario);
+                    valido = ValidacionMenu(2, tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
                     AltaOfertaPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(5, tipoUsuario);
+                    valido = ValidacionMenu(5, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
                     AltaOfertaPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(5, tipoUsuario);
+                    valido = ValidacionMenu(5, tipoUsuario);
                     break;
             }
             return valido;
@@ -608,26 +589,22 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case '0':
-                    valido = true;
-                    ValidacionMenu(2, tipoUsuario);
+                    valido = ValidacionMenu(2, tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
                     AltaPublicacion();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(6, tipoUsuario);
+                    valido = ValidacionMenu(6, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
                     AltaVenta();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(6, tipoUsuario);
+                    valido = ValidacionMenu(6, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
                     AltaSubasta();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(6, tipoUsuario);
+                    valido = ValidacionMenu(6, tipoUsuario);
                     break;
             }
             return valido;
@@ -670,24 +647,20 @@ namespace InterfazUsuario
                     Menu(tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
-                    ValidacionMenu(8, tipoUsuario);
+                    valido = ValidacionMenu(8, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
-                    ValidacionMenu(9, tipoUsuario);
+                    valido = ValidacionMenu(9, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
-                    ValidacionMenu(10, tipoUsuario);
+                    valido = ValidacionMenu(10, tipoUsuario);
                     break;
                 case '4':
-                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(true, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(7, tipoUsuario);
+                    valido = ValidacionMenu(7, tipoUsuario);
                     break;
             }
             return valido;
@@ -697,33 +670,28 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case '0':
-                    valido = true;
-                    ValidacionMenu(7, tipoUsuario);
+                    valido = ValidacionMenu(7, tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
-                    valido = true;
                     ImprimirUsuario(miSistema.ObtenerUsuarios(false, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(8, tipoUsuario);
+                    valido = ValidacionMenu(8, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(true, false));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(8, tipoUsuario);
+                    valido = ValidacionMenu(8, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
                     Console.WriteLine(new string('\n', 40));
                     Console.Clear();
                     ImprimirUsuario(miSistema.ObtenerUsuarios(false, true));
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(8, tipoUsuario);
+                    valido = ValidacionMenu(8, tipoUsuario);
                     break;
             }
             return valido;
@@ -733,20 +701,17 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case '0':
-                    valido = true;
-                    ValidacionMenu(7, tipoUsuario);
+                    valido = ValidacionMenu(7, tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
                     ObtenerUsuarioPorId();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(9, tipoUsuario);
+                    valido = ValidacionMenu(9, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
                     ObtenerUsuarioPorNombre();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(9, tipoUsuario);
+                    valido = ValidacionMenu(9, tipoUsuario);
                     break;
             }
             return valido;
@@ -776,26 +741,22 @@ namespace InterfazUsuario
             switch (opcionSeleccionada)
             {
                 case '0':
-                    valido = true;
-                    ValidacionMenu(7, tipoUsuario);
+                    valido = ValidacionMenu(7, tipoUsuario);
                     break;
                 case '1':
-                    valido = true;
                     AltaUsuario();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(10, tipoUsuario);
+                    valido = ValidacionMenu(10, tipoUsuario);
                     break;
                 case '2':
-                    valido = true;
                     AltaCliente();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(10, tipoUsuario);
+                    valido = ValidacionMenu(10, tipoUsuario);
                     break;
                 case '3':
-                    valido = true;
                     AltaAdministrador();
                     VolverAlMenu(); // Limpia la consola cuando el usuario preciona Intro
-                    ValidacionMenu(10, tipoUsuario);
+                    valido = ValidacionMenu(10, tipoUsuario);
                     break;
             }
             return valido;
