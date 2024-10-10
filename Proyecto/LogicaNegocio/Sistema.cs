@@ -278,7 +278,7 @@ namespace LogicaNegocio
                         if (_publicaciones[indice] is Venta venta)
                         {
                             hayVenta = true;
-                            publicacion = _publicaciones[indice]; // Se asigna la publicación
+                            publicacion = venta; // Se asigna la publicación
                         }
                     }
                     if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
@@ -286,7 +286,7 @@ namespace LogicaNegocio
                         if (_publicaciones[indice] is Subasta subasta)
                         {
                             haySubasta = true;
-                            publicacion = _publicaciones[indice]; // Se asigna la publicación
+                            publicacion = subasta; // Se asigna la publicación
                         }
                     }
                 }
@@ -362,7 +362,7 @@ namespace LogicaNegocio
                         if (_publicaciones[indice] is Venta venta)
                         {
                             hayVenta = true;
-                            publicacion = _publicaciones[indice]; // Se asigna la publicación
+                            publicacion = venta; // Se asigna la publicación
                         }
                     }
                     if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
@@ -370,7 +370,7 @@ namespace LogicaNegocio
                         if (_publicaciones[indice] is Subasta subasta)
                         {
                             haySubasta = true;
-                            publicacion = _publicaciones[indice]; // Se asigna la publicación
+                            publicacion = subasta; // Se asigna la publicación
                         }
                     }
                 }
@@ -404,7 +404,7 @@ namespace LogicaNegocio
                         if (_publicaciones[i] is Venta venta)
                         {
                             hayVenta = true;
-                            publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                            publicaciones.Add(venta); // Se asigna la publicación
                         }
                     }
                     if ((esUnicamenteSubasta && !esUnicamenteVenta) || (!esUnicamenteVenta && !esUnicamenteSubasta))
@@ -412,7 +412,7 @@ namespace LogicaNegocio
                         if (_publicaciones[i] is Subasta subasta)
                         {
                             haySubasta = true;
-                            publicaciones.Add(_publicaciones[i]); // Se asigna la publicación
+                            publicaciones.Add(subasta); // Se asigna la publicación
                         }
                     }
                 }
@@ -611,7 +611,7 @@ namespace LogicaNegocio
                         if (_usuarios[indice] is Cliente cliente)
                         {
                             hayCliente = true;
-                            usuario = _usuarios[indice]; // Se asigna el usuario
+                            usuario = cliente; // Se asigna el usuario
                         }
                     }
                     if ((esUnicamenteAdministrador && !esUnicamenteCliente) || (!esUnicamenteCliente && !esUnicamenteAdministrador))
@@ -619,7 +619,7 @@ namespace LogicaNegocio
                         if (_usuarios[indice] is Administrador administrador)
                         {
                             hayAdministrador = true;
-                            usuario = _usuarios[indice]; // Se asigna el usuario
+                            usuario = administrador; // Se asigna el usuario
                         }
                     }
                 }
