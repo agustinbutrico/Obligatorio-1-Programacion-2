@@ -28,17 +28,6 @@ namespace LogicaNegocio
         }
         #endregion
 
-        #region Alta
-        public void AltaOferta(Usuario? usuario, decimal monto, DateTime fecha)
-        {
-            Oferta oferta = new Oferta(usuario, monto, fecha); // Crea una oferta con el costructor de Oferta
-            if (usuario != null && !Ofertas.Contains(oferta)) // Utilizando el Equals de Oferta valida que un usuario no haga más de una oferta
-            {
-                Ofertas.Add(oferta); // Añade a la lista _ofertas
-            }
-        }
-        #endregion
-
         #region Validación
         // Validación de Subasta, hereda de Publicacion
         public override void Validar()
@@ -56,6 +45,17 @@ namespace LogicaNegocio
                 return Nombre == subasta.Nombre;
             }
             return false;
+        }
+        #endregion
+
+        #region Alta
+        public void AltaOferta(Usuario? usuario, decimal monto, DateTime fecha)
+        {
+            Oferta oferta = new Oferta(usuario, monto, fecha); // Crea una oferta con el costructor de Oferta
+            if (usuario != null && !Ofertas.Contains(oferta)) // Utilizando el Equals de Oferta valida que un usuario no haga más de una oferta
+            {
+                Ofertas.Add(oferta); // Añade a la lista _ofertas
+            }
         }
         #endregion
     }
