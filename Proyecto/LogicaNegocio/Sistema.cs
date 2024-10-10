@@ -657,14 +657,14 @@ namespace LogicaNegocio
         {
             AltaAdministrador("Valentin", "Latorre", "ValentinLatorre@Gmail.com", "Valentin1234");
             AltaAdministrador("Agustin", "Butrico", "AgustinButrico@gmail.com", "Agustin1234");
-            /*AltaCliente("Juan", "Peres", "Juanperes@hmail.com", "Juan1234", 2000);
+            AltaCliente("Juan", "Peres", "Juanperes@hmail.com", "Juan1234", 2000);
             AltaCliente("Esteban", "Lopez", "EstebanLopez@hmail.com", "556643", 2000);
             AltaCliente("Carlos", "Medina", "CarlosMedina@hmail.com", "Medina1234", 4500);
             AltaCliente("Mariano", "Morales", "MarianoMorales@hmail.com", "Mariano2", 5000);
             AltaCliente("Estela", "Rosales", "EstelaRosales@hmail.com", "Rosalia46", 300);
             AltaCliente("Marcos", "Sauce", "MarcosSauce@hmail.com", "Sauce31", 30000);
             AltaCliente("Lucia", "Gomez", "LuciaGomezs@hmail.com", "Lucia1990", 7200);
-            AltaCliente("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", 900);*/
+            AltaCliente("Rodrigo", "Barrios", "RodrigoBarrios@hmail.com", "RodrigoBarrios12", 900);
         }
         #endregion
         #region Oferta

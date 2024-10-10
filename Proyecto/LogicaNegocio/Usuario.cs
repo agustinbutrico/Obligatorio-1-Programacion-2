@@ -63,7 +63,7 @@ namespace LogicaNegocio
         {
             if (string.IsNullOrEmpty(nombre))
             {
-                throw new Exception("El nombre no puede ser vacío");
+                throw new ArgumentException("El nombre no puede ser vacío");
             }
             return nombre;
         }
@@ -71,7 +71,7 @@ namespace LogicaNegocio
         {
             if (string.IsNullOrEmpty(apellido))
             {
-                throw new Exception("El apellido no puede ser vacío");
+                throw new ArgumentException("El apellido no puede ser vacío");
             }
             return apellido;
         }
@@ -79,7 +79,11 @@ namespace LogicaNegocio
         {
             if (string.IsNullOrEmpty(email))
             {
-                throw new Exception("El email no puede ser vacío");
+                throw new ArgumentException("El email no puede ser vacío");
+            }
+            if (email.IndexOf('@') == -1)
+            {
+                throw new ArgumentException("El email debe pertenecer a un domino (debe tener @)");
             }
             return email;
         }
@@ -87,7 +91,7 @@ namespace LogicaNegocio
         {
             if (string.IsNullOrEmpty(contrasenia))
             {
-                throw new Exception("El contrasenia no puede ser vacío");
+                throw new ArgumentException("El contrasenia no puede ser vacío");
             }
             return contrasenia;
         }

@@ -1404,6 +1404,11 @@ namespace InterfazUsuario
                 Console.WriteLine("El email no puede ser vacío");
                 return;
             }
+            if (email.IndexOf('@') == -1)
+            {
+                Console.WriteLine("El email debe pertenecer a un domino (debe tener @)");
+                return;
+            }
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(contrasenia))
@@ -1444,6 +1449,11 @@ namespace InterfazUsuario
                 Console.WriteLine("El email no puede ser vacío");
                 return;
             }
+            if (email.IndexOf('@') == -1)
+            {
+                Console.WriteLine("El email debe pertenecer a un domino (debe tener @)");
+                return;
+            }
             Console.WriteLine("Contraseña:");
             string contrasenia = Console.ReadLine() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(contrasenia))
@@ -1479,6 +1489,11 @@ namespace InterfazUsuario
             if (string.IsNullOrWhiteSpace(email))
             {
                 Console.WriteLine("El email no puede ser vacío");
+                return;
+            }
+            if (email.IndexOf('@') == -1)
+            {
+                Console.WriteLine("El email debe pertenecer a un domino (debe tener @)");
                 return;
             }
             Console.WriteLine("Contraseña:");

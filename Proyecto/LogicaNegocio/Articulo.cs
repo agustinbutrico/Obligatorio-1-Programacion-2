@@ -56,7 +56,7 @@ namespace LogicaNegocio
         {
             if (string.IsNullOrEmpty(nombre))
             {
-                throw new Exception("El nombre no puede ser vacío");
+                throw new ArgumentException("El nombre no puede ser vacío");
             }
             return nombre;
         }
@@ -64,7 +64,7 @@ namespace LogicaNegocio
         {
             if (precio < 0)
             {
-                throw new Exception("El precio no puede ser negativo");
+                throw new InvalidOperationException("El precio no puede ser negativo");
             }
             return precio;
         }
@@ -72,7 +72,7 @@ namespace LogicaNegocio
         {
             if (string.IsNullOrEmpty(categoria))
             {
-                throw new Exception("La categoria no puede ser vacía");
+                throw new ArgumentException("La categoria no puede ser vacía");
             }
             return categoria;
         }

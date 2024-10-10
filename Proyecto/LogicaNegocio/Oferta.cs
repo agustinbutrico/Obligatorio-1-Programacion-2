@@ -26,7 +26,7 @@ namespace LogicaNegocio
         public Usuario? Usuario
         {
             get { return _usuario; }
-            set { _usuario = value; }
+            set { _usuario = EvaluarUsuario(value); }
         }
         public decimal Monto
         {
@@ -53,15 +53,22 @@ namespace LogicaNegocio
 
         #region Validación
         // Evaluaciones
+        private static Usuario EvaluarUsuario(Usuario? usuario)
+        {
+            if (usuario == null)
+            {
+                throw new ArgumentNullException("No se encontró un usuario correspondiente a los datos proporcionados");
+            }
+            return usuario;
+        }
         private static decimal EvaluarMonto(decimal monto)
         {
             if (monto < 0)
             {
-                throw new Exception("El monto no puede ser negativo");
+                throw new InvalidOperationException("El monto no puede ser negativo");
             }
             return monto;
         }
-
         // Validación de Oferta
         public void Validar()
         {

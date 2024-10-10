@@ -35,7 +35,7 @@ namespace LogicaNegocio
         {
             if (saldo < 0)
             {
-                throw new Exception("El saldo no puede ser negativo");
+                throw new InvalidOperationException("El saldo no puede ser negativo");
             }
             return saldo;
         }
